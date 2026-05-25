@@ -7,23 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     カラーテーマ：スレートグレー × ライム（視認性強化版）
+     カラーテーマ：ネイビー × オレンジ（視認性強化版）
   ============================================================ */
   :root {
-    --navy: #475569;
-    --navy-light: #64748b;
-    --navy-dark: #334155;
-    --amber: #84cc16;
-    --amber-light: #a3e635;
-    --amber-dark: #65a30d;
+    --navy: #1a2744;
+    --navy-light: #243460;
+    --navy-dark: #111c33;
+    --amber: #f97316;
+    --amber-light: #fb923c;
+    --amber-dark: #ea6c10;
     --gray-bg: #f9fafb;
     --gray-light: #f1f5f9;
     --gray-mid: #94a3b8;
     --gray-dark: #64748b;
     --white: #ffffff;
     --text-primary: #0f172a;
-    --card-shadow: 0 2px 16px rgba(71,85,105,0.1);
-    --card-shadow-hover: 0 8px 32px rgba(71,85,105,0.18);
+    --card-shadow: 0 2px 16px rgba(26,39,68,0.1);
+    --card-shadow-hover: 0 8px 32px rgba(26,39,68,0.18);
     --bg: #f9fafb;
     --surface: #ffffff;
     --text: #0f172a;
@@ -31,12 +31,12 @@
   }
 
   body.dark {
-    --bg: #0f172a;
-    --surface: #1e293b;
+    --bg: #0d1526;
+    --surface: #1a2744;
     --text: #f1f5f9;
-    --border: #334155;
-    --gray-bg: #1e293b;
-    --gray-light: #334155;
+    --border: #243460;
+    --gray-bg: #1a2744;
+    --gray-light: #243460;
     --gray-mid: #94a3b8;
     --gray-dark: #cbd5e1;
     --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
@@ -48,7 +48,7 @@
 
   /* ===== LOGIN ===== */
   #login-screen { position: fixed; inset: 0; background: var(--navy-dark); display: flex; align-items: center; justify-content: center; z-index: 1000; background-image: radial-gradient(ellipse at 20% 50%, rgba(132,204,22,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(51,65,85,0.9) 0%, transparent 50%); }
-  .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(132,204,22,0.4); border-radius: 20px; padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
+  .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(249,115,22,0.35); border-radius: 20px; padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
   .login-icon { font-size: 40px; margin-bottom: 16px; }
   .login-title { color: var(--white); font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em; }
   .login-sub { color: var(--gray-mid); font-size: 13px; margin-bottom: 32px; }
@@ -74,7 +74,7 @@
   .dark-toggle:hover { background: rgba(255,255,255,0.16); }
 
   /* ===== お知らせティッカー ===== */
-  .notice-bar { background: var(--navy-dark); border-bottom: 1px solid rgba(132,204,22,0.2); padding: 0; display: flex; align-items: center; font-size: 12px; color: rgba(255,255,255,0.85); overflow: hidden; height: 36px; }
+  .notice-bar { background: var(--navy-dark); border-bottom: 1px solid rgba(249,115,22,0.2); padding: 0; display: flex; align-items: center; font-size: 12px; color: rgba(255,255,255,0.85); overflow: hidden; height: 36px; }
   .notice-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber); color: var(--navy-dark); padding: 0 14px; height: 100%; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0; z-index: 1; }
   .notice-ticker-wrap { flex: 1; overflow: hidden; position: relative; height: 100%; display: flex; align-items: center; }
   .notice-ticker { display: flex; align-items: center; gap: 0; animation: ticker-scroll 28s linear infinite; white-space: nowrap; }
@@ -105,8 +105,8 @@
   .counter-unit { font-size: 12px; color: var(--gray-mid); }
   .counter-divider { width: 1px; height: 28px; background: var(--border); }
   .counter-sites { display: flex; gap: 8px; flex-wrap: wrap; }
-  .counter-site-tag { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; background: rgba(71,85,105,0.08); color: var(--navy); border: 1px solid rgba(71,85,105,0.15); }
-  body.dark .counter-site-tag { background: rgba(132,204,22,0.1); color: var(--amber-light); border-color: rgba(132,204,22,0.2); }
+  .counter-site-tag { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; background: rgba(26,39,68,0.08); color: var(--navy); border: 1px solid rgba(26,39,68,0.15); }
+  body.dark .counter-site-tag { background: rgba(249,115,22,0.1); color: var(--amber-light); border-color: rgba(249,115,22,0.2); }
 
   /* ===== 安全パトロール ===== */
   .patrol-bar { background: var(--surface, #fff); border-bottom: 2px solid rgba(249,115,22,0.3); padding: 14px 32px; display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
@@ -128,7 +128,7 @@
   .mgmt-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.18s; margin-bottom: 8px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; }
   .mgmt-btn:last-child { margin-bottom: 0; }
   .mgmt-btn.primary { background: var(--amber); color: var(--navy-dark); }
-  .mgmt-btn.primary:hover { background: var(--amber-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(132,204,22,0.45); }
+  .mgmt-btn.primary:hover { background: var(--amber-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(249,115,22,0.45); }
   .mgmt-btn.secondary { background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid rgba(255,255,255,0.12); }
   .mgmt-btn.secondary:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
   .mgmt-btn-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
@@ -154,7 +154,7 @@
   .cal-day.sun { color: #f87171; }
   .cal-day.sat { color: #60a5fa; }
   .cal-day.today { background: var(--navy); color: var(--white); font-weight: 700; }
-  .cal-day.monday { background: rgba(132,204,22,0.15); color: var(--amber-dark); font-weight: 600; }
+  .cal-day.monday { background: rgba(249,115,22,0.15); color: var(--amber-dark); font-weight: 600; }
   .cal-day.today.monday { background: var(--amber); color: var(--navy-dark); }
   .cal-day.deadline-10 { background: rgba(16,185,129,0.15); color: #059669; font-weight: 700; }
   .cal-day.deadline-15 { background: rgba(99,102,241,0.15); color: #4f46e5; font-weight: 700; }
@@ -180,7 +180,7 @@
 
   .right-panel { display: flex; flex-direction: column; gap: 20px; }
   .category-section { background: var(--surface, #fff); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); animation: fadeUp 0.4s ease both; border: 2px solid transparent; }
-  .category-section.highlighted { border-color: var(--amber); box-shadow: 0 4px 24px rgba(132,204,22,0.25); }
+  .category-section.highlighted { border-color: var(--amber); box-shadow: 0 4px 24px rgba(249,115,22,0.2); }
   .category-section.highlighted-green { border-color: #10b981; box-shadow: 0 4px 24px rgba(16,185,129,0.12); }
   .category-section.highlighted-purple { border-color: #6366f1; box-shadow: 0 4px 24px rgba(99,102,241,0.12); }
   .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
@@ -346,7 +346,7 @@
         <div class="calendar-grid" id="cal-grid"></div>
         <div class="cal-legend">
           <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div><span>今日</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(132,204,22,0.3)"></div><span>週次業務（月曜）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(249,115,22,0.3)"></div><span>週次業務（月曜）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,0.25)"></div><span>CCUS〆切（10日・翌営業日）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(99,102,241,0.25)"></div><span>安全資料・建退共〆切（15日・翌営業日）</span></div>
         </div>
