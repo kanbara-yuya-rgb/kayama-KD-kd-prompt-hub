@@ -171,6 +171,47 @@
   .left-panel > *:nth-child(2) { animation-delay: 0.08s; }
   .left-panel > *:nth-child(3) { animation-delay: 0.16s; }
 
+
+
+  /* AI活用メモカード（左パネル） */
+  .memo-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: var(--card-shadow);
+  }
+  .memo-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .memo-card-title {
+    font-size: 13px; font-weight: 700; color: var(--navy);
+  }
+  /* AI活用メモ（ボタン・アイテム） */
+  .btn-post-memo {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 5px;
+    padding: 7px 14px; border-radius: 7px;
+    font-size: 12px; font-weight: 600;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-decoration: none;
+    background: var(--amber); color: var(--navy-dark);
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .btn-post-memo:hover { background: var(--amber-light); transform: translateY(-1px); }
+  .memo-list { display: flex; flex-direction: column; gap: 10px; }
+  .memo-item {
+    padding: 13px 16px; background: var(--gray-bg);
+    border-radius: 10px; border-left: 3px solid var(--amber);
+    transition: background 0.15s;
+  }
+  .memo-item:hover { background: #e8eef5; }
+  .memo-content { font-size: 13px; color: var(--navy); font-weight: 500; margin-bottom: 6px; line-height: 1.6; }
+  .memo-content::before { content: '💡 '; }
+  .memo-meta { font-size: 11px; color: var(--gray-mid); display: flex; gap: 10px; }
+  .memo-loading { font-size: 13px; color: var(--gray-mid); text-align: center; padding: 20px 0; }
+  .memo-empty { font-size: 13px; color: var(--gray-mid); text-align: center; padding: 20px 0; font-style: italic; }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gray-light); border-radius: 3px; }
@@ -246,6 +287,16 @@
           <div class="legend-item"><div class="legend-dot" style="background:rgba(245,158,11,0.3)"></div><span>週次業務（月曜）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,0.25)"></div><span>CCUS〆切（10日・翌営業日）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(99,102,241,0.25)"></div><span>安全資料・建退共〆切（15日・翌営業日）</span></div>
+        </div>
+      </div>
+      <!-- AI活用メモ（左パネル） -->
+      <div class="memo-card">
+        <div class="memo-card-header">
+          <div class="memo-card-title">💡 AI活用メモ</div>
+          <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit#gid=0" target="_blank" class="btn-post-memo">✏️ 投稿</a>
+        </div>
+        <div id="memo-list">
+          <div class="memo-loading">読み込み中...</div>
         </div>
       </div>
 
@@ -442,6 +493,7 @@
         </div>
       </div>
 
+
     </div>
   </div>
 </div>
@@ -481,6 +533,7 @@
     renderTodayTasks(now);
     highlightSections(now);
     updateDeadlineDesc(now);
+    loadMemos();
   }
 
   function renderHeaderDate(now) {
@@ -578,6 +631,37 @@
       document.getElementById('sec-monthly').classList.add(date <= dl10 ? 'highlighted-green' : 'highlighted-purple');
       document.getElementById('tag-monthly').style.display = 'inline-flex';
     }
+  }
+
+  // AI活用メモ読み込み
+  const MEMO_API = 'https://script.google.com/macros/s/AKfycbybfFBNFA62rSv081GTO4nXMCEK4ZY764_ZR0dNU4i9276msjtnvelkgWmk-SqJNC6z/exec';
+
+  function loadMemos() {
+    const container = document.getElementById('memo-list');
+    fetch(MEMO_API)
+      .then(res => res.json())
+      .then(memos => {
+        if (!memos || memos.length === 0) {
+          container.innerHTML = '<div class="memo-empty">まだメモはありません。最初の活用事例を投稿してみましょう！</div>';
+          return;
+        }
+        // 新しい順に並べる
+        const sorted = memos.slice().reverse();
+        container.innerHTML = '<div class="memo-list">' +
+          sorted.map(m => `
+            <div class="memo-item">
+              <div class="memo-content">${m.content}</div>
+              <div class="memo-meta">
+                <span>📅 ${m.date}</span>
+                ${m.author ? `<span>👤 ${m.author}</span>` : ''}
+              </div>
+            </div>
+          `).join('') +
+        '</div>';
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="memo-empty">メモを読み込めませんでした。</div>';
+      });
   }
 </script>
 </body>
