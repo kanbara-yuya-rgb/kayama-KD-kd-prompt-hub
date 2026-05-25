@@ -53,30 +53,63 @@
 
   /* 本日の対象業務 横長バナー */
   .today-banner {
-    background: var(--navy-light);
-    border-bottom: 2px solid rgba(245,158,11,0.3);
-    padding: 12px 32px;
-    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    background: var(--navy);
+    border-bottom: 3px solid var(--amber);
+    padding: 16px 32px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   }
   .today-banner-title {
-    font-size: 11px; font-weight: 700; color: var(--amber);
+    font-size: 13px; font-weight: 700; color: var(--amber);
     letter-spacing: 0.1em; text-transform: uppercase;
     white-space: nowrap; flex-shrink: 0;
     display: flex; align-items: center; gap: 6px;
   }
-  .today-banner-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
+  .today-banner-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
   .today-banner-tasks { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  /* 通常タスク */
   .today-banner-task {
-    display: flex; align-items: center; gap: 6px;
-    padding: 5px 12px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 20px;
-    font-size: 12px; font-weight: 500; color: var(--white);
-    border: 1px solid rgba(245,158,11,0.25);
+    display: flex; align-items: center; gap: 7px;
+    padding: 7px 16px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 24px;
+    font-size: 13px; font-weight: 600; color: var(--white);
+    border: 1px solid rgba(245,158,11,0.3);
     white-space: nowrap;
   }
-  .today-banner-task-icon { font-size: 13px; }
-  .no-task-banner { font-size: 12px; color: rgba(255,255,255,0.4); font-style: italic; }
+  .today-banner-task-icon { font-size: 15px; }
+
+  /* 警告タスク（残り5日以内）*/
+  .today-banner-task.warn {
+    background: rgba(245,158,11,0.15);
+    border-color: var(--amber);
+    color: var(--amber-light);
+  }
+
+  /* 危険タスク（残り3日以内）*/
+  .today-banner-task.danger {
+    background: rgba(239,68,68,0.15);
+    border-color: #f87171;
+    color: #fca5a5;
+    animation: pulse-danger 1.5s infinite;
+  }
+
+  /* 当日締切 */
+  .today-banner-task.today-deadline {
+    background: #dc2626;
+    border-color: #ef4444;
+    color: var(--white);
+    font-weight: 700;
+    animation: pulse-danger 1s infinite;
+  }
+
+  @keyframes pulse-danger {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.75; }
+  }
+
+  .no-task-banner { font-size: 13px; color: rgba(255,255,255,0.4); font-style: italic; }
 
   .main-layout { display: grid; grid-template-columns: 320px 1fr; gap: 24px; padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
 
@@ -607,14 +640,52 @@
     const dl10 = getNextBizDay(y, m, 10);
     const dl15 = getNextBizDay(y, m, 15);
     const tasks = [];
-    if (dow === 1) tasks.push({ icon: '📅', name: '① 出面・点検簿' });
-    if (date <= dl10) tasks.push({ icon: '📆', name: `④ CCUS（〆切：${dl10}日）` });
-    if (date <= dl15) tasks.push({ icon: '📆', name: `⑤ 安全資料（〆切：${dl15}日）` });
-    if (date <= dl15) tasks.push({ icon: '📆', name: `⑥ 建退共（〆切：${dl15}日）` });
+
+    // 週次業務：月曜のみ
+    if (dow === 1) {
+      tasks.push({ icon: '📅', name: '① 出面・点検簿（本日）', cls: '' });
+    }
+
+    // CCUS：残り5日以内のみ表示、段階的に強度変化
+    const remain10 = dl10 - date;
+    if (remain10 >= 0 && remain10 <= 5) {
+      if (remain10 === 0) {
+        tasks.push({ icon: '🔥', name: '④ CCUS 本日締切！', cls: 'today-deadline' });
+      } else if (remain10 <= 3) {
+        tasks.push({ icon: '🔴', name: `④ CCUS 締切まで残り${remain10}日`, cls: 'danger' });
+      } else {
+        tasks.push({ icon: '🟡', name: `④ CCUS 締切まで残り${remain10}日`, cls: 'warn' });
+      }
+    }
+
+    // 安全資料：残り5日以内のみ表示
+    const remain15a = dl15 - date;
+    if (remain15a >= 0 && remain15a <= 5) {
+      if (remain15a === 0) {
+        tasks.push({ icon: '🔥', name: '⑤ 安全資料 本日締切！', cls: 'today-deadline' });
+      } else if (remain15a <= 3) {
+        tasks.push({ icon: '🔴', name: `⑤ 安全資料 締切まで残り${remain15a}日`, cls: 'danger' });
+      } else {
+        tasks.push({ icon: '🟡', name: `⑤ 安全資料 締切まで残り${remain15a}日`, cls: 'warn' });
+      }
+    }
+
+    // 建退共：残り5日以内のみ表示
+    const remain15b = dl15 - date;
+    if (remain15b >= 0 && remain15b <= 5) {
+      if (remain15b === 0) {
+        tasks.push({ icon: '🔥', name: '⑥ 建退共 本日締切！', cls: 'today-deadline' });
+      } else if (remain15b <= 3) {
+        tasks.push({ icon: '🔴', name: `⑥ 建退共 締切まで残り${remain15b}日`, cls: 'danger' });
+      } else {
+        tasks.push({ icon: '🟡', name: `⑥ 建退共 締切まで残り${remain15b}日`, cls: 'warn' });
+      }
+    }
+
     const container = document.getElementById('today-tasks');
     container.innerHTML = tasks.length === 0
-      ? '<div class="no-task-banner">本日対象の業務はありません</div>'
-      : tasks.map(t => `<div class="today-banner-task"><span class="today-banner-task-icon">${t.icon}</span>${t.name}</div>`).join('');
+      ? '<div class="no-task-banner">本日対象の業務はありません ✅</div>'
+      : tasks.map(t => `<div class="today-banner-task ${t.cls}"><span class="today-banner-task-icon">${t.icon}</span>${t.name}</div>`).join('');
   }
 
   function highlightSections(now) {
