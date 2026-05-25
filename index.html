@@ -189,6 +189,8 @@
   .memo-content { font-size: 12px; color: var(--text); font-weight: 500; margin-bottom: 5px; line-height: 1.6; }
   .memo-content::before { content: '💡 '; }
   .memo-meta { font-size: 10px; color: var(--gray-mid); display: flex; gap: 8px; }
+  .memo-link { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; background: var(--navy); color: var(--white); text-decoration: none; transition: background 0.15s; margin-left: auto; }
+  .memo-link:hover { background: var(--amber); color: var(--navy-dark); }
   .memo-loading { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 16px 0; }
   .memo-empty { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 16px 0; font-style: italic; }
 
@@ -529,7 +531,7 @@
     <div class="memo-panel">
       <div class="memo-card" style="position:sticky; top:68px;">
         <div class="memo-card-header">
-          <div class="memo-card-title">💡 AI活用メモ</div>
+          <div class="memo-card-title">💬 KDタイムライン</div>
           <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=1752497592#gid=1752497592" target="_blank" class="btn-post-memo">✏️ 投稿</a>
         </div>
         <div id="memo-list">
@@ -726,7 +728,7 @@
       .then(res => res.json())
       .then(memos => {
         if (!memos || memos.length === 0) {
-          container.innerHTML = '<div class="memo-empty">まだメモはありません。最初の活用事例を投稿してみましょう！</div>';
+          container.innerHTML = '<div class="memo-empty">まだ投稿はありません。最初の一言を投稿してみましょう！</div>';
           return;
         }
         const sorted = memos.slice().reverse().slice(0, 10);
@@ -737,12 +739,13 @@
               <div class="memo-meta">
                 <span>📅 ${m.date}</span>
                 ${m.author ? `<span>👤 ${m.author}</span>` : ''}
+                ${m.url ? `<a href="${m.url}" target="_blank" rel="noopener" class="memo-link">🔗 詳細を見る</a>` : ''}
               </div>
             </div>
           `).join('') + '</div>';
       })
       .catch(() => {
-        container.innerHTML = '<div class="memo-empty">メモを読み込めませんでした。</div>';
+        container.innerHTML = '<div class="memo-empty">読み込めませんでした。</div>';
       });
   }
 
