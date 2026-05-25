@@ -545,6 +545,23 @@
   const PASSWORD = 'kayama-KD';
   const MEMO_API = 'https://script.google.com/macros/s/AKfycbybfFBNFA62rSv081GTO4nXMCEK4ZY764_ZR0dNU4i9276msjtnvelkgWmk-SqJNC6z/exec';
 
+  // ページ読み込み時にログイン済みチェック
+  (function() {
+    if (localStorage.getItem('kdn-loggedin') === '1') {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      if (localStorage.getItem('kdn-dark') === '1') {
+        document.body.classList.add('dark');
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        if (localStorage.getItem('kdn-dark') === '1') {
+          document.getElementById('dark-toggle').textContent = '☀️';
+        }
+        initApp();
+      });
+    }
+  })();
+
   function toggleDark() {
     document.body.classList.toggle('dark');
     const btn = document.getElementById('dark-toggle');
@@ -555,6 +572,7 @@
   function doLogin() {
     const input = document.getElementById('password-input').value;
     if (input === PASSWORD) {
+      localStorage.setItem('kdn-loggedin', '1');
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('app').style.display = 'block';
       if (localStorage.getItem('kdn-dark') === '1') {
