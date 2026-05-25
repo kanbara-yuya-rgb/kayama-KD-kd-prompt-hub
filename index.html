@@ -225,6 +225,56 @@
   .left-panel > *:nth-child(2) { animation-delay: 0.08s; }
   .left-panel > *:nth-child(3) { animation-delay: 0.16s; }
 
+
+  /* ===== 進捗ダッシュボード ===== */
+  .progress-section {
+    background: var(--surface, #fff);
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: var(--card-shadow);
+  }
+  .progress-section-title {
+    font-size: 12px; font-weight: 700; color: var(--gray-mid);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .progress-group { margin-bottom: 16px; }
+  .progress-group:last-child { margin-bottom: 0; }
+  .progress-group-label {
+    font-size: 11px; font-weight: 700; color: var(--navy);
+    background: var(--gray-bg);
+    padding: 4px 10px; border-radius: 6px;
+    margin-bottom: 8px; display: inline-block;
+  }
+  .progress-rows { display: flex; flex-direction: column; gap: 6px; }
+  .progress-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 12px;
+    background: var(--gray-bg);
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .progress-status {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 12px;
+    font-size: 11px; font-weight: 700;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .status-미착수, .status-未着手 { background: rgba(239,68,68,0.12); color: #dc2626; }
+  .status-進行中 { background: rgba(245,158,11,0.12); color: #d97706; }
+  .status-完了 { background: rgba(16,185,129,0.12); color: #059669; }
+  .progress-site {
+    font-size: 11px; color: var(--text); font-weight: 500;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    flex: 1; min-width: 0;
+  }
+  .progress-kd {
+    font-size: 10px; color: var(--gray-mid);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .progress-loading { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 12px 0; }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gray-light); border-radius: 3px; }
@@ -349,6 +399,15 @@
           <div class="legend-item"><div class="legend-dot" style="background:rgba(249,115,22,0.3)"></div><span>週次業務（月曜）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,0.25)"></div><span>CCUS〆切（10日・翌営業日）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(99,102,241,0.25)"></div><span>安全資料・建退共〆切（15日・翌営業日）</span></div>
+        </div>
+      </div>
+
+
+      <!-- 進捗ダッシュボード -->
+      <div class="progress-section">
+        <div class="progress-section-title">📊 今月の進捗状況</div>
+        <div id="progress-content">
+          <div class="progress-loading">読み込み中...</div>
         </div>
       </div>
 
@@ -540,6 +599,7 @@
     updateSiteCount();
     loadMemos();
     loadPatrols();
+    loadProgress();
   }
 
   function updateSiteCount() {
@@ -675,6 +735,58 @@
       });
   }
 
+
+  // 進捗ダッシュボード読み込み
+  function loadProgress() {
+    const container = document.getElementById('progress-content');
+    fetch(MEMO_API + '?type=progress')
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
+          return;
+        }
+
+        const statusIcon = (s) => {
+          if (s === '完了') return '✅';
+          if (s === '進行中') return '🟡';
+          return '🔴';
+        };
+
+        const statusClass = (s) => {
+          if (s === '完了') return 'status-完了';
+          if (s === '進行中') return 'status-進行中';
+          return 'status-未着手';
+        };
+
+        const renderGroup = (label, items) => {
+          if (!items || items.length === 0) return '';
+          const rows = items.map(p => {
+            // 現場名を短く表示（工期部分を除く）
+            const siteName = p.site.replace(/【.*?】/g, '').replace(/\s+/g, ' ').trim();
+            return `
+              <div class="progress-row">
+                <span class="progress-status ${statusClass(p.status)}">${statusIcon(p.status)} ${p.status || '未着手'}</span>
+                <span class="progress-site">${siteName}</span>
+                <span class="progress-kd">${p.kd}</span>
+              </div>`;
+          }).join('');
+          return `
+            <div class="progress-group">
+              <div class="progress-group-label">${label}</div>
+              <div class="progress-rows">${rows}</div>
+            </div>`;
+        };
+
+        container.innerHTML =
+          renderGroup('📅 週次', data.weekly) +
+          renderGroup('🔄 隔週', data.biweekly) +
+          renderGroup('📆 月次', data.monthly);
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
+      });
+  }
   function loadPatrols() {
     const container = document.getElementById('patrol-cards');
     fetch(MEMO_API + '?type=patrol')
