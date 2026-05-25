@@ -7,41 +7,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     カラーテーマ：チャコール × オレンジ
+     カラーテーマ：スレートグレー × ライム（視認性強化版）
   ============================================================ */
   :root {
-    --navy: #2d2d2d;
-    --navy-light: #3d3d3d;
-    --navy-dark: #1a1a1a;
-    --amber: #f97316;
-    --amber-light: #fb923c;
-    --amber-dark: #ea6c10;
-    --gray-bg: #f5f5f4;
-    --gray-light: #e7e5e4;
-    --gray-mid: #a8a29e;
-    --gray-dark: #57534e;
+    --navy: #475569;
+    --navy-light: #64748b;
+    --navy-dark: #334155;
+    --amber: #84cc16;
+    --amber-light: #a3e635;
+    --amber-dark: #65a30d;
+    --gray-bg: #f9fafb;
+    --gray-light: #f1f5f9;
+    --gray-mid: #94a3b8;
+    --gray-dark: #64748b;
     --white: #ffffff;
-    --text-primary: #1c1917;
-    --card-shadow: 0 2px 12px rgba(28,25,23,0.08);
-    --card-shadow-hover: 0 8px 32px rgba(28,25,23,0.16);
+    --text-primary: #0f172a;
+    --card-shadow: 0 2px 16px rgba(71,85,105,0.1);
+    --card-shadow-hover: 0 8px 32px rgba(71,85,105,0.18);
 
-    --bg: #f5f5f4;
+    --bg: #f9fafb;
     --surface: #ffffff;
-    --text: #1c1917;
-    --border: #e7e5e4;
+    --text: #0f172a;
+    --border: #e2e8f0;
   }
 
   body.dark {
-    --bg: #111110;
-    --surface: #1c1917;
-    --text: #f5f5f4;
-    --border: #3d3d3d;
-    --gray-bg: #1c1917;
-    --gray-light: #292524;
-    --gray-mid: #78716c;
-    --gray-dark: #a8a29e;
-    --card-shadow: 0 2px 12px rgba(0,0,0,0.35);
-    --card-shadow-hover: 0 8px 32px rgba(0,0,0,0.45);
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --text: #f1f5f9;
+    --border: #334155;
+    --gray-bg: #1e293b;
+    --gray-light: #334155;
+    --gray-mid: #94a3b8;
+    --gray-dark: #cbd5e1;
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    --card-shadow-hover: 0 8px 32px rgba(0,0,0,0.4);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -58,10 +58,10 @@
   #login-screen {
     position: fixed; inset: 0; background: var(--navy-dark);
     display: flex; align-items: center; justify-content: center; z-index: 1000;
-    background-image: radial-gradient(ellipse at 20% 50%, rgba(249,115,22,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(61,61,61,0.8) 0%, transparent 50%);
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(132,204,22,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(51,65,85,0.9) 0%, transparent 50%);
   }
-  .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(249,115,22,0.3); border-radius: 20px; padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
+  .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(132,204,22,0.4); border-radius: 20px; padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
   .login-icon { font-size: 40px; margin-bottom: 16px; }
   .login-title { color: var(--white); font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em; }
   .login-sub { color: var(--gray-mid); font-size: 13px; margin-bottom: 32px; }
@@ -177,7 +177,7 @@
   .mgmt-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.18s; margin-bottom: 8px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; }
   .mgmt-btn:last-child { margin-bottom: 0; }
   .mgmt-btn.primary { background: var(--amber); color: var(--navy-dark); }
-  .mgmt-btn.primary:hover { background: var(--amber-light); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(249,115,22,0.4); }
+  .mgmt-btn.primary:hover { background: var(--amber-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(132,204,22,0.45); }
   .mgmt-btn.secondary { background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid rgba(255,255,255,0.12); }
   .mgmt-btn.secondary:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
   .mgmt-btn-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
@@ -232,7 +232,7 @@
   /* 右パネル */
   .right-panel { display: flex; flex-direction: column; gap: 20px; }
   .category-section { background: var(--surface, #fff); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); animation: fadeUp 0.4s ease both; border: 2px solid transparent; }
-  .category-section.highlighted { border-color: var(--amber); box-shadow: 0 4px 24px rgba(249,115,22,0.2); }
+  .category-section.highlighted { border-color: var(--amber); box-shadow: 0 4px 24px rgba(132,204,22,0.25); }
   .category-section.highlighted-green { border-color: #10b981; box-shadow: 0 4px 24px rgba(16,185,129,0.12); }
   .category-section.highlighted-purple { border-color: #6366f1; box-shadow: 0 4px 24px rgba(99,102,241,0.12); }
   .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border, #dde5de); }
@@ -313,7 +313,7 @@
            <div class="notice-item"><div class="notice-dot"></div>5/25 伝票整理マニュアルを更新しました</div>
            <div class="notice-item"><div class="notice-dot"></div>6/1 CCUSの入力方法が変更されます</div>
       -->
-      <div class="notice-item"><div class="notice-dot"></div>KDN Hub を公開しました。活用メモをどんどん投稿してください！</div>
+      <div class="notice-item"><div class="notice-dot"></div>KD Hub を公開しました。活用メモをどんどん投稿してください！!（蒲原）</div>
     </div>
   </div>
 
@@ -339,10 +339,10 @@
            現場が終わった場合はその行を削除してください。
       -->
       <div class="counter-sites" id="site-tags">
-        <div class="counter-site-tag">尼崎宝塚線（阪急立体）</div>
-        <div class="counter-site-tag">六甲アイランドPR1L4</div>
-        <div class="counter-site-tag">甲山大橋補修・耐震</div>
-        <div class="counter-site-tag">猪名川利倉地区河道掘削</div>
+        <div class="counter-site-tag">（都）尼崎宝塚線（阪急立体工区）道路改良工事（その２）</div>
+        <div class="counter-site-tag">Ｒ７大阪湾岸道路西伸部六甲アイランドRP1L4橋脚他基礎工事</div>
+        <div class="counter-site-tag">（主）明石神戸宝塚線　甲山大橋　橋梁補修・耐震補強工事（その３）</div>
+        <div class="counter-site-tag">R7猪名川利倉地区河道掘削他工事</div>
       </div>
       <!-- ★ 工事名編集ここまで ★ -->
     </div>
@@ -391,7 +391,7 @@
         <div class="calendar-grid" id="cal-grid"></div>
         <div class="cal-legend">
           <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div><span>今日</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(249,115,22,0.25)"></div><span>週次業務（月曜）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(132,204,22,0.3)"></div><span>週次業務（月曜）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,0.25)"></div><span>CCUS〆切（10日・翌営業日）</span></div>
           <div class="legend-item"><div class="legend-dot" style="background:rgba(99,102,241,0.25)"></div><span>安全資料・建退共〆切（15日・翌営業日）</span></div>
         </div>
