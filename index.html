@@ -24,7 +24,6 @@
     --text-primary: #0f172a;
     --card-shadow: 0 2px 16px rgba(71,85,105,0.1);
     --card-shadow-hover: 0 8px 32px rgba(71,85,105,0.18);
-
     --bg: #f9fafb;
     --surface: #ffffff;
     --text: #0f172a;
@@ -45,22 +44,10 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
-  }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
   /* ===== LOGIN ===== */
-  #login-screen {
-    position: fixed; inset: 0; background: var(--navy-dark);
-    display: flex; align-items: center; justify-content: center; z-index: 1000;
-    background-image: radial-gradient(ellipse at 20% 50%, rgba(132,204,22,0.15) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(51,65,85,0.9) 0%, transparent 50%);
-  }
+  #login-screen { position: fixed; inset: 0; background: var(--navy-dark); display: flex; align-items: center; justify-content: center; z-index: 1000; background-image: radial-gradient(ellipse at 20% 50%, rgba(132,204,22,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(51,65,85,0.9) 0%, transparent 50%); }
   .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(132,204,22,0.4); border-radius: 20px; padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
   .login-icon { font-size: 40px; margin-bottom: 16px; }
   .login-title { color: var(--white); font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em; }
@@ -83,84 +70,21 @@
   .header-right { display: flex; align-items: center; gap: 16px; }
   .header-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray-mid); letter-spacing: 0.05em; }
   .header-date span { color: var(--amber); font-weight: 500; }
-
-  /* ダークモードボタン */
-  .dark-toggle {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--white);
-    font-size: 16px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
+  .dark-toggle { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: var(--white); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
   .dark-toggle:hover { background: rgba(255,255,255,0.16); }
 
-  /* ===== お知らせバナー（ティッカー） ===== */
-  .notice-bar {
-    background: var(--navy-dark);
-    border-bottom: 1px solid rgba(132,204,22,0.2);
-    padding: 0;
-    display: flex; align-items: center;
-    font-size: 12px; color: rgba(255,255,255,0.85);
-    overflow: hidden;
-    height: 36px;
-  }
-  .notice-label {
-    font-size: 10px; font-weight: 700; color: var(--amber);
-    letter-spacing: 0.1em; text-transform: uppercase;
-    background: var(--amber);
-    color: var(--navy-dark);
-    padding: 0 14px;
-    height: 100%;
-    display: flex; align-items: center;
-    white-space: nowrap; flex-shrink: 0;
-    z-index: 1;
-  }
-
-  .notice-ticker-wrap {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-    display: flex; align-items: center;
-  }
-
-  .notice-ticker {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    animation: ticker-scroll 28s linear infinite;
-    white-space: nowrap;
-  }
-
+  /* ===== お知らせティッカー ===== */
+  .notice-bar { background: var(--navy-dark); border-bottom: 1px solid rgba(132,204,22,0.2); padding: 0; display: flex; align-items: center; font-size: 12px; color: rgba(255,255,255,0.85); overflow: hidden; height: 36px; }
+  .notice-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber); color: var(--navy-dark); padding: 0 14px; height: 100%; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0; z-index: 1; }
+  .notice-ticker-wrap { flex: 1; overflow: hidden; position: relative; height: 100%; display: flex; align-items: center; }
+  .notice-ticker { display: flex; align-items: center; gap: 0; animation: ticker-scroll 28s linear infinite; white-space: nowrap; }
   .notice-ticker:hover { animation-play-state: paused; }
-
-  @keyframes ticker-scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .notice-item {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 0 32px;
-    white-space: nowrap;
-    font-size: 12px;
-    color: rgba(255,255,255,0.85);
-  }
+  @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .notice-item { display: inline-flex; align-items: center; gap: 6px; padding: 0 32px; white-space: nowrap; font-size: 12px; color: rgba(255,255,255,0.85); }
   .notice-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; display: inline-block; }
 
   /* ===== 本日の対象業務バナー ===== */
-  .today-banner {
-    background: var(--navy);
-    border-bottom: 3px solid var(--amber);
-    padding: 16px 32px;
-    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
+  .today-banner { background: var(--navy); border-bottom: 3px solid var(--amber); padding: 16px 32px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
   .today-banner-title { font-size: 13px; font-weight: 700; color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
   .today-banner-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
   .today-banner-tasks { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -172,38 +96,33 @@
   .no-task-banner { font-size: 13px; color: rgba(255,255,255,0.4); font-style: italic; }
 
   /* ===== カウンター ===== */
-  .counter-bar {
-    background: var(--surface, #fff);
-    border-bottom: 1px solid var(--border, #dde5de);
-    padding: 14px 32px;
-    display: flex; align-items: center; gap: 32px;
-    flex-wrap: wrap;
-  }
-  .counter-label {
-    font-size: 11px; font-weight: 700; color: var(--gray-mid);
-    letter-spacing: 0.08em; text-transform: uppercase;
-    flex-shrink: 0;
-  }
+  .counter-bar { background: var(--surface, #fff); border-bottom: 1px solid var(--border); padding: 14px 32px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .counter-label { font-size: 11px; font-weight: 700; color: var(--gray-mid); letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
   .counter-items { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
   .counter-item { display: flex; align-items: baseline; gap: 6px; }
   .counter-num { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 700; color: var(--navy); }
   body.dark .counter-num { color: var(--amber); }
   .counter-unit { font-size: 12px; color: var(--gray-mid); }
-  .counter-divider { width: 1px; height: 28px; background: var(--border, #dde5de); }
+  .counter-divider { width: 1px; height: 28px; background: var(--border); }
   .counter-sites { display: flex; gap: 8px; flex-wrap: wrap; }
-  .counter-site-tag {
-    padding: 3px 10px; border-radius: 20px;
-    font-size: 11px; font-weight: 500;
-    background: rgba(26,58,42,0.08); color: var(--navy);
-    border: 1px solid rgba(26,58,42,0.15);
-  }
-  body.dark .counter-site-tag { background: rgba(201,168,76,0.1); color: var(--amber-light); border-color: rgba(201,168,76,0.2); }
+  .counter-site-tag { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; background: rgba(71,85,105,0.08); color: var(--navy); border: 1px solid rgba(71,85,105,0.15); }
+  body.dark .counter-site-tag { background: rgba(132,204,22,0.1); color: var(--amber-light); border-color: rgba(132,204,22,0.2); }
+
+  /* ===== 安全パトロール ===== */
+  .patrol-bar { background: var(--surface, #fff); border-bottom: 2px solid rgba(249,115,22,0.3); padding: 14px 32px; display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+  .patrol-label { font-size: 10px; font-weight: 700; color: var(--white); background: #f97316; padding: 5px 12px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.06em; margin-top: 2px; }
+  .patrol-cards { display: flex; gap: 10px; flex-wrap: wrap; }
+  .patrol-card { display: flex; flex-direction: column; gap: 3px; padding: 8px 14px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-left: 3px solid #f97316; border-radius: 8px; min-width: 180px; }
+  .patrol-card-site { font-size: 12px; font-weight: 700; color: var(--text); }
+  .patrol-card-date { font-size: 12px; color: #f97316; font-weight: 600; font-family: 'DM Mono', monospace; }
+  .patrol-card-kd { font-size: 10px; color: var(--gray-mid); }
+  .patrol-loading { font-size: 12px; color: var(--gray-mid); padding: 4px 0; }
+  .patrol-empty { font-size: 12px; color: var(--gray-mid); font-style: italic; padding: 4px 0; }
 
   /* ===== LAYOUT ===== */
   .main-layout { display: grid; grid-template-columns: 320px 1fr; gap: 24px; padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
   .left-panel { display: flex; flex-direction: column; gap: 20px; }
 
-  /* 管理ツール */
   .mgmt-tools-card { background: var(--navy); border-radius: 16px; padding: 20px 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
   .mgmt-tools-title { font-size: 11px; font-weight: 700; color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
   .mgmt-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.18s; margin-bottom: 8px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; }
@@ -219,12 +138,11 @@
   .mgmt-btn-label { font-size: 13px; font-weight: 600; }
   .mgmt-btn-sub { font-size: 10px; opacity: 0.65; font-weight: 400; }
 
-  /* カレンダー */
   .calendar-card { background: var(--surface, #fff); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); }
   .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   .calendar-month { font-size: 16px; font-weight: 700; color: var(--text); }
   .calendar-nav { display: flex; gap: 4px; }
-  .cal-nav-btn { width: 28px; height: 28px; border: 1px solid var(--border, #dde5de); background: none; border-radius: 6px; cursor: pointer; color: var(--gray-dark); font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .cal-nav-btn { width: 28px; height: 28px; border: 1px solid var(--border); background: none; border-radius: 6px; cursor: pointer; color: var(--gray-dark); font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .cal-nav-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
   .calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 8px; }
   .weekday { text-align: center; font-size: 11px; font-weight: 500; color: var(--gray-mid); padding: 4px 0; }
@@ -236,19 +154,18 @@
   .cal-day.sun { color: #f87171; }
   .cal-day.sat { color: #60a5fa; }
   .cal-day.today { background: var(--navy); color: var(--white); font-weight: 700; }
-  .cal-day.monday { background: rgba(201,168,76,0.15); color: var(--amber-dark); font-weight: 600; }
+  .cal-day.monday { background: rgba(132,204,22,0.15); color: var(--amber-dark); font-weight: 600; }
   .cal-day.today.monday { background: var(--amber); color: var(--navy-dark); }
   .cal-day.deadline-10 { background: rgba(16,185,129,0.15); color: #059669; font-weight: 700; }
   .cal-day.deadline-15 { background: rgba(99,102,241,0.15); color: #4f46e5; font-weight: 700; }
   .cal-day.today.deadline-10, .cal-day.today.deadline-15 { background: var(--navy); color: var(--white); font-weight: 700; }
   .cal-day[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--white); font-size: 10px; padding: 3px 7px; border-radius: 5px; white-space: nowrap; font-family: 'Noto Sans JP', sans-serif; z-index: 10; pointer-events: none; }
-  .cal-legend { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border, #dde5de); }
+  .cal-legend { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
   .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gray-dark); }
   .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
-  /* AI活用メモカード */
   .memo-card { background: var(--surface, #fff); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }
-  .memo-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border, #dde5de); }
+  .memo-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
   .memo-card-title { font-size: 13px; font-weight: 700; color: var(--text); }
   .btn-post-memo { display: flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 7px; font-size: 11px; font-weight: 600; font-family: 'Noto Sans JP', sans-serif; text-decoration: none; background: var(--amber); color: var(--navy-dark); transition: all 0.15s; white-space: nowrap; }
   .btn-post-memo:hover { background: var(--amber-light); transform: translateY(-1px); }
@@ -261,13 +178,12 @@
   .memo-loading { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 16px 0; }
   .memo-empty { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 16px 0; font-style: italic; }
 
-  /* 右パネル */
   .right-panel { display: flex; flex-direction: column; gap: 20px; }
   .category-section { background: var(--surface, #fff); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); animation: fadeUp 0.4s ease both; border: 2px solid transparent; }
   .category-section.highlighted { border-color: var(--amber); box-shadow: 0 4px 24px rgba(132,204,22,0.25); }
   .category-section.highlighted-green { border-color: #10b981; box-shadow: 0 4px 24px rgba(16,185,129,0.12); }
   .category-section.highlighted-purple { border-color: #6366f1; box-shadow: 0 4px 24px rgba(99,102,241,0.12); }
-  .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border, #dde5de); }
+  .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
   .category-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--navy); flex-shrink: 0; }
   .category-section.highlighted .category-icon { background: var(--amber); }
   .category-section.highlighted-green .category-icon { background: #10b981; }
@@ -284,8 +200,7 @@
   .task-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
   .task-desc { font-size: 11px; color: var(--gray-mid); }
   .task-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
-
-  .btn-manual { display: flex; align-items: center; gap: 5px; padding: 7px 13px; border-radius: 7px; font-size: 12px; font-weight: 500; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: 1px solid var(--border, #dde5de); background: var(--surface, #fff); color: var(--gray-dark); }
+  .btn-manual { display: flex; align-items: center; gap: 5px; padding: 7px 13px; border-radius: 7px; font-size: 12px; font-weight: 500; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: 1px solid var(--border); background: var(--surface, #fff); color: var(--gray-dark); }
   .btn-manual:hover { background: #4285f4; color: var(--white); border-color: #4285f4; }
   .btn-open { display: flex; align-items: center; gap: 5px; padding: 7px 13px; border-radius: 7px; font-size: 12px; font-weight: 500; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: none; background: var(--navy); color: var(--white); }
   .btn-open:hover { background: var(--amber); color: var(--navy-dark); }
@@ -342,15 +257,11 @@
     <div class="notice-label">📢 NEWS</div>
     <div class="notice-ticker-wrap">
       <div class="notice-ticker" id="notice-ticker">
-        <!-- ★ お知らせはここに追加してください ★
-             以下の <div class="notice-item"> をコピーして内容を変えるだけです。
-             追加した分だけ自動でスクロールに含まれます。
-        -->
+        <!-- ★ お知らせはここに追加してください ★ -->
         <div class="notice-item"><span class="notice-dot"></span>KDN Hub を公開しました。活用メモをどんどん投稿してください！</div>
         <div class="notice-item"><span class="notice-dot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
         <div class="notice-item"><span class="notice-dot"></span>AIツールの活用事例はAI活用メモへ気軽に投稿してください！</div>
         <!-- ★ 編集ここまで ★ -->
-
         <!-- 以下はループ用の複製（編集不要） -->
         <div class="notice-item"><span class="notice-dot"></span>KDN Hub を公開しました。活用メモをどんどん投稿してください！</div>
         <div class="notice-item"><span class="notice-dot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
@@ -375,11 +286,7 @@
         <div class="counter-unit">現場支援中</div>
       </div>
       <div class="counter-divider"></div>
-      <!-- ★ 工事名はここを編集してください ★
-           以下の <div class="counter-site-tag"> の中身を工事名に変更するだけです。
-           現場が増えた場合は同じ行をコピーして追加してください。
-           現場が終わった場合はその行を削除してください。
-      -->
+      <!-- ★ 工事名はここを編集してください ★ -->
       <div class="counter-sites" id="site-tags">
         <div class="counter-site-tag">（都）尼崎宝塚線（阪急立体工区）道路改良工事（その２）</div>
         <div class="counter-site-tag">Ｒ７大阪湾岸道路西伸部六甲アイランドＰＲ１Ｌ４橋脚他基礎工事</div>
@@ -390,10 +297,17 @@
     </div>
   </div>
 
+  <!-- ★ 安全パトロール予定（スプレッドシートから自動反映） -->
+  <div class="patrol-bar">
+    <div class="patrol-label">🦺 安全パトロール予定</div>
+    <div class="patrol-cards" id="patrol-cards">
+      <div class="patrol-loading">読み込み中...</div>
+    </div>
+  </div>
+
   <div class="main-layout">
     <div class="left-panel">
 
-      <!-- 管理ツール -->
       <div class="mgmt-tools-card">
         <div class="mgmt-tools-title">📌 管理ツール</div>
         <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=133379717#gid=133379717" target="_blank" class="mgmt-btn primary">
@@ -412,7 +326,6 @@
         </a>
       </div>
 
-      <!-- カレンダー -->
       <div class="calendar-card">
         <div class="calendar-header">
           <div class="calendar-month" id="cal-month"></div>
@@ -439,7 +352,6 @@
         </div>
       </div>
 
-      <!-- AI活用メモ -->
       <div class="memo-card">
         <div class="memo-card-header">
           <div class="memo-card-title">💡 AI活用メモ</div>
@@ -454,13 +366,10 @@
 
     <div class="right-panel">
 
-      <!-- 週次業務 -->
       <div class="category-section" id="sec-weekly">
         <div class="category-header">
           <div class="category-icon">📅</div>
-          <div>
-            <div class="category-name">週次業務<span class="highlight-tag" id="tag-weekly" style="display:none">● 今週対象</span></div>
-          </div>
+          <div><div class="category-name">週次業務<span class="highlight-tag" id="tag-weekly" style="display:none">● 今週対象</span></div></div>
           <div class="category-badge">毎週月曜日</div>
         </div>
         <div class="task-list">
@@ -470,17 +379,13 @@
               <div class="task-desc">サイン漏れ確認・フォルダ格納 ／ 成果物：機械点検簿・KY日報</div>
             </div>
             <div class="task-actions">
-              <a href="#" target="_blank" class="btn-manual">
-                <svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                マニュアル
-              </a>
+              <a href="#" target="_blank" class="btn-manual"><svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>マニュアル</a>
               <a href="https://rakuraku-genba.jp/kayama-corp2/login.php" target="_blank" class="btn-open">🔗 開く</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2週に1回業務 -->
       <div class="category-section" id="sec-biweekly">
         <div class="category-header">
           <div class="category-icon">🔄</div>
@@ -494,10 +399,7 @@
               <div class="task-desc">伝票スキャン・仕分け・データ入力 ／ 成果物：伝票集計表（Excel）</div>
             </div>
             <div class="task-actions">
-              <a href="https://drive.google.com/file/d/1zv0F_B2qHAb5OAKWNle375UWkTGoC2ry/view?usp=drive_link" target="_blank" class="btn-manual">
-                <svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                マニュアル
-              </a>
+              <a href="https://drive.google.com/file/d/1zv0F_B2qHAb5OAKWNle375UWkTGoC2ry/view?usp=drive_link" target="_blank" class="btn-manual"><svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>マニュアル</a>
               <a href="#" target="_blank" class="btn-open">🔗 開く</a>
             </div>
           </div>
@@ -507,23 +409,17 @@
               <div class="task-desc">最新版差替・不備チェック ／ 成果物：最新の施工体系図</div>
             </div>
             <div class="task-actions">
-              <a href="#" target="_blank" class="btn-manual">
-                <svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                マニュアル
-              </a>
+              <a href="#" target="_blank" class="btn-manual"><svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>マニュアル</a>
               <a href="https://cloud-sign.com/login" target="_blank" class="btn-open">🔗 開く</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 月次業務 -->
       <div class="category-section" id="sec-monthly">
         <div class="category-header">
           <div class="category-icon">📆</div>
-          <div>
-            <div class="category-name">月次業務<span class="highlight-tag" id="tag-monthly" style="display:none">● 今月対象</span></div>
-          </div>
+          <div><div class="category-name">月次業務<span class="highlight-tag" id="tag-monthly" style="display:none">● 今月対象</span></div></div>
           <div class="category-badge">10日・15日目安</div>
         </div>
         <div class="task-list">
@@ -533,10 +429,7 @@
               <div class="task-desc" id="desc-ccus">登録状況確認・実績データ集計 ／ 成果物：CCUS集計表 ／ 〆切：毎月10日</div>
             </div>
             <div class="task-actions">
-              <a href="#" target="_blank" class="btn-manual">
-                <svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                マニュアル
-              </a>
+              <a href="#" target="_blank" class="btn-manual"><svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>マニュアル</a>
               <a href="https://www.ccus.jp/" target="_blank" class="btn-open">🔗 開く</a>
             </div>
           </div>
@@ -546,10 +439,7 @@
               <div class="task-desc" id="desc-safety">教育資料作成補助 ／ 成果物：安全訓練・災防協資料 ／ 〆切：毎月15日</div>
             </div>
             <div class="task-actions">
-              <a href="#" target="_blank" class="btn-manual">
-                <svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                マニュアル
-              </a>
+              <a href="#" target="_blank" class="btn-manual"><svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>マニュアル</a>
               <a href="#" target="_blank" class="btn-open">🔗 開く</a>
             </div>
           </div>
@@ -559,47 +449,26 @@
               <div class="task-desc" id="desc-kentaikyo">建退共集計表作成 ／ 成果物：建退共集計表 ／ 〆切：毎月15日</div>
             </div>
             <div class="task-actions">
-              <a href="#" target="_blank" class="btn-manual">
-                <svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                マニュアル
-              </a>
+              <a href="#" target="_blank" class="btn-manual"><svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>マニュアル</a>
               <a href="#" target="_blank" class="btn-open">🔗 開く</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- AIツール -->
       <div class="category-section">
         <div class="category-header">
           <div class="category-icon">🤖</div>
           <div><div class="category-name">AIツール</div></div>
         </div>
         <div class="ai-tools-grid">
-          <a href="https://chat.openai.com" target="_blank" class="ai-tool-item">
-            <div class="ai-tool-emoji">💬</div>
-            <div class="ai-tool-name">ChatGPT</div>
-            <div class="ai-tool-desc">文章作成・要約・壁打ち</div>
-          </a>
-          <a href="https://claude.ai" target="_blank" class="ai-tool-item">
-            <div class="ai-tool-emoji">🧠</div>
-            <div class="ai-tool-name">Claude</div>
-            <div class="ai-tool-desc">長文整理・PDF要約・コード生成</div>
-          </a>
-          <a href="https://gemini.google.com" target="_blank" class="ai-tool-item">
-            <div class="ai-tool-emoji">✨</div>
-            <div class="ai-tool-name">Gemini</div>
-            <div class="ai-tool-desc">Google連携・表整理・検索補助</div>
-          </a>
-          <a href="https://notebooklm.google.com" target="_blank" class="ai-tool-item">
-            <div class="ai-tool-emoji">📓</div>
-            <div class="ai-tool-name">NotebookLM</div>
-            <div class="ai-tool-desc">資料要約・議事録・PDF解析</div>
-          </a>
+          <a href="https://chat.openai.com" target="_blank" class="ai-tool-item"><div class="ai-tool-emoji">💬</div><div class="ai-tool-name">ChatGPT</div><div class="ai-tool-desc">文章作成・要約・壁打ち</div></a>
+          <a href="https://claude.ai" target="_blank" class="ai-tool-item"><div class="ai-tool-emoji">🧠</div><div class="ai-tool-name">Claude</div><div class="ai-tool-desc">長文整理・PDF要約・コード生成</div></a>
+          <a href="https://gemini.google.com" target="_blank" class="ai-tool-item"><div class="ai-tool-emoji">✨</div><div class="ai-tool-name">Gemini</div><div class="ai-tool-desc">Google連携・表整理・検索補助</div></a>
+          <a href="https://notebooklm.google.com" target="_blank" class="ai-tool-item"><div class="ai-tool-emoji">📓</div><div class="ai-tool-name">NotebookLM</div><div class="ai-tool-desc">資料要約・議事録・PDF解析</div></a>
         </div>
       </div>
 
-      <!-- その他 -->
       <div class="category-section">
         <div class="category-header">
           <div class="category-icon">🔧</div>
@@ -607,22 +476,12 @@
         </div>
         <div class="task-list">
           <div class="task-item">
-            <div class="task-info">
-              <div class="task-name">KD基本業務</div>
-              <div class="task-desc">KD基本業務管理・共有スプレッドシート</div>
-            </div>
-            <div class="task-actions">
-              <a href="https://docs.google.com/spreadsheets/d/11gPOyKlLb1X403oJp9zlbCQkNZP-fQc0ZDfJdk8VeV8/edit?gid=1526777277#gid=1526777277" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
+            <div class="task-info"><div class="task-name">KD基本業務</div><div class="task-desc">KD基本業務管理・共有スプレッドシート</div></div>
+            <div class="task-actions"><a href="https://docs.google.com/spreadsheets/d/11gPOyKlLb1X403oJp9zlbCQkNZP-fQc0ZDfJdk8VeV8/edit?gid=1526777277#gid=1526777277" target="_blank" class="btn-open">🔗 開く</a></div>
           </div>
           <div class="task-item">
-            <div class="task-info">
-              <div class="task-name">兵庫県電子施工管理システム</div>
-              <div class="task-desc">兵庫県電子施工管理システム・CALS/EC</div>
-            </div>
-            <div class="task-actions">
-              <a href="https://www.cals.pref.hyogo.jp/hy/?region=hyogo" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
+            <div class="task-info"><div class="task-name">兵庫県電子施工管理システム</div><div class="task-desc">兵庫県電子施工管理システム・CALS/EC</div></div>
+            <div class="task-actions"><a href="https://www.cals.pref.hyogo.jp/hy/?region=hyogo" target="_blank" class="btn-open">🔗 開く</a></div>
           </div>
         </div>
       </div>
@@ -632,20 +491,9 @@
 </div>
 
 <script>
-  // ============================================================
-  // ★ 設定エリア：ここを変更するだけでOKです
-  // ============================================================
   const PASSWORD = 'kayama-KD';
-
-  // ★ お知らせはHTMLの <!-- お知らせはここに追加 --> の箇所を編集してください
-
-  // ★ 工事名はHTMLの <!-- ★ 工事名はここを編集してください ★ --> の箇所を編集してください
-
-  // AI活用メモAPI
   const MEMO_API = 'https://script.google.com/macros/s/AKfycbybfFBNFA62rSv081GTO4nXMCEK4ZY764_ZR0dNU4i9276msjtnvelkgWmk-SqJNC6z/exec';
-  // ============================================================
 
-  // ダークモード
   function toggleDark() {
     document.body.classList.toggle('dark');
     const btn = document.getElementById('dark-toggle');
@@ -653,13 +501,11 @@
     localStorage.setItem('kdn-dark', document.body.classList.contains('dark') ? '1' : '0');
   }
 
-  // ログイン
   function doLogin() {
     const input = document.getElementById('password-input').value;
     if (input === PASSWORD) {
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('app').style.display = 'block';
-      // ダークモード復元
       if (localStorage.getItem('kdn-dark') === '1') {
         document.body.classList.add('dark');
         document.getElementById('dark-toggle').textContent = '☀️';
@@ -672,7 +518,6 @@
     }
   }
 
-  // 翌営業日計算
   function getNextBizDay(year, month, day) {
     const d = new Date(year, month, day);
     const dow = d.getDay();
@@ -694,9 +539,9 @@
     updateDeadlineDesc(now);
     updateSiteCount();
     loadMemos();
+    loadPatrols();
   }
 
-  // 現場数カウンター（タグの数を自動カウント）
   function updateSiteCount() {
     const count = document.querySelectorAll('.counter-site-tag').length;
     document.getElementById('site-count').textContent = count;
@@ -726,9 +571,7 @@
     const grid = document.getElementById('cal-grid');
     grid.innerHTML = '';
     for (let i = 0; i < firstDay; i++) {
-      const el = document.createElement('div');
-      el.className = 'cal-day empty';
-      grid.appendChild(el);
+      const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el);
     }
     for (let d = 1; d <= daysInMonth; d++) {
       const el = document.createElement('div');
@@ -764,16 +607,13 @@
     const dl10 = getNextBizDay(y, m, 10);
     const dl15 = getNextBizDay(y, m, 15);
     const tasks = [];
-
     if (dow === 1) tasks.push({ icon: '📅', name: '① 出面・点検簿（本日）', cls: '' });
-
     const remain10 = dl10 - date;
     if (remain10 >= 0 && remain10 <= 5) {
       if (remain10 === 0) tasks.push({ icon: '🔥', name: '④ CCUS 本日締切！', cls: 'today-deadline' });
       else if (remain10 <= 3) tasks.push({ icon: '🔴', name: `④ CCUS 締切まで残り${remain10}日`, cls: 'danger' });
       else tasks.push({ icon: '🟡', name: `④ CCUS 締切まで残り${remain10}日`, cls: 'warn' });
     }
-
     const remain15 = dl15 - date;
     if (remain15 >= 0 && remain15 <= 5) {
       if (remain15 === 0) {
@@ -787,7 +627,6 @@
         tasks.push({ icon: '🟡', name: `⑥ 建退共 締切まで残り${remain15}日`, cls: 'warn' });
       }
     }
-
     const container = document.getElementById('today-tasks');
     container.innerHTML = tasks.length === 0
       ? '<div class="no-task-banner">本日対象の業務はありません ✅</div>'
@@ -810,7 +649,6 @@
     }
   }
 
-  // AI活用メモ読み込み
   function loadMemos() {
     const container = document.getElementById('memo-list');
     fetch(MEMO_API)
@@ -834,6 +672,28 @@
       })
       .catch(() => {
         container.innerHTML = '<div class="memo-empty">メモを読み込めませんでした。</div>';
+      });
+  }
+
+  function loadPatrols() {
+    const container = document.getElementById('patrol-cards');
+    fetch(MEMO_API + '?type=patrol')
+      .then(res => res.json())
+      .then(patrols => {
+        if (!patrols || patrols.length === 0) {
+          container.innerHTML = '<div class="patrol-empty">現在予定はありません</div>';
+          return;
+        }
+        container.innerHTML = patrols.map(p => `
+          <div class="patrol-card">
+            <div class="patrol-card-site">${p.site}</div>
+            <div class="patrol-card-date">📅 ${p.date}</div>
+            ${p.kd ? `<div class="patrol-card-kd">担当：${p.kd}</div>` : ''}
+          </div>
+        `).join('');
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="patrol-empty">読み込めませんでした</div>';
       });
   }
 </script>
