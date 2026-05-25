@@ -307,7 +307,7 @@
         <div class="notice-item"><span class="notice-dot"></span>AIツールの活用事例等はKDタイムラインへ気軽に投稿してください！</div>
         <!-- ★ 編集ここまで ★ -->
         <!-- 以下はループ用の複製（編集不要） -->
-        <div class="notice-item"><span class="notice-dot"></span>KAYAMA Director Hub を公開しました。活用メモをどんどん投稿してください！</div>
+        <div class="notice-item"><span class="notice-dot"></span>KAYAMA Director Hub を公開しました。</div>
         <div class="notice-item"><span class="notice-dot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
         <div class="notice-item"><span class="notice-dot"></span>AIツールの活用事例等はKDタイムラインへ気軽に投稿してください！</div>
       </div>
@@ -437,7 +437,7 @@
       <div class="category-section" id="sec-biweekly">
         <div class="category-header">
           <div class="category-icon">🔄</div>
-          <div><div class="category-name">2週に1回業務</div></div>
+          <div><div class="category-name">隔週業務</div></div>
           <div class="category-badge">隔週月曜日</div>
         </div>
         <div class="task-list">
@@ -816,9 +816,9 @@
             </div>`;
         };
         container.innerHTML =
-          renderGroup('📅 週次', data.weekly) +
-          renderGroup('🔄 隔週', data.biweekly) +
-          renderGroup('📆 月次', data.monthly);
+          renderGroup('📅 週次業務', data.weekly) +
+          renderGroup('🔄 隔週業務', data.biweekly) +
+          renderGroup('📆 月次業務', data.monthly);
       })
       .catch(() => {
         container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
