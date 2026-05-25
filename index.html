@@ -293,7 +293,7 @@
       <div class="memo-card">
         <div class="memo-card-header">
           <div class="memo-card-title">💡 AI活用メモ</div>
-          <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit#gid=0" target="_blank" class="btn-post-memo">✏️ 投稿</a>
+          <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=1752497592#gid=1752497592" target="_blank" class="btn-post-memo">✏️ 投稿</a>
         </div>
         <div id="memo-list">
           <div class="memo-loading">読み込み中...</div>
@@ -646,7 +646,7 @@
           return;
         }
         // 新しい順に並べる
-        const sorted = memos.slice().reverse();
+        const sorted = memos.slice().reverse().slice(0, 10);
         container.innerHTML = '<div class="memo-list">' +
           sorted.map(m => `
             <div class="memo-item">
