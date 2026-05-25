@@ -47,7 +47,7 @@
   body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
   /* ===== LOGIN ===== */
-  #login-screen { position: fixed; inset: 0; background: var(--navy-dark); display: flex; align-items: center; justify-content: center; z-index: 1000; background-image: radial-gradient(ellipse at 20% 50%, rgba(132,204,22,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(51,65,85,0.9) 0%, transparent 50%); }
+  #login-screen { position: fixed; inset: 0; background: var(--navy-dark); display: flex; align-items: center; justify-content: center; z-index: 1000; background-image: radial-gradient(ellipse at 20% 50%, rgba(249,115,22,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(26,39,68,0.9) 0%, transparent 50%); }
   .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(249,115,22,0.35); border-radius: 20px; padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
   .login-icon { font-size: 40px; margin-bottom: 16px; }
   .login-title { color: var(--white); font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em; }
@@ -89,7 +89,7 @@
   .today-banner-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
   .today-banner-tasks { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .today-banner-task { display: flex; align-items: center; gap: 6px; padding: 5px 12px; background: rgba(255,255,255,0.08); border-radius: 24px; font-size: 12px; font-weight: 600; color: var(--white); border: 1px solid rgba(249,115,22,0.3); white-space: nowrap; }
-  .today-banner-task.warn { background: rgba(201,168,76,0.15); border-color: var(--amber); color: var(--amber-light); }
+  .today-banner-task.warn { background: rgba(249,115,22,0.15); border-color: var(--amber); color: var(--amber-light); }
   .today-banner-task.danger { background: rgba(239,68,68,0.15); border-color: #f87171; color: #fca5a5; animation: pulse-danger 1.5s infinite; }
   .today-banner-task.today-deadline { background: #dc2626; border-color: #ef4444; color: var(--white); font-weight: 700; animation: pulse-danger 1s infinite; }
   @keyframes pulse-danger { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
@@ -110,7 +110,7 @@
 
   /* ===== 安全パトロール ===== */
   .patrol-bar { background: var(--surface, #fff); border-bottom: 1px solid rgba(249,115,22,0.25); padding: 8px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .patrol-label { font-size: 10px; font-weight: 700; color: var(--white); background: #f97316; padding: 5px 12px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.06em; margin-top: 2px; }
+  .patrol-label { font-size: 10px; font-weight: 700; color: var(--white); background: #f97316; padding: 5px 12px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.06em; }
   .patrol-cards { display: flex; gap: 10px; flex-wrap: wrap; }
   .patrol-card { display: flex; flex-direction: column; gap: 2px; padding: 6px 12px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-left: 3px solid #f97316; border-radius: 8px; min-width: 160px; }
   .patrol-card-site { font-size: 11px; font-weight: 700; color: var(--text); }
@@ -119,10 +119,13 @@
   .patrol-loading { font-size: 12px; color: var(--gray-mid); padding: 4px 0; }
   .patrol-empty { font-size: 12px; color: var(--gray-mid); font-style: italic; padding: 4px 0; }
 
-  /* ===== LAYOUT ===== */
-  .main-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; padding: 16px 32px; max-width: 1400px; margin: 0 auto; }
+  /* ===== 3カラム LAYOUT ===== */
+  .main-layout { display: grid; grid-template-columns: 280px 1fr 260px; gap: 20px; padding: 16px 32px; max-width: 1600px; margin: 0 auto; }
   .left-panel { display: flex; flex-direction: column; gap: 20px; }
+  .right-panel { display: flex; flex-direction: column; gap: 20px; }
+  .memo-panel { display: flex; flex-direction: column; }
 
+  /* 管理ツール */
   .mgmt-tools-card { background: var(--navy); border-radius: 16px; padding: 20px 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
   .mgmt-tools-title { font-size: 11px; font-weight: 700; color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
   .mgmt-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.18s; margin-bottom: 8px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; }
@@ -138,6 +141,7 @@
   .mgmt-btn-label { font-size: 13px; font-weight: 600; }
   .mgmt-btn-sub { font-size: 10px; opacity: 0.65; font-weight: 400; }
 
+  /* カレンダー */
   .calendar-card { background: var(--surface, #fff); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); }
   .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   .calendar-month { font-size: 16px; font-weight: 700; color: var(--text); }
@@ -164,6 +168,7 @@
   .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gray-dark); }
   .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
+  /* AI活用メモ */
   .memo-card { background: var(--surface, #fff); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }
   .memo-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
   .memo-card-title { font-size: 13px; font-weight: 700; color: var(--text); }
@@ -178,7 +183,23 @@
   .memo-loading { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 16px 0; }
   .memo-empty { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 16px 0; font-style: italic; }
 
-  .right-panel { display: flex; flex-direction: column; gap: 20px; }
+  /* 進捗ダッシュボード */
+  .progress-section { background: var(--surface, #fff); border-radius: 16px; padding: 20px 24px; box-shadow: var(--card-shadow); }
+  .progress-section-title { font-size: 12px; font-weight: 700; color: var(--gray-mid); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .progress-group { margin-bottom: 16px; }
+  .progress-group:last-child { margin-bottom: 0; }
+  .progress-group-label { font-size: 11px; font-weight: 700; color: var(--navy); background: var(--gray-bg); padding: 4px 10px; border-radius: 6px; margin-bottom: 8px; display: inline-block; }
+  .progress-rows { display: flex; flex-direction: column; gap: 6px; }
+  .progress-row { display: flex; align-items: center; gap: 10px; padding: 7px 12px; background: var(--gray-bg); border-radius: 8px; font-size: 12px; }
+  .progress-status { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+  .status-未着手 { background: rgba(239,68,68,0.12); color: #dc2626; }
+  .status-進行中 { background: rgba(245,158,11,0.12); color: #d97706; }
+  .status-完了 { background: rgba(16,185,129,0.12); color: #059669; }
+  .progress-site { font-size: 11px; color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0; }
+  .progress-kd { font-size: 10px; color: var(--gray-mid); white-space: nowrap; flex-shrink: 0; }
+  .progress-loading { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 12px 0; }
+
+  /* 右パネル */
   .category-section { background: var(--surface, #fff); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); animation: fadeUp 0.4s ease both; border: 2px solid transparent; }
   .category-section.highlighted { border-color: var(--amber); box-shadow: 0 4px 24px rgba(249,115,22,0.2); }
   .category-section.highlighted-green { border-color: #10b981; box-shadow: 0 4px 24px rgba(16,185,129,0.12); }
@@ -225,56 +246,6 @@
   .left-panel > *:nth-child(2) { animation-delay: 0.08s; }
   .left-panel > *:nth-child(3) { animation-delay: 0.16s; }
 
-
-  /* ===== 進捗ダッシュボード ===== */
-  .progress-section {
-    background: var(--surface, #fff);
-    border-radius: 16px;
-    padding: 20px 24px;
-    box-shadow: var(--card-shadow);
-  }
-  .progress-section-title {
-    font-size: 12px; font-weight: 700; color: var(--gray-mid);
-    letter-spacing: 0.08em; text-transform: uppercase;
-    margin-bottom: 14px; padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .progress-group { margin-bottom: 16px; }
-  .progress-group:last-child { margin-bottom: 0; }
-  .progress-group-label {
-    font-size: 11px; font-weight: 700; color: var(--navy);
-    background: var(--gray-bg);
-    padding: 4px 10px; border-radius: 6px;
-    margin-bottom: 8px; display: inline-block;
-  }
-  .progress-rows { display: flex; flex-direction: column; gap: 6px; }
-  .progress-row {
-    display: flex; align-items: center; gap: 10px;
-    padding: 7px 12px;
-    background: var(--gray-bg);
-    border-radius: 8px;
-    font-size: 12px;
-  }
-  .progress-status {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 2px 8px; border-radius: 12px;
-    font-size: 11px; font-weight: 700;
-    white-space: nowrap; flex-shrink: 0;
-  }
-  .status-미착수, .status-未着手 { background: rgba(239,68,68,0.12); color: #dc2626; }
-  .status-進行中 { background: rgba(245,158,11,0.12); color: #d97706; }
-  .status-完了 { background: rgba(16,185,129,0.12); color: #059669; }
-  .progress-site {
-    font-size: 11px; color: var(--text); font-weight: 500;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    flex: 1; min-width: 0;
-  }
-  .progress-kd {
-    font-size: 10px; color: var(--gray-mid);
-    white-space: nowrap; flex-shrink: 0;
-  }
-  .progress-loading { font-size: 12px; color: var(--gray-mid); text-align: center; padding: 12px 0; }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gray-light); border-radius: 3px; }
@@ -347,7 +318,7 @@
     </div>
   </div>
 
-  <!-- ★ 安全パトロール予定（スプレッドシートから自動反映） -->
+  <!-- 安全パトロール予定 -->
   <div class="patrol-bar">
     <div class="patrol-label">🦺 安全パトロール予定</div>
     <div class="patrol-cards" id="patrol-cards">
@@ -355,7 +326,10 @@
     </div>
   </div>
 
+  <!-- 3カラム メインレイアウト -->
   <div class="main-layout">
+
+    <!-- 左パネル -->
     <div class="left-panel">
 
       <div class="mgmt-tools-card">
@@ -402,7 +376,6 @@
         </div>
       </div>
 
-
       <!-- 進捗ダッシュボード -->
       <div class="progress-section">
         <div class="progress-section-title">📊 今月の進捗状況</div>
@@ -411,18 +384,9 @@
         </div>
       </div>
 
-      <div class="memo-card">
-        <div class="memo-card-header">
-          <div class="memo-card-title">💡 AI活用メモ</div>
-          <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=1752497592#gid=1752497592" target="_blank" class="btn-post-memo">✏️ 投稿</a>
-        </div>
-        <div id="memo-list">
-          <div class="memo-loading">読み込み中...</div>
-        </div>
-      </div>
-
     </div>
 
+    <!-- 中央パネル（業務リスト） -->
     <div class="right-panel">
 
       <div class="category-section" id="sec-weekly">
@@ -546,6 +510,20 @@
       </div>
 
     </div>
+
+    <!-- 右パネル（AI活用メモ）-->
+    <div class="memo-panel">
+      <div class="memo-card" style="position:sticky; top:68px;">
+        <div class="memo-card-header">
+          <div class="memo-card-title">💡 AI活用メモ</div>
+          <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=1752497592#gid=1752497592" target="_blank" class="btn-post-memo">✏️ 投稿</a>
+        </div>
+        <div id="memo-list">
+          <div class="memo-loading">読み込み中...</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -735,58 +713,6 @@
       });
   }
 
-
-  // 進捗ダッシュボード読み込み
-  function loadProgress() {
-    const container = document.getElementById('progress-content');
-    fetch(MEMO_API + '?type=progress')
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) {
-          container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
-          return;
-        }
-
-        const statusIcon = (s) => {
-          if (s === '完了') return '✅';
-          if (s === '進行中') return '🟡';
-          return '🔴';
-        };
-
-        const statusClass = (s) => {
-          if (s === '完了') return 'status-完了';
-          if (s === '進行中') return 'status-進行中';
-          return 'status-未着手';
-        };
-
-        const renderGroup = (label, items) => {
-          if (!items || items.length === 0) return '';
-          const rows = items.map(p => {
-            // 現場名を短く表示（工期部分を除く）
-            const siteName = p.site.replace(/【.*?】/g, '').replace(/\s+/g, ' ').trim();
-            return `
-              <div class="progress-row">
-                <span class="progress-status ${statusClass(p.status)}">${statusIcon(p.status)} ${p.status || '未着手'}</span>
-                <span class="progress-site">${siteName}</span>
-                <span class="progress-kd">${p.kd}</span>
-              </div>`;
-          }).join('');
-          return `
-            <div class="progress-group">
-              <div class="progress-group-label">${label}</div>
-              <div class="progress-rows">${rows}</div>
-            </div>`;
-        };
-
-        container.innerHTML =
-          renderGroup('📅 週次', data.weekly) +
-          renderGroup('🔄 隔週', data.biweekly) +
-          renderGroup('📆 月次', data.monthly);
-      })
-      .catch(() => {
-        container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
-      });
-  }
   function loadPatrols() {
     const container = document.getElementById('patrol-cards');
     fetch(MEMO_API + '?type=patrol')
@@ -806,6 +732,52 @@
       })
       .catch(() => {
         container.innerHTML = '<div class="patrol-empty">読み込めませんでした</div>';
+      });
+  }
+
+  function loadProgress() {
+    const container = document.getElementById('progress-content');
+    fetch(MEMO_API + '?type=progress')
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
+          return;
+        }
+        const statusIcon = (s) => {
+          if (s === '完了') return '✅';
+          if (s === '進行中') return '🟡';
+          return '🔴';
+        };
+        const statusClass = (s) => {
+          if (s === '完了') return 'status-完了';
+          if (s === '進行中') return 'status-進行中';
+          return 'status-未着手';
+        };
+        const renderGroup = (label, items) => {
+          if (!items || items.length === 0) return '';
+          const rows = items.map(p => {
+            const siteName = p.site.replace(/【.*?】/g, '').replace(/\s+/g, ' ').trim();
+            return `
+              <div class="progress-row">
+                <span class="progress-status ${statusClass(p.status)}">${statusIcon(p.status)} ${p.status || '未着手'}</span>
+                <span class="progress-site">${siteName}</span>
+                <span class="progress-kd">${p.kd}</span>
+              </div>`;
+          }).join('');
+          return `
+            <div class="progress-group">
+              <div class="progress-group-label">${label}</div>
+              <div class="progress-rows">${rows}</div>
+            </div>`;
+        };
+        container.innerHTML =
+          renderGroup('📅 週次', data.weekly) +
+          renderGroup('🔄 隔週', data.biweekly) +
+          renderGroup('📆 月次', data.monthly);
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="progress-loading">読み込めませんでした</div>';
       });
   }
 </script>
