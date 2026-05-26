@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kayama Director Hub | 建設ディレクター業務ハブ</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #1a2744;
@@ -37,7 +37,7 @@
     --card-shadow-hover: 0 12px 32px rgba(0,0,0,0.4);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s, color 0.3s; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
   /* ===== スプラッシュアニメーション ===== */
   #splash-screen { position: fixed; inset: 0; background: #111c33; display: flex; align-items: center; justify-content: center; z-index: 2000; pointer-events: none; overflow: hidden; animation: splashBgRed 0.5s ease 1.3s forwards, splashBgFade 1.5s ease 1.8s forwards; }
@@ -53,10 +53,10 @@
   .login-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(249,115,22,0.35); border-radius: var(--radius-xl); padding: 48px 40px; width: 360px; text-align: center; backdrop-filter: blur(20px); }
   .login-icon { font-size: 40px; margin-bottom: 16px; }
   .login-sub { color: var(--gray-mid); font-size: 13px; margin-bottom: 32px; }
-  .login-input { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); color: var(--white); font-size: 15px; font-family: 'Noto Sans JP', sans-serif; outline: none; margin-bottom: 12px; transition: border-color 0.2s; }
+  .login-input { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); color: var(--white); font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; margin-bottom: 12px; transition: border-color 0.2s; }
   .login-input:focus { border-color: var(--amber); }
   .login-input::placeholder { color: rgba(255,255,255,0.3); }
-  .login-btn { width: 100%; padding: 14px; background: var(--amber); color: var(--navy-dark); border: none; border-radius: var(--radius-md); font-size: 15px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+  .login-btn { width: 100%; padding: 14px; background: var(--amber); color: var(--navy-dark); border: none; border-radius: var(--radius-md); font-size: 15px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.1s; }
   .login-btn:hover { background: var(--amber-light); }
   .login-btn:active { transform: scale(0.98); }
   .login-error { color: #f87171; font-size: 12px; margin-top: 10px; display: none; }
@@ -64,11 +64,11 @@
 
   /* ===== HEADER ===== */
   header { background: var(--navy); padding: 0 32px; height: 54px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
-  .logo { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: 0.04em; display: flex; align-items: baseline; gap: 0; }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; font-weight: 400; color: var(--white); letter-spacing: 0.12em; display: flex; align-items: baseline; gap: 0; }
   .logo-kayama { color: var(--white); }
-  .logo-director { color: var(--amber); margin-left: 6px; }
-  .logo-hub { color: rgba(255,255,255,0.55); font-weight: 600; font-size: 16px; margin-left: 5px; }
-  .logo-sub { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; color: var(--gray-mid); font-weight: 300; margin-left: 10px; border-left: 1px solid rgba(255,255,255,0.15); padding-left: 10px; }
+  .logo-director { color: var(--amber); margin-left: 8px; }
+  .logo-hub { color: rgba(255,255,255,0.45); font-size: 20px; margin-left: 6px; letter-spacing: 0.1em; }
+  .logo-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; color: var(--gray-mid); font-weight: 300; margin-left: 12px; border-left: 1px solid rgba(255,255,255,0.15); padding-left: 12px; }
   .header-right { display: flex; align-items: center; gap: 16px; }
   .header-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray-mid); letter-spacing: 0.05em; }
   .header-date span { color: var(--amber); font-weight: 500; }
@@ -133,7 +133,7 @@
   /* ===== 管理ツール ===== */
   .mgmt-tools-card { background: var(--navy); border-radius: var(--radius-xl); padding: 20px; box-shadow: 0 6px 24px rgba(17,28,51,0.35); }
   .mgmt-tools-title { font-size: 10px; font-weight: 700; color: var(--amber); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
-  .mgmt-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: var(--radius-md); text-decoration: none; font-size: 14px; font-weight: 700; transition: all 0.18s; margin-bottom: 8px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; color: #FFFFFF; }
+  .mgmt-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: var(--radius-md); text-decoration: none; font-size: 14px; font-weight: 700; transition: all 0.18s; margin-bottom: 8px; border: none; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; color: #FFFFFF; }
   .mgmt-btn:last-child { margin-bottom: 0; }
   .mgmt-btn.primary { background: linear-gradient(135deg, var(--amber) 0%, var(--amber-dark) 100%); color: #FFFFFF; box-shadow: 0 3px 10px rgba(249,115,22,0.35); }
   .mgmt-btn.primary:hover { background: linear-gradient(135deg, var(--amber-light) 0%, var(--amber) 100%); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(249,115,22,0.45); }
@@ -168,7 +168,7 @@
   .cal-day.deadline-10 { background: rgba(16,185,129,0.13); color: #059669; font-weight: 700; }
   .cal-day.deadline-15 { background: rgba(99,102,241,0.13); color: #4f46e5; font-weight: 700; }
   .cal-day.today.deadline-10, .cal-day.today.deadline-15 { background: var(--navy); color: var(--white); font-weight: 700; }
-  .cal-day[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--white); font-size: 10px; padding: 3px 8px; border-radius: 6px; white-space: nowrap; font-family: 'Noto Sans JP', sans-serif; z-index: 10; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .cal-day[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--white); font-size: 10px; padding: 3px 8px; border-radius: 6px; white-space: nowrap; font-family: 'Plus Jakarta Sans', sans-serif; z-index: 10; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
   .cal-legend { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
   .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gray-dark); }
   .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
@@ -177,7 +177,7 @@
   .memo-card { background: var(--surface); border-radius: var(--radius-xl); padding: 20px; box-shadow: var(--card-shadow); }
   .memo-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
   .memo-card-title { font-size: 13px; font-weight: 700; color: var(--text); }
-  .btn-post-memo { display: flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; text-decoration: none; background: var(--amber); color: #ffffff; transition: all 0.15s; white-space: nowrap; }
+  .btn-post-memo { display: flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; background: var(--amber); color: #ffffff; transition: all 0.15s; white-space: nowrap; }
   .btn-post-memo:hover { background: var(--amber-dark); transform: translateY(-1px); box-shadow: 0 4px 10px rgba(249,115,22,0.35); }
   .memo-list { display: flex; flex-direction: column; gap: 8px; }
   .memo-item { padding: 11px 13px; background: var(--gray-bg); border-radius: var(--radius-md); border-left: 3px solid var(--amber); transition: background 0.15s; }
@@ -230,9 +230,9 @@
   .task-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
   .task-desc { font-size: 11px; color: var(--gray-mid); line-height: 1.5; }
   .task-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
-  .btn-manual { display: flex; align-items: center; gap: 5px; padding: 7px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 500; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: 1px solid var(--border); background: transparent; color: var(--gray-dark); }
+  .btn-manual { display: flex; align-items: center; gap: 5px; padding: 7px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: 1px solid var(--border); background: transparent; color: var(--gray-dark); }
   .btn-manual:hover { border-color: #4285f4; color: #4285f4; background: rgba(66,133,244,0.06); }
-  .btn-open { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: none; background: var(--amber); color: #ffffff; box-shadow: 0 2px 6px rgba(249,115,22,0.3); }
+  .btn-open { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.15s; border: none; background: var(--amber); color: #ffffff; box-shadow: 0 2px 6px rgba(249,115,22,0.3); }
   .btn-open:hover { background: var(--amber-dark); transform: translateY(-1px); box-shadow: 0 5px 14px rgba(249,115,22,0.4); }
 
   /* ===== AIツール ===== */
@@ -270,7 +270,7 @@
 <div id="login-screen">
   <div class="login-box">
     <div class="login-icon">🏗️</div>
-    <div class="login-title" style="font-family:'Outfit',sans-serif; font-weight:800; letter-spacing:0.03em;">Kayama <span style="color:var(--amber)">Director</span> <span style="color:rgba(255,255,255,0.5); font-weight:600; font-size:18px;">Hub</span></div>
+    <div class="login-title" style="font-family:'Bebas Neue',sans-serif; font-weight:400; font-size:32px; letter-spacing:0.12em;">Kayama <span style="color:var(--amber)">Director</span> <span style="color:rgba(255,255,255,0.45); font-size:26px;">Hub</span></div>
     <div class="login-sub">パスワードを入力してアクセスしてください</div>
     <input type="password" class="login-input" id="password-input" placeholder="パスワード" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">ログイン</button>
