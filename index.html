@@ -177,8 +177,9 @@ body.dark .progress-group-label{color:var(--amber-light)}
 .progress-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--gray-bg);border-radius:var(--radius-sm);font-size:12px}
 .progress-status{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0}
 .status-未着手{background:rgba(239,68,68,.1);color:#dc2626}
-.status-進行中{background:rgba(245,158,11,.1);color:#d97706}
+.status-対応中{background:rgba(245,158,11,.1);color:#d97706}
 .status-完了{background:rgba(16,185,129,.1);color:#059669}
+.status-対象外{background:rgba(148,163,184,.1);color:#64748b}
 .progress-site{font-size:11px;color:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
 .progress-kd{font-size:10px;color:var(--gray-mid);white-space:nowrap;flex-shrink:0}
 .progress-loading{font-size:12px;color:var(--gray-mid);text-align:center;padding:12px 0}
@@ -746,8 +747,8 @@ function switchTab(btn, panel){
 
 function buildTable(items, cols){
   if(!items||!items.length) return '<div class="memo-empty">データがありません</div>';
-  const sc=s=>s==='完了'?'status-完了':s==='進行中'?'status-進行中':'status-未着手';
-  const si=s=>s==='完了'?'✅':s==='進行中'?'🟡':'🔴';
+  const sc=s=>s==='完了'?'status-完了':s==='対応中'?'status-対応中':s==='対象外'?'status-対象外':'status-未着手';
+  const si=s=>s==='完了'?'✅':s==='対応中'?'🟡':s==='対象外'?'➖':'🔴';
   const headers = cols.map(c=>`<th>${c.label}</th>`).join('');
   const rows = items.map(p=>{
     const site = p.site.replace(/【.*?】/g,'').replace(/\s+/g,' ').trim();
@@ -773,9 +774,8 @@ function loadProgress(){
     const cols = [{key:'site',label:'現場名 / 担当KD'},{key:'status',label:'進捗'}];
     document.getElementById('prog-panel-weekly').innerHTML = buildTable(data.weekly, cols);
     document.getElementById('prog-panel-biweekly').innerHTML = buildTable(data.biweekly, cols);
-    // 月次はmonthly10/monthly15があればそれぞれ、なければmonthlyをそのまま使用
-    document.getElementById('prog-panel-monthly10').innerHTML = buildTable(data.monthly10||data.monthly, cols);
-    document.getElementById('prog-panel-monthly15').innerHTML = buildTable(data.monthly15||data.monthly, cols);
+    document.getElementById('prog-panel-monthly10').innerHTML = buildTable(data.monthly10, cols);
+    document.getElementById('prog-panel-monthly15').innerHTML = buildTable(data.monthly15, cols);
   }).catch(()=>{
     ['weekly','biweekly','monthly10','monthly15'].forEach(k=>{
       document.getElementById('prog-panel-'+k).innerHTML='<div class="memo-empty">読み込めませんでした</div>';
