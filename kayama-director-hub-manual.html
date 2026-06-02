@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kayama Director Hub｜使い方マニュアル</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1a2744; --navy-light:#243460; --navy-dark:#111c33;
+  --amber:#f97316; --amber-light:#fb923c; --amber-dark:#ea6c10;
+  --bg:#F0F4F8; --surface:#fff; --text:#0f172a; --text-sub:#475569;
+  --border:#e2e8f0; --gray-mid:#94a3b8;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:18px;
+  --shadow:0 4px 24px rgba(26,39,68,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+
+/* ヘッダー */
+.hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 60%,#1e3a5f 100%);padding:60px 40px 50px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(249,115,22,.15) 0%,transparent 60%)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);border-radius:20px;font-size:11px;font-weight:700;color:var(--amber);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:.1em;color:#fff;line-height:1.1;margin-bottom:8px}
+.hero-title span{color:var(--amber)}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:0}
+
+/* コンテンツ */
+.container{max-width:860px;margin:0 auto;padding:48px 24px}
+
+/* セクション */
+.section{margin-bottom:48px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.section-num{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--navy);color:#fff;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-size:20px;font-weight:800;color:var(--navy)}
+.section-title span{color:var(--amber)}
+
+/* カード */
+.card{background:var(--surface);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:16px}
+.card-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card-body{font-size:13px;color:var(--text-sub);line-height:1.8}
+
+/* スクリーンエリア */
+.screen-layout{display:grid;gap:12px}
+.screen-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.screen-block{background:var(--surface);border-radius:var(--radius-md);padding:18px 20px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.screen-block.highlight{border-color:var(--amber);background:rgba(249,115,22,.03)}
+.screen-block.full{grid-column:1/-1}
+.sb-label{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.sb-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.sb-desc{font-size:12px;color:var(--text-sub);line-height:1.7}
+
+/* ステップ */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:20px;position:relative;padding-bottom:28px}
+.step:last-child{padding-bottom:0}
+.step:last-child .step-line{display:none}
+.step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--amber);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.step-line{width:2px;flex:1;background:var(--border);margin-top:4px}
+.step-content{padding-top:6px;flex:1}
+.step-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.step-desc{font-size:13px;color:var(--text-sub);line-height:1.8}
+
+/* バッジ */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-amber{background:rgba(249,115,22,.1);color:var(--amber-dark)}
+.badge-green{background:rgba(16,185,129,.1);color:#059669}
+.badge-purple{background:rgba(99,102,241,.1);color:#4f46e5}
+.badge-red{background:rgba(239,68,68,.1);color:#dc2626}
+.badge-gray{background:rgba(148,163,184,.1);color:#64748b}
+
+/* テーブル */
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th{padding:10px 14px;background:var(--bg);text-align:left;font-size:11px;font-weight:700;color:var(--gray-mid);letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--border)}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text-sub);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+td:first-child{font-weight:600;color:var(--text)}
+
+/* ポイントボックス */
+.point-box{background:linear-gradient(135deg,rgba(249,115,22,.05) 0%,rgba(249,115,22,.02) 100%);border:1px solid rgba(249,115,22,.2);border-left:4px solid var(--amber);border-radius:var(--radius-md);padding:16px 20px;margin-top:16px}
+.point-box-title{font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.point-box-body{font-size:13px;color:var(--text-sub);line-height:1.8}
+
+/* フッター */
+.footer{background:var(--navy);color:rgba(255,255,255,.4);text-align:center;padding:32px;font-size:12px;margin-top:48px}
+.footer strong{color:var(--amber)}
+
+/* アニメーション */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:fadeUp .4s ease both}
+.section:nth-child(1){animation-delay:.05s}
+.section:nth-child(2){animation-delay:.1s}
+.section:nth-child(3){animation-delay:.15s}
+.section:nth-child(4){animation-delay:.2s}
+.section:nth-child(5){animation-delay:.25s}
+.section:nth-child(6){animation-delay:.3s}
+
+/* 目次 */
+.toc{background:var(--surface);border-radius:var(--radius-lg);padding:24px 28px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:48px}
+.toc-title{font-size:13px;font-weight:700;color:var(--gray-mid);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.toc-list{display:flex;flex-direction:column;gap:6px}
+.toc-item{display:flex;align-items:center;gap:10px;text-decoration:none;padding:8px 12px;border-radius:var(--radius-sm);transition:background .15s;color:var(--text)}
+.toc-item:hover{background:var(--bg)}
+.toc-item-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);font-weight:700;width:20px}
+.toc-item-text{font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">📘 使い方マニュアル</div>
+  <div class="hero-title">Kayama <span>Director</span> Hub</div>
+  <div class="hero-sub">建設ディレクター業務ハブ｜初めての方向けガイド</div>
+</div>
+
+<div class="container">
+
+  <!-- 目次 -->
+  <div class="toc">
+    <div class="toc-title">📋 目次</div>
+    <div class="toc-list">
+      <a href="#sec1" class="toc-item"><span class="toc-item-num">01</span><span class="toc-item-text">Kayama Director Hub とは？</span></a>
+      <a href="#sec2" class="toc-item"><span class="toc-item-num">02</span><span class="toc-item-text">ログイン方法</span></a>
+      <a href="#sec3" class="toc-item"><span class="toc-item-num">03</span><span class="toc-item-text">画面の構成を知る</span></a>
+      <a href="#sec4" class="toc-item"><span class="toc-item-num">04</span><span class="toc-item-text">業務カードの使い方</span></a>
+      <a href="#sec5" class="toc-item"><span class="toc-item-num">05</span><span class="toc-item-text">今月の進捗状況の見方</span></a>
+      <a href="#sec6" class="toc-item"><span class="toc-item-num">06</span><span class="toc-item-text">その他の機能</span></a>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <div class="section" id="sec1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">Kayama <span>Director Hub</span> とは？</div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        Kayama Director Hub（KDH）は、建設ディレクター（KD）が担当する<strong>週次・隔週・月次の各業務を一元管理するポータルサイト</strong>です。<br><br>
+        日々の業務に必要なシステムへのリンク・マニュアル・締切アラート・進捗確認が、このサイト1つで完結します。
+      </div>
+    </div>
+    <div class="screen-row">
+      <div class="screen-block highlight">
+        <div class="sb-label">✅ できること</div>
+        <div class="sb-desc">
+          ・各業務システムへワンクリックでアクセス<br>
+          ・マニュアルをすぐ確認<br>
+          ・締切日のアラートをリアルタイムで確認<br>
+          ・現場ごとの進捗をモーダルで確認<br>
+          ・AIツールへ素早くアクセス
+        </div>
+      </div>
+      <div class="screen-block">
+        <div class="sb-label">👤 対象ユーザー</div>
+        <div class="sb-desc">
+          ・建設ディレクター（KD）メンバー<br>
+          ・室長・マネジメント層<br>
+          ・業務進捗を把握したい担当者
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 -->
+  <div class="section" id="sec2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title"><span>ログイン</span>方法</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+        <div class="step-content">
+          <div class="step-title">サイトにアクセスする</div>
+          <div class="step-desc">ブラウザでKayama Director HubのURLを開きます。ログイン画面が表示されます。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+        <div class="step-content">
+          <div class="step-title">パスワードを入力する</div>
+          <div class="step-desc">入力欄にパスワードを入力します。パスワードはチームで共有されている文字列です。不明な場合は室長に確認してください。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+        <div class="step-content">
+          <div class="step-title">「ログイン」ボタンを押す</div>
+          <div class="step-desc">ボタンを押すとスプラッシュ画面が表示され、ホーム画面に遷移します。次回以降は自動でログイン済み状態になります。</div>
+        </div>
+      </div>
+    </div>
+    <div class="point-box">
+      <div class="point-box-title">💡 ポイント</div>
+      <div class="point-box-body">Enterキーを押してもログインできます。パスワードが違う場合は赤いエラーメッセージが表示されます。</div>
+    </div>
+  </div>
+
+  <!-- 03 -->
+  <div class="section" id="sec3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">画面の<span>構成</span>を知る</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🖥️ ホーム画面のレイアウト</div>
+      <div class="card-body">ホーム画面は上から順に以下のエリアで構成されています。</div>
+    </div>
+
+    <div class="screen-layout">
+      <div class="screen-block full highlight">
+        <div class="sb-label">🔝 ヘッダー</div>
+        <div class="sb-title">常に画面上部に固定表示</div>
+        <div class="sb-desc">サイト名・今日の日付・<strong>🌙 ダークモード切替</strong>・<strong>🔄 画面更新ボタン</strong>が並んでいます。🔄を押すとデータを最新状態に更新できます。</div>
+      </div>
+
+      <div class="screen-block full">
+        <div class="sb-label">📢 お知らせティッカー</div>
+        <div class="sb-title">横スクロールで流れるお知らせ</div>
+        <div class="sb-desc">チームへのお知らせがスクロール表示されます。マウスを乗せると一時停止します。</div>
+      </div>
+
+      <div class="screen-block full highlight">
+        <div class="sb-label">📋 本日の対象業務</div>
+        <div class="sb-title">今日やるべき業務が自動で表示される</div>
+        <div class="sb-desc">今日の曜日・日付に応じて<strong>自動的に対象業務が表示</strong>されます。締切が近づくと色が変わり、当日は赤く点滅します。</div>
+      </div>
+
+      <div class="screen-block">
+        <div class="sb-label">🏗️ 今月の支援状況</div>
+        <div class="sb-title">支援中の現場一覧</div>
+        <div class="sb-desc">現在支援している現場数と工事名が表示されます。横スクロールで全件確認できます。</div>
+      </div>
+
+      <div class="screen-block">
+        <div class="sb-label">🦺 安全パトロール予定 / 📊 進捗状況</div>
+        <div class="sb-title">同じ行に並んで表示</div>
+        <div class="sb-desc">左側にパトロール予定、右側に「今月の進捗状況」ボタンがあります。</div>
+      </div>
+
+      <div class="screen-block full highlight">
+        <div class="sb-label">🤖 AIツールバー</div>
+        <div class="sb-title">AIツールへワンクリックでアクセス</div>
+        <div class="sb-desc">ChatGPT・Claude・Gemini・NotebookLMへ直接アクセスできます。業務効率化にご活用ください。</div>
+      </div>
+
+      <div class="screen-block">
+        <div class="sb-label">📌 左パネル</div>
+        <div class="sb-title">管理ツール・カレンダー</div>
+        <div class="sb-desc">進捗管理スプレッドシート・ID/PASSシートへのリンクと、締切日が色分けされたカレンダーがあります。</div>
+      </div>
+
+      <div class="screen-block">
+        <div class="sb-label">📋 中央パネル</div>
+        <div class="sb-title">業務カード一覧</div>
+        <div class="sb-desc">週次・隔週・月次の各業務カードが並んでいます。マニュアルや各システムへのリンクが付いています。</div>
+      </div>
+
+      <div class="screen-block full">
+        <div class="sb-label">💬 右パネル</div>
+        <div class="sb-title">KDタイムライン</div>
+        <div class="sb-desc">チームメンバーの投稿が表示されます。AIの活用事例など気軽に投稿してください。「✏️ 投稿」ボタンからスプシに入力できます。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 -->
+  <div class="section" id="sec4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">業務カードの<span>使い方</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 業務カードの種類</div>
+      <table>
+        <thead><tr><th>カード名</th><th>対象業務</th><th>頻度</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>週次業務</td>
+            <td>① 出面・点検簿</td>
+            <td>毎週月曜日</td>
+          </tr>
+          <tr>
+            <td>隔週業務</td>
+            <td>② 伝票整理　③ 施工体系図</td>
+            <td>2週間に1回（月曜）</td>
+          </tr>
+          <tr>
+            <td>月次業務（10日）</td>
+            <td>④ CCUS</td>
+            <td>毎月10日まで</td>
+          </tr>
+          <tr>
+            <td>月次業務（15日）</td>
+            <td>⑤ 安全資料　⑥ 建退共</td>
+            <td>毎月15日まで</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔘 ボタンの使い方</div>
+      <div class="card-body">各業務カードには2種類のボタンがあります。</div>
+      <br>
+      <table>
+        <thead><tr><th>ボタン</th><th>説明</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>📄 マニュアル</td>
+            <td>Googleドライブに保存されている業務マニュアルPDFが開きます。初めての業務は必ず確認してください。</td>
+          </tr>
+          <tr>
+            <td>🔗 開く</td>
+            <td>実際に作業するシステム（楽楽現場・CCUSなど）が新しいタブで開きます。</td>
+          </tr>
+          <tr>
+            <td>🕐 準備中</td>
+            <td>マニュアルがまだ作成中です。順次追加されます。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌈 カードのハイライトについて</div>
+      <div class="card-body">対象期間になると業務カードの枠が自動で色付きになります。</div>
+      <br>
+      <table>
+        <thead><tr><th>枠の色</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-amber">🟠 オレンジ</span></td><td>今週の週次業務対象日（月曜日）</td></tr>
+          <tr><td><span class="badge badge-green">🟢 グリーン</span></td><td>月次10日締め業務（CCUS）の対象期間</td></tr>
+          <tr><td><span class="badge badge-purple">🟣 パープル</span></td><td>月次15日締め業務（安全資料・建退共）の対象期間</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⏰ 本日の対象業務バナーの見方</div>
+      <div class="card-body">締切状況に応じてバナーの色が変わります。</div>
+      <br>
+      <table>
+        <thead><tr><th>表示</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-amber">🟡 残り4〜5日</span></td><td>余裕あり。早めに着手しましょう。</td></tr>
+          <tr><td><span class="badge badge-red">🔴 残り1〜3日</span></td><td>急ぎ！優先して対応してください。</td></tr>
+          <tr><td><span class="badge" style="background:#dc2626;color:#fff">🔥 本日締切</span></td><td>今日が締切日です。必ず完了してください。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 05 -->
+  <div class="section" id="sec5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title">今月の進捗状況の<span>見方</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 進捗モーダルの開き方</div>
+      <div class="card-body">
+        安全パトロール予定バーの右端にある <strong>「📊 今月の進捗状況」</strong> ボタンをクリックすると、モーダル（ポップアップ）が開きます。<br><br>
+        閉じるときは <strong>「✕」ボタン</strong>、または<strong>背景（暗い部分）をクリック</strong>してください。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📑 タブの切り替え</div>
+      <div class="card-body">モーダル内には4つのタブがあります。クリックで切り替えできます。</div>
+      <br>
+      <table>
+        <thead><tr><th>タブ名</th><th>確認できる業務</th></tr></thead>
+        <tbody>
+          <tr><td>📅 週次｜① 出面・点検簿</td><td>各現場の出面・点検簿の対応状況</td></tr>
+          <tr><td>🔄 隔週｜② 伝票整理・③ 施工体系図</td><td>伝票整理と施工体系図の対応状況</td></tr>
+          <tr><td>📆 月次（10日）｜④ CCUS</td><td>CCUSの入力状況</td></tr>
+          <tr><td>📆 月次（15日）｜⑤⑥ 安全資料・建退共</td><td>安全資料・建退共の対応状況</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔵 ステータスバッジの意味</div>
+      <table>
+        <thead><tr><th>バッジ</th><th>意味</th><th>判定基準</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-green">✅ 完了</span></td>
+            <td>対応済み</td>
+            <td>スプシの所要時間欄に数字が入っている</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-amber">🟡 対応中</span></td>
+            <td>一部完了</td>
+            <td>複数業務のうち一部のみ入力済み</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-red">🔴 未着手</span></td>
+            <td>未対応</td>
+            <td>所要時間が0のまま</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gray">➖ 対象外</span></td>
+            <td>対象外の現場</td>
+            <td>スプシの備考欄に「対象外」と入力されている</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="point-box">
+      <div class="point-box-title">💡 進捗が反映されない場合</div>
+      <div class="point-box-body">
+        スプシの所要時間セルの<strong>表示形式が「数値」</strong>になっているか確認してください。「テキスト」や「自動」のままだと反映されません。<br>
+        また、進捗を更新した後はヘッダーの <strong>🔄 ボタン</strong> を押してデータを最新化してください。
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 -->
+  <div class="section" id="sec6">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title">その他の<span>機能</span></div>
+    </div>
+
+    <div class="screen-row">
+      <div class="screen-block">
+        <div class="sb-label">🌙 ダークモード</div>
+        <div class="sb-title">画面の明るさを切り替え</div>
+        <div class="sb-desc">ヘッダー右上の 🌙 ボタンで切り替えできます。設定はブラウザに保存されるので次回も引き継がれます。</div>
+      </div>
+      <div class="screen-block">
+        <div class="sb-label">🔄 画面更新ボタン</div>
+        <div class="sb-title">データを最新化する</div>
+        <div class="sb-desc">ヘッダー右上の 🔄 ボタンを押すと、スプシからデータを再取得します。スプシを更新した後に押してください。</div>
+      </div>
+      <div class="screen-block">
+        <div class="sb-label">📅 カレンダー</div>
+        <div class="sb-title">締切日を視覚的に確認</div>
+        <div class="sb-desc">左パネルのカレンダーで今月の業務締切日を確認できます。「‹ ›」で月を切り替えられます。</div>
+      </div>
+      <div class="screen-block">
+        <div class="sb-label">💬 KDタイムライン</div>
+        <div class="sb-title">チームへ情報を共有</div>
+        <div class="sb-desc">右パネルにチームの投稿が表示されます。「✏️ 投稿」ボタンからスプシに記入して共有できます。AIの活用事例など気軽に投稿を！</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">📌 管理ツールへのリンク</div>
+      <div class="card-body">左パネル上部の管理ツールカードから以下にアクセスできます。</div>
+      <br>
+      <table>
+        <thead><tr><th>ボタン</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>📊 進捗管理スプレッドシート</td>
+            <td>各現場の所要時間・進捗状況を入力するメインのスプシ。業務完了後はここに時間を記録してください。</td>
+          </tr>
+          <tr>
+            <td>🔑 ID・PASS管理シート</td>
+            <td>各システムのログインIDとパスワードが管理されています。閲覧にはGoogleアカウントの権限が必要です。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Kayama Director Hub</strong> 使い方マニュアル<br>
+  ご不明点は室長または担当者にお問い合わせください。
+</div>
+
+</body>
+</html>
