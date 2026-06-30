@@ -3,618 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kayama Director Hub | 建設ディレクター業務ハブ</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>Kayama Director Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy:#1a2744; --navy-light:#243460; --navy-dark:#111c33;
-  --amber:#f97316; --amber-light:#fb923c; --amber-dark:#ea6c10;
-  --gray-bg:#f1f5f9; --gray-light:#e8edf4; --gray-mid:#94a3b8; --gray-dark:#64748b;
-  --white:#ffffff;
-  --bg:#F0F4F8; --surface:#ffffff; --text:#0f172a; --text-secondary:#475569; --border:#e2e8f0;
-  --card-shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.04);
-  --card-shadow-hover:0 10px 24px -4px rgba(26,39,68,.14),0 4px 8px -2px rgba(0,0,0,.06);
-  --radius-sm:8px; --radius-md:10px; --radius-lg:14px; --radius-xl:18px;
+:root{
+  --bg:#f8fafc;--surface:#fff;--text:#0f172a;--text-s:#475569;--text-m:#94a3b8;
+  --border:#e2e8f0;--amber:#f97316;--amber-l:#fb923c;--amber-d:#ea6c10;
+  --navy:#0f172a;--navy-l:#1e293b;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-h:0 4px 16px rgba(0,0,0,.1);
+  --r:10px;--r-lg:14px;--r-xl:18px;
 }
-body.dark {
-  --bg:#0d1526; --surface:#1a2744; --text:#f1f5f9; --text-secondary:#94a3b8;
-  --border:#243460; --gray-bg:#1e2f50; --gray-light:#243460; --gray-mid:#94a3b8;
-  --gray-dark:#cbd5e1; --card-shadow:0 4px 12px rgba(0,0,0,.3);
-  --card-shadow-hover:0 12px 32px rgba(0,0,0,.4);
+body.dark{
+  --bg:#0d1117;--surface:#161b22;--text:#f0f6fc;--text-s:#8b949e;--text-m:#6e7681;
+  --border:#21262d;--navy:#161b22;--navy-l:#21262d;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
 
 /* スプラッシュ */
-#splash{position:fixed;inset:0;background:#111c33;display:flex;align-items:center;justify-content:center;z-index:2000;pointer-events:none;overflow:hidden;animation:splashRed .5s ease 1.3s forwards,splashFade 1.5s ease 1.8s forwards}
-#splash.hidden{display:none}
-.splash-logo{width:55vmin;height:55vmin;object-fit:contain;opacity:0;transform:scale(.15);animation:splashZoom 1.2s cubic-bezier(.16,1,.3,1) .1s forwards,splashLogoFade 1.5s ease 1.8s forwards}
-@keyframes splashZoom{from{opacity:0;transform:scale(.15)}to{opacity:1;transform:scale(1)}}
-@keyframes splashLogoFade{from{opacity:1}to{opacity:0}}
-@keyframes splashRed{from{background:#111c33}to{background:#c0190e}}
-@keyframes splashFade{from{background:#c0190e;opacity:1}to{background:#c0190e;opacity:0}}
-
-/* ログイン */
-#login{position:fixed;inset:0;background:var(--navy-dark);display:flex;align-items:center;justify-content:center;z-index:1000;background-image:radial-gradient(ellipse at 20% 50%,rgba(249,115,22,.12) 0%,transparent 60%)}
-.login-box{background:rgba(255,255,255,.04);border:1px solid rgba(249,115,22,.35);border-radius:var(--radius-xl);padding:48px 40px;width:360px;text-align:center;backdrop-filter:blur(20px)}
-.login-icon{font-size:40px;margin-bottom:16px}
-.login-sub{color:var(--gray-mid);font-size:13px;margin-bottom:32px}
-.login-input{width:100%;padding:14px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-md);color:var(--white);font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s}
-.login-input:focus{border-color:var(--amber)}
-.login-input::placeholder{color:rgba(255,255,255,.3)}
-.login-btn{width:100%;padding:14px;background:var(--amber);color:var(--navy-dark);border:none;border-radius:var(--radius-md);font-size:15px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .2s,transform .1s}
-.login-btn:hover{background:var(--amber-light)}
-.login-btn:active{transform:scale(.98)}
-.login-error{color:#f87171;font-size:12px;margin-top:10px;display:none}
-#app{display:none}
+#splash{position:fixed;inset:0;background:#0f172a;display:flex;align-items:center;justify-content:center;z-index:2000;pointer-events:none;animation:sFade 1s ease 1.2s forwards}
+#splash.gone{display:none}
+.splash-inner{text-align:center;opacity:0;transform:scale(.9);animation:sZoom .9s cubic-bezier(.16,1,.3,1) .1s forwards}
+.splash-mark{width:64px;height:64px;background:var(--amber);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;margin:0 auto 14px}
+.splash-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.splash-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:3px}
+@keyframes sZoom{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes sFade{from{opacity:1}to{opacity:0;pointer-events:none}}
 
 /* ヘッダー */
-header{background:var(--navy);padding:0 32px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3)}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--white);letter-spacing:.12em;display:flex;align-items:baseline;gap:0}
-.logo-director{color:var(--amber);margin-left:8px}
-.logo-hub{color:rgba(255,255,255,.45);font-size:20px;margin-left:6px;letter-spacing:.1em}
-.logo-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--gray-mid);font-weight:300;margin-left:12px;border-left:1px solid rgba(255,255,255,.15);padding-left:12px}
-.header-right{display:flex;align-items:center;gap:16px}
-.header-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray-mid);letter-spacing:.05em}
-.header-date span{color:var(--amber);font-weight:500}
-.dark-toggle{width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--white);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.dark-toggle:hover{background:rgba(255,255,255,.16)}
+header{background:var(--surface);border-bottom:.5px solid var(--border);padding:0 24px;height:50px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-mark{width:28px;height:28px;background:var(--amber);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
+.logo-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.logo-name span{color:var(--amber)}
+.logo-sep{width:1px;height:14px;background:var(--border);margin:0 2px}
+.logo-sub{font-size:10px;color:var(--text-m)}
+.hdr-r{display:flex;align-items:center;gap:7px}
+.hdr-date{font-size:11px;color:var(--text-s);background:var(--bg);padding:3px 9px;border-radius:20px;border:.5px solid var(--border);font-family:'DM Mono',monospace}
+.hdr-date b{color:var(--amber)}
+.hdr-btn{width:30px;height:30px;border-radius:var(--r);border:.5px solid var(--border);background:var(--surface);color:var(--text-s);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.hdr-btn:hover{background:var(--bg)}
 
-/* お知らせティッカー */
-.notice-bar{background:var(--navy-dark);border-bottom:1px solid rgba(249,115,22,.2);display:flex;align-items:center;overflow:hidden;height:28px}
-.notice-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:var(--navy-dark);padding:0 14px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0}
-.notice-ticker-wrap{flex:1;overflow:hidden;height:100%;display:flex;align-items:center}
-.notice-ticker{display:flex;align-items:center;animation:ticker 28s linear infinite;white-space:nowrap}
+/* お知らせ */
+.notice-bar{background:var(--navy);border-bottom:2px solid var(--amber);height:24px;display:flex;align-items:center;overflow:hidden}
+.notice-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;background:var(--amber);color:#fff;padding:0 10px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0}
+.notice-wrap{flex:1;overflow:hidden;display:flex;align-items:center}
+.notice-ticker{display:flex;animation:ticker 32s linear infinite;white-space:nowrap}
 .notice-ticker:hover{animation-play-state:paused}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.notice-item{display:inline-flex;align-items:center;gap:6px;padding:0 32px;white-space:nowrap;font-size:12px;color:rgba(255,255,255,.85)}
-.notice-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;display:inline-block}
+.notice-item{display:inline-flex;align-items:center;gap:5px;padding:0 24px;font-size:10px;color:rgba(255,255,255,.8)}
+.ndot{width:3px;height:3px;border-radius:50%;background:var(--amber);flex-shrink:0}
 
-/* 本日バナー */
-.today-banner{background:linear-gradient(135deg,#1a2744 0%,#1e3a5f 100%);border-bottom:3px solid var(--amber);border-top:1px solid rgba(249,115,22,.3);padding:13px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;box-shadow:0 3px 16px rgba(249,115,22,.15)}
-.today-banner-title{font-size:12px;font-weight:800;color:var(--amber);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;text-shadow:0 0 12px rgba(249,115,22,.4)}
-.today-banner-divider{width:1px;height:24px;background:rgba(255,255,255,.15);flex-shrink:0}
-.today-banner-tasks{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.today-banner-task{display:flex;align-items:center;gap:6px;padding:5px 14px;background:rgba(255,255,255,.07);border-radius:20px;font-size:12px;font-weight:600;color:var(--white);border:1px solid rgba(249,115,22,.25);white-space:nowrap}
-.today-banner-task.warn{background:rgba(249,115,22,.15);border-color:var(--amber);color:var(--amber-light)}
-.today-banner-task.danger{background:rgba(239,68,68,.15);border-color:#f87171;color:#fca5a5;animation:pulse-danger 1.5s infinite}
-.today-banner-task.today-deadline{background:#dc2626;border-color:#ef4444;color:var(--white);font-weight:700;animation:pulse-danger 1s infinite}
-@keyframes pulse-danger{0%,100%{opacity:1}50%{opacity:.75}}
-.no-task-banner{font-size:13px;color:rgba(255,255,255,.4);font-style:italic}
+/* 本日の業務バナー */
+.today-banner{background:linear-gradient(135deg,#1a2744 0%,#1e3a5f 100%);border-bottom:2px solid var(--amber);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.today-lbl{font-size:10px;font-weight:800;color:var(--amber);letter-spacing:.1em;white-space:nowrap;flex-shrink:0}
+.today-div{width:1px;height:20px;background:rgba(255,255,255,.15);flex-shrink:0}
+.today-pills{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;border:.5px solid;white-space:nowrap}
+.p-ok{background:rgba(16,185,129,.15);color:#6ee7b7;border-color:rgba(16,185,129,.3)}
+.p-now{background:rgba(249,115,22,.15);color:#fb923c;border-color:rgba(249,115,22,.3)}
+.p-warn{background:rgba(245,158,11,.15);color:#fbbf24;border-color:rgba(245,158,11,.3)}
+.p-danger{background:rgba(239,68,68,.15);color:#fca5a5;border-color:rgba(239,68,68,.3);animation:blink 1.5s infinite}
+.p-fire{background:#dc2626;color:#fff;border-color:#dc2626;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.7}}
 
-/* カウンター */
-.counter-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:6px 32px;display:flex;align-items:center;gap:16px;flex-wrap:nowrap;overflow:hidden}
-.counter-label{font-size:10px;font-weight:700;color:var(--gray-mid);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
-.counter-items{display:flex;gap:12px;flex-wrap:nowrap;align-items:center;overflow:hidden;min-width:0}
-.counter-item{display:flex;align-items:baseline;gap:4px;flex-shrink:0}
-.counter-num{font-family:'DM Mono',monospace;font-size:16px;font-weight:700;color:var(--navy)}
-body.dark .counter-num{color:var(--amber)}
-.counter-unit{font-size:11px;color:var(--gray-mid)}
-.counter-divider{width:1px;height:16px;background:var(--border);flex-shrink:0}
-.counter-sites{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;min-width:0;scrollbar-width:none}
-.counter-sites::-webkit-scrollbar{display:none}
-.counter-site-tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;background:rgba(26,39,68,.06);color:var(--navy);border:1px solid rgba(26,39,68,.12);white-space:nowrap;flex-shrink:0}
-body.dark .counter-site-tag{background:rgba(249,115,22,.1);color:var(--amber-light);border-color:rgba(249,115,22,.2)}
+/* メインリンクバー */
+.main-link-bar{padding:12px 24px;background:var(--surface);border-bottom:.5px solid var(--border);display:flex;gap:10px}
+.main-link{display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:var(--r-lg);text-decoration:none;transition:all .15s;flex:1;border:.5px solid transparent}
+.main-link.primary{background:var(--amber);border-color:var(--amber-d);box-shadow:0 2px 8px rgba(249,115,22,.3)}
+.main-link.primary:hover{background:var(--amber-l);transform:translateY(-1px);box-shadow:0 4px 16px rgba(249,115,22,.4)}
+.main-link.secondary{background:var(--navy);border-color:var(--navy-l)}
+.main-link.secondary:hover{background:var(--navy-l);transform:translateY(-1px)}
+.ml-icon{width:38px;height:38px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.primary .ml-icon{background:rgba(255,255,255,.2)}
+.secondary .ml-icon{background:rgba(255,255,255,.1)}
+.ml-name{font-size:14px;font-weight:700;color:#fff}
+.ml-sub{font-size:10px;color:rgba(255,255,255,.6);margin-top:1px}
+.ml-arrow{margin-left:auto;font-size:18px;color:rgba(255,255,255,.5);flex-shrink:0}
 
-/* 安全パトロール */
-.patrol-wrap{background:var(--surface);border-bottom:1px solid rgba(249,115,22,.2)}
-.patrol-bar{padding:10px 32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.patrol-label{font-size:11px;font-weight:700;color:var(--white);background:var(--amber);padding:6px 14px;border-radius:var(--radius-sm);white-space:nowrap;flex-shrink:0;letter-spacing:.06em}
-.patrol-cards{display:flex;gap:10px;flex-wrap:wrap}
-.patrol-card{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.2);border-left:4px solid var(--amber);border-radius:var(--radius-md)}
-.patrol-card-site{font-size:13px;font-weight:700;color:var(--text)}
-.patrol-card-date{font-size:12px;color:var(--amber);font-weight:600;font-family:'DM Mono',monospace}
-.patrol-card-kd{font-size:11px;color:var(--gray-mid)}
-.patrol-loading,.patrol-empty{font-size:12px;color:var(--gray-mid);padding:4px 0;font-style:italic}
+/* 安全パトロール（1行・横スクロール） */
+.patrol-bar{background:var(--navy);border-bottom:.5px solid rgba(255,255,255,.08);padding:8px 24px;display:flex;align-items:center;gap:12px;overflow:hidden}
+.patrol-lbl{font-size:9px;font-weight:700;color:#fff;background:var(--amber);padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;letter-spacing:.05em}
+.patrol-div{width:1px;height:24px;background:rgba(255,255,255,.12);flex-shrink:0}
+.patrol-items{display:flex;gap:8px;flex:1;overflow-x:auto;scrollbar-width:none}
+.patrol-items::-webkit-scrollbar{display:none}
+.patrol-card{display:flex;align-items:center;gap:10px;padding:6px 14px;background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);border-left:2px solid var(--amber);border-radius:var(--r);flex-shrink:0}
+.pc-site{font-size:12px;font-weight:600;color:#fff}
+.pc-date{font-size:11px;color:var(--amber);font-family:'DM Mono',monospace}
+.pc-kd{font-size:10px;color:rgba(255,255,255,.45);margin-left:4px}
+.patrol-empty{font-size:10px;color:rgba(255,255,255,.4);font-style:italic}
 
-/* レイアウト */
-.main-layout{display:grid;grid-template-columns:280px 1fr 260px;gap:20px;padding:20px 32px;max-width:1600px;margin:0 auto}
-.left-panel,.right-panel{display:flex;flex-direction:column;gap:16px}
+/* メインレイアウト（2カラム：業務カード左｜カレンダー右） */
+.main-wrap{display:grid;grid-template-columns:1fr 280px;gap:0;min-height:calc(100vh - 240px)}
 
-/* 管理ツール */
-.mgmt-tools-card{background:var(--navy);border-radius:var(--radius-xl);padding:20px}
-.mgmt-tools-title{font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
-.mgmt-btn{display:flex;align-items:center;gap:12px;width:100%;padding:13px 16px;border-radius:var(--radius-md);text-decoration:none;font-size:14px;font-weight:700;transition:all .18s;margin-bottom:8px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;color:#fff}
-.mgmt-btn:last-child{margin-bottom:0}
-.mgmt-btn.primary{background:linear-gradient(135deg,var(--amber) 0%,var(--amber-dark) 100%);box-shadow:0 3px 10px rgba(249,115,22,.35)}
-.mgmt-btn.primary:hover{background:linear-gradient(135deg,var(--amber-light) 0%,var(--amber) 100%);transform:translateY(-2px);box-shadow:0 6px 18px rgba(249,115,22,.45)}
-.mgmt-btn.secondary{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14)}
-.mgmt-btn.secondary:hover{background:rgba(255,255,255,.13);transform:translateY(-2px)}
-.mgmt-btn-icon{width:34px;height:34px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.mgmt-btn.primary .mgmt-btn-icon{background:rgba(255,255,255,.18)}
-.mgmt-btn.secondary .mgmt-btn-icon{background:rgba(255,255,255,.1)}
-.mgmt-btn-label{font-size:14px;font-weight:700;color:#fff}
-.mgmt-btn-sub{font-size:10px;color:rgba(255,255,255,.65);font-weight:400}
+/* 左：業務カードエリア */
+.tasks-area{padding:16px 24px;display:flex;flex-direction:column;gap:12px;border-right:.5px solid var(--border)}
+.tasks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 
-/* カレンダー */
-.calendar-card{background:var(--surface);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--card-shadow)}
-.calendar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.calendar-month{font-size:15px;font-weight:700;color:var(--text)}
-.calendar-nav{display:flex;gap:4px}
-.cal-nav-btn{width:28px;height:28px;border:1px solid var(--border);background:none;border-radius:var(--radius-sm);cursor:pointer;color:var(--gray-dark);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.cal-nav-btn:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.calendar-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px}
-.weekday{text-align:center;font-size:11px;font-weight:500;color:var(--gray-mid);padding:4px 0}
-.weekday.sun{color:#f87171}
-.weekday.sat{color:#60a5fa}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:13px;border-radius:var(--radius-sm);position:relative;transition:background .15s;font-family:'DM Mono',monospace;color:var(--text)}
-.cal-day.sun{color:#f87171}
-.cal-day.sat{color:#60a5fa}
-.cal-day.today{background:var(--navy);color:var(--white);font-weight:700}
-.cal-day.monday{background:rgba(249,115,22,.12);color:var(--amber-dark);font-weight:600}
-.cal-day.today.monday{background:var(--amber);color:var(--navy-dark)}
-.cal-day.deadline-10{background:rgba(16,185,129,.13);color:#059669;font-weight:700}
-.cal-day.deadline-15{background:rgba(99,102,241,.13);color:#4f46e5;font-weight:700}
-.cal-day[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--white);font-size:10px;padding:3px 8px;border-radius:6px;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;z-index:10;pointer-events:none}
-.cal-legend{display:flex;flex-direction:column;gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-.legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--gray-dark)}
-.legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+/* 右：カレンダー＋AIツール */
+.side-panel{display:flex;flex-direction:column;background:var(--bg)}
+.cal-section{padding:16px 20px;border-bottom:.5px solid var(--border)}
+.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-month{font-size:13px;font-weight:700;color:var(--text)}
+.cal-nav{display:flex;gap:2px}
+.cal-nb{width:22px;height:22px;border:.5px solid var(--border);background:var(--surface);border-radius:5px;cursor:pointer;color:var(--text-s);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cal-nb:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cal-wds{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;text-align:center;font-size:9px;font-weight:600;color:var(--text-m)}
+.cal-wds .sun{color:#f87171}
+.cal-wds .sat{color:#60a5fa}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:4px;cursor:default;color:var(--text);font-family:'DM Mono',monospace;position:relative}
+.cd.sun{color:#f87171}.cd.sat{color:#60a5fa}
+.cd.today{background:var(--navy);color:#fff;font-weight:700}
+.cd.mon{background:#fff7ed;color:#c2410c;font-weight:600}
+.cd.bimon{background:#fff7ed;color:#c2410c;font-weight:700;outline:1.5px solid var(--amber);outline-offset:-1.5px}
+.cd.today.mon,.cd.today.bimon{background:var(--amber);color:#fff}
+.cd.dl5{background:#e0f2fe;color:#0369a1;font-weight:700}
+.cd.dl10{background:#dcfce7;color:#16a34a;font-weight:700}
+.cd.dl15{background:#ede9fe;color:#7c3aed;font-weight:700}
+.cd.dl20{background:#fff7ed;color:#c2410c;font-weight:700;border:1px solid #fb923c}
+.cd[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:8px;padding:2px 5px;border-radius:4px;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;z-index:20;pointer-events:none}
+.cal-legend{margin-top:10px;padding-top:10px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.cl-item{display:flex;align-items:center;gap:5px;font-size:9px;color:var(--text-s)}
+.cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 
-/* KDタイムライン */
-.memo-card{background:var(--surface);border-radius:var(--radius-xl);padding:20px;box-shadow:var(--card-shadow)}
-.memo-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.memo-card-title{font-size:13px;font-weight:700;color:var(--text)}
-.btn-post-memo{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;background:var(--amber);color:#fff;transition:all .15s;white-space:nowrap}
-.btn-post-memo:hover{background:var(--amber-dark);transform:translateY(-1px)}
-.memo-list{display:flex;flex-direction:column;gap:8px}
-.memo-item{padding:11px 13px;background:var(--gray-bg);border-radius:var(--radius-md);border-left:3px solid var(--amber)}
-.memo-item:hover{background:var(--gray-light)}
-.memo-content{font-size:12px;color:var(--text);font-weight:500;margin-bottom:6px;line-height:1.6}
-.memo-content::before{content:'💡 '}
-.memo-meta{font-size:10px;color:var(--gray-mid);display:flex;gap:8px;align-items:center}
-.memo-link{display:inline-flex;align-items:center;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;background:var(--navy);color:var(--white);text-decoration:none;margin-left:auto;transition:background .15s}
-.memo-link:hover{background:var(--amber)}
-.memo-loading,.memo-empty{font-size:12px;color:var(--gray-mid);text-align:center;padding:16px 0;font-style:italic}
-
-/* 進捗 */
-.progress-section{background:var(--surface);border-radius:var(--radius-xl);padding:20px;box-shadow:var(--card-shadow)}
-.progress-section-title{font-size:11px;font-weight:700;color:var(--gray-mid);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.progress-group{margin-bottom:14px}
-.progress-group:last-child{margin-bottom:0}
-.progress-group-label{font-size:11px;font-weight:700;color:var(--navy);background:var(--gray-bg);padding:4px 10px;border-radius:var(--radius-sm);margin-bottom:7px;display:inline-block}
-body.dark .progress-group-label{color:var(--amber-light)}
-.progress-rows{display:flex;flex-direction:column;gap:5px}
-.progress-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--gray-bg);border-radius:var(--radius-sm);font-size:12px}
-.progress-status{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0}
-.status-未着手{background:rgba(239,68,68,.1);color:#dc2626}
-.status-対応中{background:rgba(245,158,11,.1);color:#d97706}
-.status-完了{background:rgba(16,185,129,.1);color:#059669}
-.status-対象外{background:rgba(148,163,184,.1);color:#64748b}
-.progress-site{font-size:11px;color:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
-.progress-kd{font-size:10px;color:var(--gray-mid);white-space:nowrap;flex-shrink:0}
-.progress-loading{font-size:12px;color:var(--gray-mid);text-align:center;padding:12px 0}
+/* AIツール（サイドパネル下部） */
+.ai-section{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.ai-section-lbl{font-size:9px;font-weight:700;color:var(--text-m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.ai-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);text-decoration:none;transition:all .15s}
+.ai-item:hover{background:var(--amber);border-color:var(--amber-d);transform:translateX(3px)}
+.ai-item:hover .ai-name{color:#fff}
+.ai-item:hover .ai-desc{color:rgba(255,255,255,.7)}
+.ai-emoji{font-size:16px;flex-shrink:0}
+.ai-name{font-size:12px;font-weight:600;color:var(--text);transition:color .15s}
+.ai-desc{font-size:10px;color:var(--text-m);transition:color .15s}
+.ai-arrow{margin-left:auto;font-size:12px;color:var(--text-m);flex-shrink:0}
+.ai-item:hover .ai-arrow{color:#fff}
 
 /* 業務カード */
-.category-section{background:var(--surface);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--card-shadow);animation:fadeUp .4s ease both;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}
-.category-section.highlighted{border-color:var(--amber);box-shadow:0 4px 24px rgba(249,115,22,.15)}
-.category-section.highlighted-green{border-color:#10b981;box-shadow:0 4px 24px rgba(16,185,129,.1)}
-.category-section.highlighted-purple{border-color:#6366f1;box-shadow:0 4px 24px rgba(99,102,241,.1)}
-.category-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-.category-icon{width:38px;height:38px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--navy);flex-shrink:0}
-.category-section.highlighted .category-icon{background:var(--amber)}
-.category-section.highlighted-green .category-icon{background:#10b981}
-.category-section.highlighted-purple .category-icon{background:#6366f1}
-.category-name{font-size:15px;font-weight:700;color:var(--text)}
-.category-badge{margin-left:auto;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--gray-bg);color:var(--gray-dark);white-space:nowrap}
-.highlight-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;background:var(--amber);color:#fff;margin-left:8px;animation:pulse 2s infinite}
+.task-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px;transition:box-shadow .15s}
+.task-card:hover{box-shadow:var(--sh-h)}
+.task-card.hl-amber{border-color:#fed7aa;background:#fffbf5}
+.task-card.hl-gray{border-color:var(--border);background:var(--surface)}
+.task-card.hl-blue{border-color:#bae6fd;background:#f0f9ff}
+.task-card.hl-green{border-color:#bbf7d0;background:#f0fdf4}
+.task-card.hl-purple{border-color:#ddd6fe;background:#faf5ff}
+.task-card.hl-orange{border-color:#fed7aa;background:#fff7ed}
+.tc-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ic-amber{background:#fff7ed}.ic-gray{background:var(--bg)}.ic-blue{background:#e0f2fe}
+.ic-green{background:#dcfce7}.ic-purple{background:#ede9fe}.ic-orange{background:#fff7ed}
+.tc-name{font-size:13px;font-weight:700;color:var(--text)}
+.tc-badge{margin-left:auto;font-size:9px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.ba{background:#fff7ed;color:#c2410c}
+.bgr{background:var(--bg);color:var(--text-s)}
+.bb{background:#e0f2fe;color:#0369a1}
+.bg{background:#dcfce7;color:#16a34a}
+.bp{background:#ede9fe;color:#7c3aed}
+.bo{background:#ffedd5;color:#ea580c}
+.hl-tag{display:inline-flex;align-items:center;font-size:8px;font-weight:700;padding:1px 6px;border-radius:20px;background:var(--amber);color:#fff;margin-left:5px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.task-rows{display:flex;flex-direction:column;gap:6px}
+.task-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;background:var(--bg);border-radius:var(--r);border:.5px solid var(--border)}
+.tr-info{flex:1;min-width:0}
+.tr-name{font-size:12px;font-weight:600;color:var(--text)}
+.tr-desc{font-size:10px;color:var(--text-m);margin-top:1px}
+.tr-acts{display:flex;gap:5px;flex-shrink:0}
+.btn-m{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:500;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;border:.5px solid var(--border);background:var(--surface);color:var(--text-s);cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-m:hover{border-color:#3b82f6;color:#3b82f6}
+.btn-m.dis{opacity:.4;cursor:default;pointer-events:none}
+.btn-o{padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;background:var(--amber);color:#fff;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-o:hover{background:var(--amber-d)}
+.other-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px}
 
-/* タスク */
-.task-list{display:flex;flex-direction:column;gap:8px}
-.task-item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-md);background:var(--gray-bg);transition:background .15s;border:1px solid transparent}
-.task-item:hover{background:var(--gray-light);border-color:var(--border)}
-.task-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
-.task-desc{font-size:11px;color:var(--gray-mid);line-height:1.5}
-.task-actions{display:flex;gap:6px;flex-shrink:0;align-items:center}
-.btn-manual{display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--radius-sm);font-size:11px;font-weight:500;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all .15s;border:1px solid var(--border);background:transparent;color:var(--gray-dark)}
-.btn-manual:hover{border-color:#4285f4;color:#4285f4;background:rgba(66,133,244,.06)}
-.btn-open{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all .15s;border:none;background:var(--amber);color:#fff;box-shadow:0 2px 6px rgba(249,115,22,.3)}
-.btn-open:hover{background:var(--amber-dark);transform:translateY(-1px);box-shadow:0 5px 14px rgba(249,115,22,.4)}
-
-/* AIツール */
-.ai-tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-.ai-tool-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border-radius:var(--radius-lg);background:var(--gray-bg);text-decoration:none;transition:all .18s;text-align:center;border:1px solid transparent}
-.ai-tool-item:hover{background:var(--navy);transform:translateY(-3px);box-shadow:var(--card-shadow-hover)}
-.ai-tool-item:hover .ai-tool-name{color:var(--white)}
-.ai-tool-item:hover .ai-tool-desc{color:rgba(255,255,255,.55)}
-.ai-tool-emoji{font-size:26px}
-.ai-tool-name{font-size:13px;font-weight:600;color:var(--text);transition:color .15s}
-.ai-tool-desc{font-size:10px;color:var(--gray-mid);transition:color .15s;line-height:1.4}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.category-section:nth-child(1){animation-delay:.04s}
-.category-section:nth-child(2){animation-delay:.08s}
-.category-section:nth-child(3){animation-delay:.12s}
-.category-section:nth-child(4){animation-delay:.16s}
-.category-section:nth-child(5){animation-delay:.20s}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--gray-light);border-radius:3px}
-
-/* Google Drive SVG アイコン（共通） */
-.gdrive-icon{width:13px;height:13px;flex-shrink:0}
-
-/* 進捗ボタン＆モーダル */
-.progress-open-btn{width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--navy);border:none;border-radius:var(--radius-xl);cursor:pointer;text-align:left;transition:all .18s;box-shadow:0 3px 10px rgba(17,28,51,.25)}
-.progress-open-btn:hover{background:var(--navy-light);transform:translateY(-2px);box-shadow:0 6px 18px rgba(17,28,51,.35)}
-.progress-open-label{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
-.progress-open-sub{font-size:11px;color:rgba(255,255,255,.5)}
-.progress-open-btn-inline{display:flex;align-items:center;gap:10px;padding:8px 16px;background:var(--navy);border:none;border-radius:var(--radius-md);cursor:pointer;text-align:left;transition:all .18s;box-shadow:0 2px 8px rgba(17,28,51,.25);white-space:nowrap}
-.progress-open-btn-inline:hover{background:var(--navy-light);transform:translateY(-1px);box-shadow:0 4px 14px rgba(17,28,51,.35)}
-.progress-open-label-inline{font-size:12px;font-weight:700;color:#fff;margin-bottom:1px}
-.progress-open-sub-inline{font-size:10px;color:rgba(255,255,255,.5)}
-.prog-tab{padding:10px 16px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--gray-mid);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap}
-.prog-tab:hover{color:var(--text)}
-.prog-tab.active{color:var(--navy);border-bottom-color:var(--amber)}
-body.dark .prog-tab.active{color:var(--amber-light)}
-.prog-table{width:100%;border-collapse:collapse;font-size:12px}
-.prog-table th{padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--gray-mid);letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--border);white-space:nowrap}
-.prog-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+/* 進捗モーダル */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center}
+.modal-bg{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.modal-box{position:relative;background:var(--surface);border-radius:var(--r-xl);width:min(900px,95vw);max-height:82vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:.5px solid var(--border)}
+.modal-title{font-size:13px;font-weight:700;color:var(--text)}
+.modal-close{width:28px;height:28px;border-radius:var(--r);border:.5px solid var(--border);background:transparent;color:var(--text-s);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.modal-tabs{display:flex;border-bottom:.5px solid var(--border);padding:0 20px;overflow-x:auto}
+.mtab{padding:8px 12px;border:none;background:transparent;font-size:10px;font-weight:600;color:var(--text-m);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}
+.mtab:hover{color:var(--text)}
+.mtab.active{color:var(--navy);border-bottom-color:var(--amber)}
+body.dark .mtab.active{color:var(--amber)}
+.modal-body{overflow-y:auto;padding:16px 20px;flex:1}
+.modal-foot{padding:9px 20px;border-top:.5px solid var(--border);font-size:10px;color:var(--text-m);text-align:right}
+.modal-foot a{color:var(--amber);font-weight:600;text-decoration:none}
+.prog-table{width:100%;border-collapse:collapse;font-size:11px}
+.prog-table th{padding:6px 9px;text-align:left;font-size:9px;font-weight:700;color:var(--text-m);letter-spacing:.05em;text-transform:uppercase;border-bottom:1.5px solid var(--border)}
+.prog-table td{padding:8px 9px;border-bottom:.5px solid var(--border);vertical-align:middle}
 .prog-table tr:last-child td{border-bottom:none}
-.prog-table tr:hover td{background:var(--gray-bg)}
-.prog-site-name{font-weight:600;color:var(--text);line-height:1.5}
-.prog-site-kd{font-size:10px;color:var(--gray-mid);margin-top:2px}
+.prog-table tr:hover td{background:var(--bg)}
+.prog-site{font-weight:600;color:var(--text);font-size:11px}
+.prog-kd{font-size:9px;color:var(--text-m);margin-top:1px}
+.sb{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700}
+.sb-none{background:#f1f5f9;color:#64748b}
+.sb-doing{background:#dbeafe;color:#1d4ed8}
+.sb-wait{background:#fef9c3;color:#854d0e}
+.sb-done{background:#dcfce7;color:#166534}
+.prog-panel{display:none}
+.prog-panel.active{display:block}
 
-/* AIツールバー（全幅） */
-.ai-bar{background:linear-gradient(135deg,var(--navy-dark) 0%,#1e2f50 100%);border-bottom:2px solid rgba(249,115,22,.3);padding:14px 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.ai-bar-label{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.ai-bar-title{font-size:11px;font-weight:700;color:var(--amber);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.ai-bar-catch{font-size:11px;color:rgba(255,255,255,.4);font-style:italic;white-space:nowrap}
-.ai-bar-divider{width:1px;height:36px;background:rgba(255,255,255,.12);flex-shrink:0}
-.ai-bar-tools{display:flex;gap:10px;flex-wrap:wrap;flex:1}
-.ai-bar-item{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:var(--radius-md);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);text-decoration:none;transition:all .18s;flex:1;min-width:140px}
-.ai-bar-item:hover{background:rgba(249,115,22,.15);border-color:var(--amber);transform:translateY(-2px);box-shadow:0 6px 18px rgba(249,115,22,.2)}
-.ai-bar-emoji{font-size:22px;flex-shrink:0}
-.ai-bar-info{display:flex;flex-direction:column;gap:2px;min-width:0}
-.ai-bar-name{font-size:13px;font-weight:700;color:var(--white)}
-.ai-bar-desc{font-size:10px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 </style>
 </head>
 <body>
 
-<!-- スプラッシュ -->
-<div id="splash" class="hidden">
-  <img src="https://i.ibb.co/bRPCdQ4j/2026-05-21-112502.png" class="splash-logo" alt="Kayama Director Logo">
-</div>
-
-<!-- ログイン -->
-<div id="login">
-  <div class="login-box">
-    <div class="login-icon">🏗️</div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:32px;letter-spacing:.12em;">Kayama <span style="color:var(--amber)">Director</span> <span style="color:rgba(255,255,255,.45);font-size:26px;">Hub</span></div>
-    <div class="login-sub">パスワードを入力してアクセスしてください</div>
-    <input type="password" class="login-input" id="password-input" placeholder="パスワード" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" onclick="doLogin()">ログイン</button>
-    <div class="login-error" id="login-error">パスワードが違います</div>
+<div id="splash">
+  <div class="splash-inner">
+    <div class="splash-mark">K</div>
+    <div class="splash-title">Kayama Director Hub</div>
+    <div class="splash-sub">建設ディレクター業務ハブ</div>
   </div>
 </div>
 
-<div id="app">
-  <header>
-    <div class="logo">
-      Kayama<span class="logo-director">Director</span><span class="logo-hub">Hub</span>
-      <span class="logo-sub">建設ディレクター業務ハブ</span>
-    </div>
-    <div class="header-right">
-      <div class="header-date" id="header-date"></div>
-      <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="ダークモード切替">🌙</button>
-      <button class="dark-toggle" onclick="reloadApp()" title="画面を更新" id="reload-btn">🔄</button>
-    </div>
-  </header>
+<header>
+  <div class="logo">
+    <div class="logo-mark">K</div>
+    <div class="logo-name">Kayama <span>Director</span> Hub</div>
+    <div class="logo-sep"></div>
+    <div class="logo-sub">建設ディレクター業務ハブ</div>
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-date" id="hdr-date"></div>
+    <button class="hdr-btn" id="dark-btn" onclick="toggleDark()" title="ダークモード">🌙</button>
+    <button class="hdr-btn" onclick="reloadApp()" id="reload-btn" title="更新">🔄</button>
+  </div>
+</header>
 
-  <div class="notice-bar">
-    <div class="notice-label">📢 お知らせ</div>
-    <div class="notice-ticker-wrap">
-      <div class="notice-ticker">
-        <div class="notice-item"><span class="notice-dot"></span>Kayama Director Hub を公開しました。</div>
-        <div class="notice-item"><span class="notice-dot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
-        <div class="notice-item"><span class="notice-dot"></span>AIツールの活用事例等はKDタイムラインへ気軽に投稿してください！</div>
-        <div class="notice-item"><span class="notice-dot"></span>Kayama Director Hub を公開しました。</div>
-        <div class="notice-item"><span class="notice-dot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
-        <div class="notice-item"><span class="notice-dot"></span>AIツールの活用事例等はKDタイムラインへ気軽に投稿してください！</div>
-      </div>
+<div class="notice-bar">
+  <div class="notice-lbl">📢 お知らせ</div>
+  <div class="notice-wrap">
+    <div class="notice-ticker">
+      <div class="notice-item"><span class="ndot"></span>Kayama Director Hub を公開しました。</div>
+      <div class="notice-item"><span class="ndot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
+      <div class="notice-item"><span class="ndot"></span>進捗管理スプレッドシートを毎週月曜に更新してください。</div>
+      <div class="notice-item"><span class="ndot"></span>Kayama Director Hub を公開しました。</div>
+      <div class="notice-item"><span class="ndot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
+      <div class="notice-item"><span class="ndot"></span>進捗管理スプレッドシートを毎週月曜に更新してください。</div>
     </div>
   </div>
+</div>
 
-  <div class="today-banner">
-    <div class="today-banner-title">📋 本日の対象業務</div>
-    <div class="today-banner-divider"></div>
-    <div class="today-banner-tasks" id="today-tasks"></div>
-    <a href="https://kayama-kd-kd-prompt-hub.kanbara-yuya.workers.dev/kayama-director-hub-manual.html" target="_blank" style="margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-decoration:none;white-space:nowrap;transition:all .18s" onmouseover="this.style.background='rgba(249,115,22,.2)';this.style.borderColor='var(--amber)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.8)'">📘 使い方はこちら</a>
-  </div>
+<!-- 本日の業務バナー -->
+<div class="today-banner">
+  <div class="today-lbl">📋 本日の対象業務</div>
+  <div class="today-div"></div>
+  <div class="today-pills" id="today-pills"></div>
+</div>
 
-  <div class="counter-bar">
-    <div class="counter-label">🏗️ 今月の支援状況</div>
-    <div class="counter-items">
-      <div class="counter-item">
-        <div class="counter-num" id="site-count">0</div>
-        <div class="counter-unit">現場支援中</div>
-      </div>
-      <div class="counter-divider"></div>
-      <div class="counter-sites" id="site-tags">
-        <div class="counter-site-tag">（都）尼崎宝塚線（阪急立体工区）道路改良工事（その２）</div>
-        <div class="counter-site-tag">Ｒ７大阪湾岸道路西伸部六甲アイランドＰＲ１Ｌ４橋脚他基礎工事</div>
-        <div class="counter-site-tag">（主）明石神戸宝塚線　甲山大橋　橋梁補修・耐震補強工事（その３）</div>
-        <div class="counter-site-tag">Ｒ７猪名川利倉地区河道掘削他工事</div>
-        <div class="counter-site-tag">西宝橋下部他工事</div>
-        <div class="counter-site-tag">（二）武庫川水系武庫川　潮止堰撤去及び帯工設置工事（その１）</div>
-        <div class="counter-site-tag">猪名川東園田地区外　河道掘削他工事</div>
-      </div>
+<!-- メインリンクバー -->
+<div class="main-link-bar">
+  <a href="https://docs.google.com/spreadsheets/d/1oD8psIDW0FDnGl1BdgN5cS0L2bz_HpuAVl11rMmyZRU/edit?usp=sharing" target="_blank" class="main-link primary">
+    <div class="ml-icon">📊</div>
+    <div>
+      <div class="ml-name">進捗管理スプレッドシート</div>
+      <div class="ml-sub">ステータス更新・今週の対応メモ記入・個別依頼ボード</div>
     </div>
-  </div>
+    <div class="ml-arrow">›</div>
+  </a>
+  <a href="https://docs.google.com/spreadsheets/d/1oD8psIDW0FDnGl1BdgN5cS0L2bz_HpuAVl11rMmyZRU/edit?gid=714649930" target="_blank" class="main-link secondary">
+    <div class="ml-icon">🔑</div>
+    <div>
+      <div class="ml-name">ID・PASS管理シート</div>
+      <div class="ml-sub">各システムのログイン情報</div>
+    </div>
+    <div class="ml-arrow">›</div>
+  </a>
+</div>
 
-  <div class="patrol-wrap">
-    <div class="patrol-bar">
-      <div class="patrol-label">🦺 安全パトロール予定</div>
-      <div class="patrol-cards" id="patrol-cards">
-        <div class="patrol-loading">読み込み中...</div>
-      </div>
-      <div style="margin-left:auto;flex-shrink:0">
-        <button class="progress-open-btn-inline" onclick="openProgressModal()">
-          <span style="font-size:16px">📊</span>
-          <div>
-            <div class="progress-open-label-inline">今月の進捗状況</div>
-            <div class="progress-open-sub-inline">クリックして確認</div>
+<!-- 安全パトロール（1行・ネイビー背景） -->
+<div class="patrol-bar">
+  <div class="patrol-lbl">🦺 安全パトロール予定</div>
+  <div class="patrol-div"></div>
+  <div class="patrol-items" id="patrol-cards">
+    <div class="patrol-empty">現在予定はありません</div>
+  </div>
+</div>
+
+<!-- メインレイアウト（左：業務カード ｜ 右：カレンダー＋AI） -->
+<div class="main-wrap">
+
+  <!-- 左：業務カード -->
+  <div class="tasks-area">
+    <div class="tasks-grid">
+      <div class="task-card hl-amber" id="sec-weekly">
+        <div class="tc-hdr">
+          <div class="tc-icon ic-amber">📅</div>
+          <div class="tc-name">週次業務<span class="hl-tag" id="tag-weekly" style="display:none">● 本日対象</span></div>
+          <div class="tc-badge ba">毎週月曜</div>
+        </div>
+        <div class="task-rows">
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">KY日報（週次チェック）</div>
+              <div class="tr-desc">サイン漏れ確認・安全衛生打合せ簿チェック ／ 翌日完了</div>
+            </div>
+            <div class="tr-acts">
+              <a href="#" class="btn-m dis">準備中</a>
+              <a href="https://rakuraku-genba.jp/kayama-corp2/login.php" target="_blank" class="btn-o">開く</a>
+            </div>
           </div>
-          <span style="font-size:14px;color:var(--amber)">›</span>
-        </button>
+        </div>
+      </div>
+
+      <div class="task-card hl-gray" id="sec-biweekly">
+        <div class="tc-hdr">
+          <div class="tc-icon ic-gray">🔄</div>
+          <div class="tc-name">隔週業務<span class="hl-tag" id="tag-biweekly" style="display:none">● 本日対象</span></div>
+          <div class="tc-badge bgr">隔週月曜</div>
+        </div>
+        <div class="task-rows">
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">伝票整理</div>
+              <div class="tr-desc">伝票スキャン・仕分け・データ入力 ／ 成果物：伝票集計表（Excel）</div>
+            </div>
+            <div class="tr-acts">
+              <a href="#" class="btn-m dis">準備中</a>
+              <a href="#" class="btn-o">開く</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card hl-blue" id="sec-monthly5">
+        <div class="tc-hdr">
+          <div class="tc-icon ic-blue">📆</div>
+          <div class="tc-name">月次（5日）<span class="hl-tag" id="tag-monthly5" style="display:none;background:#0ea5e9">● 今月対象</span></div>
+          <div class="tc-badge bb">毎月5日</div>
+        </div>
+        <div class="task-rows">
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">KY日報（月次格納）</div>
+              <div class="tr-desc" id="desc-ky-m">前月分KY日報・安全衛生打合せ簿をDLし所定フォルダへ格納</div>
+            </div>
+            <div class="tr-acts">
+              <a href="#" class="btn-m dis">準備中</a>
+              <a href="https://rakuraku-genba.jp/kayama-corp2/login.php" target="_blank" class="btn-o">開く</a>
+            </div>
+          </div>
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">安全資料（議事録作成）</div>
+              <div class="tr-desc" id="desc-safety-b">安全訓練実施後の議事録をAIで作成・完成報告</div>
+            </div>
+            <div class="tr-acts">
+              <a href="https://drive.google.com/file/d/1t9RkoagQRLqitRUAvvRaBfJLeawsUcs4/view" target="_blank" class="btn-m">マニュアル</a>
+              <a href="#" class="btn-o">開く</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card hl-green" id="sec-monthly10">
+        <div class="tc-hdr">
+          <div class="tc-icon ic-green">📆</div>
+          <div class="tc-name">月次（10日）<span class="hl-tag" id="tag-monthly10" style="display:none;background:#10b981">● 今月対象</span></div>
+          <div class="tc-badge bg">毎月10日</div>
+        </div>
+        <div class="task-rows">
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">CCUS</div>
+              <div class="tr-desc" id="desc-ccus">就業履歴DL・指定様式へ転記・乖離確認 ／ 成果物：CCUS登録月次報告書</div>
+            </div>
+            <div class="tr-acts">
+              <a href="https://drive.google.com/file/d/1-JPxCxMPLwxDBQGX2q3w5XV8r_ihKcZ3/view" target="_blank" class="btn-m">マニュアル</a>
+              <a href="https://www.ccus.jp/" target="_blank" class="btn-o">開く</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card hl-purple" id="sec-monthly15">
+        <div class="tc-hdr">
+          <div class="tc-icon ic-purple">📆</div>
+          <div class="tc-name">月次（15日）<span class="hl-tag" id="tag-monthly15" style="display:none;background:#6366f1">● 今月対象</span></div>
+          <div class="tc-badge bp">毎月15日</div>
+        </div>
+        <div class="task-rows">
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">建退共</div>
+              <div class="tr-desc" id="desc-kentaikyo">下請業者書類確認・建退共集計表作成・ZIPでLINEWORKS送信</div>
+            </div>
+            <div class="tr-acts">
+              <a href="https://drive.google.com/file/d/1d17KErZ1IZMROtKOV9RTcRqBUyf3ZV0b/view" target="_blank" class="btn-m">マニュアル</a>
+              <a href="#" class="btn-o">開く</a>
+            </div>
+          </div>
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">クエスタ更新（月2回）</div>
+              <div class="tr-desc" id="desc-questa">労災・建設業許可・施工体系図・安全目標等の最新版更新</div>
+            </div>
+            <div class="tr-acts">
+              <a href="#" class="btn-m dis">準備中</a>
+              <a href="https://cloud-sign.com/login" target="_blank" class="btn-o">開く</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card hl-orange" id="sec-monthly20">
+        <div class="tc-hdr">
+          <div class="tc-icon ic-orange">📆</div>
+          <div class="tc-name">月次（20日）<span class="hl-tag" id="tag-monthly20" style="display:none;background:#f97316">● 今月対象</span></div>
+          <div class="tc-badge bo">毎月20日</div>
+        </div>
+        <div class="task-rows">
+          <div class="task-row">
+            <div class="tr-info">
+              <div class="tr-name">安全資料（資料送付）</div>
+              <div class="tr-desc" id="desc-safety-a">安全衛生委員会資料から抜粋・4時間分の訓練資料を現場担当者へ送付</div>
+            </div>
+            <div class="tr-acts">
+              <a href="https://drive.google.com/file/d/1t9RkoagQRLqitRUAvvRaBfJLeawsUcs4/view" target="_blank" class="btn-m">マニュアル</a>
+              <a href="#" class="btn-o">開く</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="other-card">
+      <div class="tc-hdr" style="margin-bottom:10px">
+        <div class="tc-icon ic-gray">🔧</div>
+        <div class="tc-name">その他</div>
+      </div>
+      <div class="task-rows">
+        <div class="task-row">
+          <div class="tr-info"><div class="tr-name">兵庫県電子施工管理システム（CALS/EC）</div></div>
+          <div class="tr-acts"><a href="https://www.cals.pref.hyogo.jp/hy/?region=hyogo" target="_blank" class="btn-o">開く</a></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- AIツールバー（全幅） -->
-  <div class="ai-bar">
-    <div class="ai-bar-label">
-      <span style="font-size:20px">🤖</span>
-      <div>
-        <div class="ai-bar-title">AI Tools</div>
-        <div class="ai-bar-catch">AIで業務を効率化</div>
+  <!-- 右：カレンダー＋AIツール -->
+  <div class="side-panel">
+    <div class="cal-section">
+      <div class="cal-hdr">
+        <div class="cal-month" id="cal-month"></div>
+        <div class="cal-nav">
+          <button class="cal-nb" onclick="changeMonth(-1)">‹</button>
+          <button class="cal-nb" onclick="changeMonth(1)">›</button>
+        </div>
+      </div>
+      <div class="cal-wds">
+        <div class="sun">日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div class="sat">土</div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-legend">
+        <div class="cl-item"><div class="cl-dot" style="background:var(--navy)"></div>今日</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;border:1px solid #fed7aa"></div>週次（月曜）</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;outline:1.5px solid var(--amber);outline-offset:1px"></div>伝票整理（隔週月曜）</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#e0f2fe"></div>KY格納・安全議事録〆（5日）</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#dcfce7"></div>CCUS〆（10日）</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#ede9fe"></div>建退共・クエスタ〆（15日）</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;border:1px solid #fb923c"></div>安全資料送付〆（20日）</div>
       </div>
     </div>
-    <div class="ai-bar-divider"></div>
-    <div class="ai-bar-tools">
-      <a href="https://chat.openai.com" target="_blank" class="ai-bar-item">
-        <div class="ai-bar-emoji">💬</div>
-        <div class="ai-bar-info"><div class="ai-bar-name">ChatGPT</div><div class="ai-bar-desc">文章作成・要約・壁打ち</div></div>
+
+    <div class="ai-section">
+      <div class="ai-section-lbl">🤖 AI Tools</div>
+      <a href="https://chat.openai.com" target="_blank" class="ai-item">
+        <div class="ai-emoji">💬</div>
+        <div><div class="ai-name">ChatGPT</div><div class="ai-desc">文章作成・要約・壁打ち</div></div>
+        <div class="ai-arrow">›</div>
       </a>
-      <a href="https://claude.ai" target="_blank" class="ai-bar-item">
-        <div class="ai-bar-emoji">🧠</div>
-        <div class="ai-bar-info"><div class="ai-bar-name">Claude</div><div class="ai-bar-desc">長文整理・PDF要約・コード生成</div></div>
+      <a href="https://claude.ai" target="_blank" class="ai-item">
+        <div class="ai-emoji">🧠</div>
+        <div><div class="ai-name">Claude</div><div class="ai-desc">PDF要約・長文整理・コード</div></div>
+        <div class="ai-arrow">›</div>
       </a>
-      <a href="https://gemini.google.com" target="_blank" class="ai-bar-item">
-        <div class="ai-bar-emoji">✨</div>
-        <div class="ai-bar-info"><div class="ai-bar-name">Gemini</div><div class="ai-bar-desc">Google連携・表整理・検索補助</div></div>
+      <a href="https://gemini.google.com" target="_blank" class="ai-item">
+        <div class="ai-emoji">✨</div>
+        <div><div class="ai-name">Gemini</div><div class="ai-desc">Google連携・表整理</div></div>
+        <div class="ai-arrow">›</div>
       </a>
-      <a href="https://notebooklm.google.com" target="_blank" class="ai-bar-item">
-        <div class="ai-bar-emoji">📓</div>
-        <div class="ai-bar-info"><div class="ai-bar-name">NotebookLM</div><div class="ai-bar-desc">資料要約・議事録・PDF解析</div></div>
+      <a href="https://notebooklm.google.com" target="_blank" class="ai-item">
+        <div class="ai-emoji">📓</div>
+        <div><div class="ai-name">NotebookLM</div><div class="ai-desc">資料要約・議事録</div></div>
+        <div class="ai-arrow">›</div>
       </a>
     </div>
   </div>
-
-  <div class="main-layout">
-    <!-- 左パネル -->
-    <div class="left-panel">
-      <div class="mgmt-tools-card">
-        <div class="mgmt-tools-title">📌 管理ツール</div>
-        <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=133379717#gid=133379717" target="_blank" class="mgmt-btn primary">
-          <div class="mgmt-btn-icon">📊</div>
-          <div><div class="mgmt-btn-label">進捗管理スプレッドシート</div><div class="mgmt-btn-sub">現場別進捗・作業時間の確認・更新</div></div>
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=714649930#gid=714649930" target="_blank" class="mgmt-btn secondary">
-          <div class="mgmt-btn-icon">🔑</div>
-          <div><div class="mgmt-btn-label">ID・PASS管理シート</div><div class="mgmt-btn-sub">各システムのログイン情報</div></div>
-        </a>
-      </div>
-
-      <div class="calendar-card">
-        <div class="calendar-header">
-          <div class="calendar-month" id="cal-month"></div>
-          <div class="calendar-nav">
-            <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
-            <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
-          </div>
-        </div>
-        <div class="calendar-weekdays">
-          <div class="weekday sun">日</div><div class="weekday">月</div><div class="weekday">火</div>
-          <div class="weekday">水</div><div class="weekday">木</div><div class="weekday">金</div><div class="weekday sat">土</div>
-        </div>
-        <div class="calendar-grid" id="cal-grid"></div>
-        <div class="cal-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div><span>今日</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(249,115,22,.3)"></div><span>週次業務（月曜）</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,.25)"></div><span>CCUS〆切（10日・翌営業日）</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(99,102,241,.25)"></div><span>安全資料・建退共〆切（15日・翌営業日）</span></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 中央パネル -->
-    <div class="right-panel">
-      <div class="category-section" id="sec-weekly">
-        <div class="category-header">
-          <div class="category-icon">📅</div>
-          <div><div class="category-name">週次業務<span class="highlight-tag" id="tag-weekly" style="display:none">● 今週対象</span></div></div>
-          <div class="category-badge">毎週月曜日</div>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">① 出面・点検簿</div><div class="task-desc">サイン漏れ確認・フォルダ格納 ／ 成果物：機械点検簿・KY日報</div></div>
-            <div class="task-actions">
-              <a href="https://drive.google.com/file/d/16FSYyqs4G5nZCRIykD3HEWWANZo99VY4/view?usp=drive_link" target="_blank" class="btn-manual">📄 マニュアル</a>
-              <a href="https://rakuraku-genba.jp/kayama-corp2/login.php" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-section" id="sec-biweekly">
-        <div class="category-header">
-          <div class="category-icon">🔄</div>
-          <div><div class="category-name">隔週業務</div></div>
-          <div class="category-badge">隔週月曜日</div>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">② 伝票整理</div><div class="task-desc">伝票スキャン・仕分け・データ入力 ／ 成果物：伝票集計表（Excel）</div></div>
-            <div class="task-actions">
-              <a href="#" class="btn-manual" style="opacity:.45;cursor:default;pointer-events:none">🕐 準備中</a>
-              <a href="#" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
-          </div>
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">③ 施工体系図</div><div class="task-desc">最新版差替・不備チェック ／ 成果物：最新の施工体系図</div></div>
-            <div class="task-actions">
-              <a href="#" class="btn-manual" style="opacity:.45;cursor:default;pointer-events:none">🕐 準備中</a>
-              <a href="https://cloud-sign.com/login" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-section" id="sec-monthly">
-        <div class="category-header">
-          <div class="category-icon">📆</div>
-          <div><div class="category-name">月次業務（毎月10日）<span class="highlight-tag" id="tag-monthly" style="display:none">● 今月対象</span></div></div>
-          <div class="category-badge">10日目安</div>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">④ CCUS</div><div class="task-desc" id="desc-ccus">登録状況確認・実績データ集計 ／ 成果物：CCUS集計表 ／ 〆切：毎月10日</div></div>
-            <div class="task-actions">
-              <a href="https://drive.google.com/file/d/1-JPxCxMPLwxDBQGX2q3w5XV8r_ihKcZ3/view?usp=drive_link" target="_blank" class="btn-manual">📄 マニュアル</a>
-              <a href="https://www.ccus.jp/" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-section" id="sec-monthly15">
-        <div class="category-header">
-          <div class="category-icon">📆</div>
-          <div><div class="category-name">月次業務（毎月15日）<span class="highlight-tag" id="tag-monthly15" style="display:none">● 今月対象</span></div></div>
-          <div class="category-badge">15日目安</div>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">⑤ 安全資料</div><div class="task-desc" id="desc-safety">教育資料作成補助 ／ 成果物：安全訓練・災防協資料 ／ 〆切：毎月15日</div></div>
-            <div class="task-actions">
-              <a href="https://drive.google.com/file/d/1t9RkoagQRLqitRUAvvRaBfJLeawsUcs4/view?usp=drive_link" target="_blank" class="btn-manual">📄 マニュアル</a>
-              <a href="#" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
-          </div>
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">⑥ 建退共</div><div class="task-desc" id="desc-kentaikyo">建退共集計表作成 ／ 成果物：建退共集計表 ／ 〆切：毎月15日</div></div>
-            <div class="task-actions">
-              <a href="https://drive.google.com/file/d/1d17KErZ1IZMROtKOV9RTcRqBUyf3ZV0b/view?usp=drive_link" target="_blank" class="btn-manual">📄 マニュアル</a>
-              <a href="#" target="_blank" class="btn-open">🔗 開く</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-section">
-        <div class="category-header">
-          <div class="category-icon">🔧</div>
-          <div><div class="category-name">その他</div></div>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">KD基本業務</div><div class="task-desc">KD基本業務管理・共有スプレッドシート</div></div>
-            <div class="task-actions"><a href="https://docs.google.com/spreadsheets/d/11gPOyKlLb1X403oJp9zlbCQkNZP-fQc0ZDfJdk8VeV8/edit?gid=1526777277#gid=1526777277" target="_blank" class="btn-open">🔗 開く</a></div>
-          </div>
-          <div class="task-item">
-            <div class="task-info"><div class="task-name">兵庫県電子施工管理システム</div><div class="task-desc">兵庫県電子施工管理システム・CALS/EC</div></div>
-            <div class="task-actions"><a href="https://www.cals.pref.hyogo.jp/hy/?region=hyogo" target="_blank" class="btn-open">🔗 開く</a></div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- 右パネル -->
-    <div class="memo-panel" style="display:flex;flex-direction:column">
-      <div class="memo-card" style="position:sticky;top:68px">
-        <div class="memo-card-header">
-          <div class="memo-card-title">💬 KDタイムライン</div>
-          <a href="https://docs.google.com/spreadsheets/d/1iJOGBvxDETho_frrSGPBghLjLheBO37icbhVGpIi2YM/edit?gid=1752497592#gid=1752497592" target="_blank" class="btn-post-memo">✏️ 投稿</a>
-        </div>
-        <div id="memo-list"><div class="memo-loading">読み込み中...</div></div>
-      </div>
-    </div>
-  </div>
+</div>
 
 <!-- 進捗モーダル -->
-<div id="progress-modal" style="display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center">
-  <div onclick="closeProgressModal()" style="position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px)"></div>
-  <div style="position:relative;background:var(--surface);border-radius:var(--radius-xl);width:min(860px,95vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.3)">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)">
-      <div style="font-size:15px;font-weight:700;color:var(--text)">📊 今月の進捗状況</div>
-      <button onclick="closeProgressModal()" style="width:32px;height:32px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--gray-dark);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+<div class="modal-overlay" id="modal">
+  <div class="modal-bg" onclick="closeModal()"></div>
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">📊 今月の進捗状況</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div style="display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 24px">
-      <button class="prog-tab active" onclick="switchTab(this,'weekly')" id="tab-weekly">📅 週次｜① 出面・点検簿</button>
-      <button class="prog-tab" onclick="switchTab(this,'biweekly')" id="tab-biweekly">🔄 隔週｜② 伝票整理・③ 施工体系図</button>
-      <button class="prog-tab" onclick="switchTab(this,'monthly10')" id="tab-monthly10">📆 月次（10日）｜④ CCUS</button>
-      <button class="prog-tab" onclick="switchTab(this,'monthly15')" id="tab-monthly15">📆 月次（15日）｜⑤ 安全資料・⑥ 建退共</button>
+    <div class="modal-tabs">
+      <button class="mtab active" onclick="switchTab(this,'weekly')">📅 週次｜KY日報</button>
+      <button class="mtab" onclick="switchTab(this,'biweekly')">🔄 隔週｜伝票整理</button>
+      <button class="mtab" onclick="switchTab(this,'monthly5')">📆 5日｜KY格納・安全議事録</button>
+      <button class="mtab" onclick="switchTab(this,'monthly10')">📆 10日｜CCUS</button>
+      <button class="mtab" onclick="switchTab(this,'monthly15')">📆 15日｜建退共・クエスタ</button>
+      <button class="mtab" onclick="switchTab(this,'monthly20')">📆 20日｜安全資料送付</button>
     </div>
-    <div style="overflow-y:auto;padding:20px 24px;flex:1">
-      <div id="prog-panel-weekly" class="prog-panel"><div class="progress-loading">読み込み中...</div></div>
-      <div id="prog-panel-biweekly" class="prog-panel" style="display:none"></div>
-      <div id="prog-panel-monthly10" class="prog-panel" style="display:none"></div>
-      <div id="prog-panel-monthly15" class="prog-panel" style="display:none"></div>
+    <div class="modal-body">
+      <div id="prog-panel-weekly" class="prog-panel active"><div id="prog-content-weekly"></div></div>
+      <div id="prog-panel-biweekly" class="prog-panel"><div id="prog-content-biweekly"></div></div>
+      <div id="prog-panel-monthly5" class="prog-panel"><div id="prog-content-monthly5"></div></div>
+      <div id="prog-panel-monthly10" class="prog-panel"><div id="prog-content-monthly10"></div></div>
+      <div id="prog-panel-monthly15" class="prog-panel"><div id="prog-content-monthly15"></div></div>
+      <div id="prog-panel-monthly20" class="prog-panel"><div id="prog-content-monthly20"></div></div>
+    </div>
+    <div class="modal-foot">
+      ※ 詳細は <a href="https://docs.google.com/spreadsheets/d/1oD8psIDW0FDnGl1BdgN5cS0L2bz_HpuAVl11rMmyZRU/edit?usp=sharing" target="_blank">進捗管理スプレッドシート</a> を参照
     </div>
   </div>
-</div>
 </div>
 
 <script>
-const PASSWORD = 'kayama-KD';
-const MEMO_API = 'https://script.google.com/macros/s/AKfycbybfFBNFA62rSv081GTO4nXMCEK4ZY764_ZR0dNU4i9276msjtnvelkgWmk-SqJNC6z/exec';
+const MEMO_API='https://script.google.com/macros/s/AKfycbybfFBNFA62rSv081GTO4nXMCEK4ZY764_ZR0dNU4i9276msjtnvelkgWmk-SqJNC6z/exec';
+const SITES=[
+  {name:'猪名川東園田',member:'中本 / 寺田'},
+  {name:'阪急JV',member:'菅沼 / 高島'},
+  {name:'R7六甲PR1L4（その１）',member:'髙橋 / 山根'},
+  {name:'甲山大橋（その３）',member:'担当未定'},
+  {name:'猪名川利倉',member:'担当未定'},
+  {name:'R8六甲PR1R4（その２）',member:'担当未定'},
+];
+const TASK_GROUPS={
+  weekly:    ['KY日報（週次チェック）'],
+  biweekly:  ['伝票整理'],
+  monthly5:  ['KY日報（月次格納）','安全資料（議事録作成）'],
+  monthly10: ['CCUS'],
+  monthly15: ['建退共','クエスタ更新'],
+  monthly20: ['安全資料（資料送付）'],
+};
 
-(function(){
-  if(localStorage.getItem('kdn-loggedin')==='1'){
-    document.getElementById('login').style.display='none';
-    showSplash();
+setTimeout(()=>{
+  document.getElementById('splash').classList.add('gone');
+  if(localStorage.getItem('kdn-dark')==='1'){
+    document.body.classList.add('dark');
+    document.getElementById('dark-btn').textContent='☀️';
   }
-})();
-
-function showSplash(){
-  const s=document.getElementById('splash');
-  s.classList.remove('hidden');
-  document.getElementById('app').style.display='block';
-  if(localStorage.getItem('kdn-dark')==='1') document.body.classList.add('dark');
-  setTimeout(()=>{
-    s.classList.add('hidden');
-    if(localStorage.getItem('kdn-dark')==='1') document.getElementById('dark-toggle').textContent='☀️';
-    initApp();
-  },3400);
-}
+  initApp();
+},2400);
 
 function toggleDark(){
   document.body.classList.toggle('dark');
   const d=document.body.classList.contains('dark');
-  document.getElementById('dark-toggle').textContent=d?'☀️':'🌙';
+  document.getElementById('dark-btn').textContent=d?'☀️':'🌙';
   localStorage.setItem('kdn-dark',d?'1':'0');
-}
-
-function doLogin(){
-  if(document.getElementById('password-input').value===PASSWORD){
-    localStorage.setItem('kdn-loggedin','1');
-    document.getElementById('login').style.display='none';
-    showSplash();
-  }else{
-    document.getElementById('login-error').style.display='block';
-    document.getElementById('password-input').value='';
-    document.getElementById('password-input').focus();
-  }
 }
 
 function getNextBizDay(y,m,d){
   const dow=new Date(y,m,d).getDay();
   return dow===6?d+2:dow===0?d+1:d;
+}
+
+function isBiweeklyMonday(date){
+  const base=new Date(2026,5,29);
+  const diff=Math.round((date-base)/(1000*60*60*24));
+  return diff>=0&&diff%14===0;
 }
 
 let curY,curM;
@@ -623,14 +580,14 @@ function initApp(){
   const now=new Date();
   curY=now.getFullYear(); curM=now.getMonth();
   const days=['日','月','火','水','木','金','土'];
-  document.getElementById('header-date').innerHTML=
-    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（<span>${days[now.getDay()]}曜日</span>）`;
+  document.getElementById('hdr-date').innerHTML=
+    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（<b>${days[now.getDay()]}曜日</b>）`;
   renderCalendar(curY,curM);
   renderTodayTasks(now);
   highlightSections(now);
   updateDeadlineDesc(now);
-  document.getElementById('site-count').textContent=document.querySelectorAll('.counter-site-tag').length;
-  loadMemos(); loadPatrols(); loadProgress();
+  buildProgressPanels();
+  loadPatrols();
 }
 
 function changeMonth(d){
@@ -644,19 +601,24 @@ function renderCalendar(y,m){
   const now=new Date();
   const mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   document.getElementById('cal-month').textContent=`${y}年 ${mn[m]}`;
-  const dl10=getNextBizDay(y,m,10), dl15=getNextBizDay(y,m,15);
-  const first=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
+  const dl5=getNextBizDay(y,m,5),dl10=getNextBizDay(y,m,10),dl15=getNextBizDay(y,m,15),dl20=getNextBizDay(y,m,20);
+  const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
   const g=document.getElementById('cal-grid'); g.innerHTML='';
-  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day';g.appendChild(e);}
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cd';g.appendChild(e);}
   for(let d=1;d<=days;d++){
     const e=document.createElement('div');
     const dow=new Date(y,m,d).getDay();
-    const cls=['cal-day'];
+    const cls=['cd'];
     if(dow===0)cls.push('sun');
     if(dow===6)cls.push('sat');
-    if(dow===1)cls.push('monday');
-    if(d===dl10){cls.push('deadline-10');e.setAttribute('data-tip',`CCUS〆切${dl10!==10?'（休日繰越）':''}`);}
-    if(d===dl15){cls.push('deadline-15');e.setAttribute('data-tip',`安全資料・建退共〆切${dl15!==15?'（休日繰越）':''}`);}
+    if(dow===1){
+      if(isBiweeklyMonday(new Date(y,m,d)))cls.push('bimon');
+      else cls.push('mon');
+    }
+    if(d===dl5){cls.push('dl5');e.setAttribute('data-tip','KY格納・安全議事録〆切');}
+    if(d===dl10){cls.push('dl10');e.setAttribute('data-tip','CCUS〆切');}
+    if(d===dl15){cls.push('dl15');e.setAttribute('data-tip','建退共・クエスタ〆切');}
+    if(d===dl20){cls.push('dl20');e.setAttribute('data-tip','安全資料送付〆切');}
     if(y===now.getFullYear()&&m===now.getMonth()&&d===now.getDate())cls.push('today');
     e.className=cls.join(' '); e.textContent=d; g.appendChild(e);
   }
@@ -664,141 +626,114 @@ function renderCalendar(y,m){
 
 function updateDeadlineDesc(now){
   const y=now.getFullYear(),m=now.getMonth();
-  const dl10=getNextBizDay(y,m,10), dl15=getNextBizDay(y,m,15);
-  const s10=dl10!==10?`（休日のため${dl10}日）`:'', s15=dl15!==15?`（休日のため${dl15}日）`:'';
-  document.getElementById('desc-ccus').textContent=`登録状況確認・実績データ集計 ／ 成果物：CCUS集計表 ／ 〆切：毎月10日${s10}`;
-  document.getElementById('desc-safety').textContent=`教育資料作成補助 ／ 成果物：安全訓練・災防協資料 ／ 〆切：毎月15日${s15}`;
-  document.getElementById('desc-kentaikyo').textContent=`建退共集計表作成 ／ 成果物：建退共集計表 ／ 〆切：毎月15日${s15}`;
+  const dl5=getNextBizDay(y,m,5),dl10=getNextBizDay(y,m,10),dl15=getNextBizDay(y,m,15),dl20=getNextBizDay(y,m,20);
+  const s5=dl5!==5?`（休日のため${dl5}日）`:'';
+  const s10=dl10!==10?`（休日のため${dl10}日）`:'';
+  const s15=dl15!==15?`（休日のため${dl15}日）`:'';
+  const s20=dl20!==20?`（休日のため${dl20}日）`:'';
+  document.getElementById('desc-ky-m').textContent=`前月分KY日報・安全衛生打合せ簿をDLし所定フォルダへ格納 ／ 〆切：毎月5日${s5}`;
+  document.getElementById('desc-safety-b').textContent=`安全訓練実施後の議事録をAIで作成・完成報告 ／ 〆切：毎月5日${s5}`;
+  document.getElementById('desc-ccus').textContent=`就業履歴DL・指定様式へ転記・乖離確認 ／ 成果物：CCUS登録月次報告書 ／ 〆切：毎月10日${s10}`;
+  document.getElementById('desc-kentaikyo').textContent=`下請業者書類確認・建退共集計表作成・ZIPでLINEWORKS送信 ／ 〆切：毎月15日${s15}`;
+  document.getElementById('desc-questa').textContent=`労災・建設業許可・施工体系図・安全目標等の最新版更新 ／ 〆切：毎月1日・15日${s15}`;
+  document.getElementById('desc-safety-a').textContent=`安全衛生委員会資料から抜粋・4時間分の訓練資料を現場担当者へ送付 ／ 〆切：毎月20日${s20}`;
 }
 
 function renderTodayTasks(now){
-  const dow=now.getDay(), d=now.getDate(), y=now.getFullYear(), m=now.getMonth();
-  const dl10=getNextBizDay(y,m,10), dl15=getNextBizDay(y,m,15);
+  const dow=now.getDay(),d=now.getDate(),y=now.getFullYear(),m=now.getMonth();
+  const dl5=getNextBizDay(y,m,5),dl10=getNextBizDay(y,m,10),dl15=getNextBizDay(y,m,15),dl20=getNextBizDay(y,m,20),dl1=getNextBizDay(y,m,1);
   const tasks=[];
-  if(dow===1) tasks.push({icon:'📅',name:'① 出面・点検簿（本日）',cls:''});
-  const r10=dl10-d;
-  if(r10>=0&&r10<=5){
-    if(r10===0) tasks.push({icon:'🔥',name:'④ CCUS 本日締切！',cls:'today-deadline'});
-    else if(r10<=3) tasks.push({icon:'🔴',name:`④ CCUS 締切まで残り${r10}日`,cls:'danger'});
-    else tasks.push({icon:'🟡',name:`④ CCUS 締切まで残り${r10}日`,cls:'warn'});
+  if(dow===1){
+    tasks.push({t:'KY日報 週次チェック（本日）',c:'p-now'});
+    if(isBiweeklyMonday(now))tasks.push({t:'伝票整理（本日）',c:'p-now'});
   }
-  const r15=dl15-d;
-  if(r15>=0&&r15<=5){
-    const c=r15===0?'today-deadline':r15<=3?'danger':'warn';
-    const i=r15===0?'🔥':r15<=3?'🔴':'🟡';
-    const s=r15===0?'本日締切！':`締切まで残り${r15}日`;
-    tasks.push({icon:i,name:`⑤ 安全資料 ${s}`,cls:c});
-    tasks.push({icon:i,name:`⑥ 建退共 ${s}`,cls:c});
+  function addDL(dl,name){
+    const r=dl-d;
+    if(r<0||r>5)return;
+    if(r===0)tasks.push({t:`${name} 本日締切！`,c:'p-fire'});
+    else if(r<=3)tasks.push({t:`${name} 締切まで残り${r}日`,c:'p-danger'});
+    else tasks.push({t:`${name} 締切まで残り${r}日`,c:'p-warn'});
   }
-  const c=document.getElementById('today-tasks');
+  addDL(dl1,'クエスタ更新（月初）');
+  addDL(dl5,'KY格納・安全議事録');
+  addDL(dl10,'CCUS');
+  addDL(dl15,'建退共・クエスタ更新');
+  addDL(dl20,'安全資料送付');
+  const c=document.getElementById('today-pills');
   c.innerHTML=tasks.length===0
-    ?'<div class="no-task-banner">本日対象の業務はありません ✅</div>'
-    :tasks.map(t=>`<div class="today-banner-task ${t.cls}"><span>${t.icon}</span>${t.name}</div>`).join('');
+    ?'<div class="pill p-ok">✅ 本日対象の業務はありません</div>'
+    :tasks.map(t=>`<div class="pill ${t.c}">${t.t}</div>`).join('');
 }
 
 function highlightSections(now){
-  const dow=now.getDay(), d=now.getDate(), y=now.getFullYear(), m=now.getMonth();
-  const dl10=getNextBizDay(y,m,10), dl15=getNextBizDay(y,m,15);
-  if(dow===1){document.getElementById('sec-weekly').classList.add('highlighted');document.getElementById('tag-weekly').style.display='inline-flex';}
-  if(d<=dl10){
-    document.getElementById('sec-monthly').classList.add('highlighted-green');
-    document.getElementById('tag-monthly').style.display='inline-flex';
+  const dow=now.getDay(),d=now.getDate(),y=now.getFullYear(),m=now.getMonth();
+  const dl5=getNextBizDay(y,m,5),dl10=getNextBizDay(y,m,10),dl15=getNextBizDay(y,m,15),dl20=getNextBizDay(y,m,20);
+  if(dow===1){
+    document.getElementById('tag-weekly').style.display='inline-flex';
+    if(isBiweeklyMonday(now))document.getElementById('tag-biweekly').style.display='inline-flex';
   }
-  if(d<=dl15){
-    document.getElementById('sec-monthly15').classList.add('highlighted-purple');
-    document.getElementById('tag-monthly15').style.display='inline-flex';
-  }
+  if(d<=dl5)document.getElementById('tag-monthly5').style.display='inline-flex';
+  if(d<=dl10)document.getElementById('tag-monthly10').style.display='inline-flex';
+  if(d<=dl15)document.getElementById('tag-monthly15').style.display='inline-flex';
+  if(d<=dl20)document.getElementById('tag-monthly20').style.display='inline-flex';
 }
 
-function loadMemos(){
-  const c=document.getElementById('memo-list');
-  fetch(MEMO_API).then(r=>r.json()).then(memos=>{
-    if(!memos||!memos.length){c.innerHTML='<div class="memo-empty">まだ投稿はありません。</div>';return;}
-    c.innerHTML='<div class="memo-list">'+memos.slice().reverse().slice(0,10).map(m=>`
-      <div class="memo-item">
-        <div class="memo-content">${m.content}</div>
-        <div class="memo-meta"><span>📅 ${m.date}</span>${m.author?`<span>👤 ${m.author}</span>`:''}${m.url?`<a href="${m.url}" target="_blank" class="memo-link">🔗 詳細</a>`:''}</div>
-      </div>`).join('')+'</div>';
-  }).catch(()=>{c.innerHTML='<div class="memo-empty">読み込めませんでした。</div>';});
+function buildProgressPanels(){
+  const sbMap={
+    '未着手':'<span class="sb sb-none">未着手</span>',
+    '対応中':'<span class="sb sb-doing">対応中</span>',
+    '確認待ち':'<span class="sb sb-wait">確認待ち</span>',
+    '完了':'<span class="sb sb-done">✓ 完了</span>',
+  };
+  Object.keys(TASK_GROUPS).forEach(key=>{
+    const tasks=TASK_GROUPS[key];
+    const thCols=tasks.map(t=>`<th>${t}</th>`).join('');
+    const rows=SITES.map(s=>{
+      const tds=tasks.map(()=>`<td>${sbMap['未着手']}</td>`).join('');
+      return `<tr><td><div class="prog-site">${s.name}</div><div class="prog-kd">担当：${s.member}</div></td>${tds}</tr>`;
+    }).join('');
+    document.getElementById('prog-content-'+key).innerHTML=`
+      <table class="prog-table">
+        <thead><tr><th>現場名 / 担当KD</th>${thCols}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <p style="margin-top:8px;font-size:9px;color:var(--text-m)">※ ステータスはスプレッドシートに入力されたものが反映されます</p>`;
+  });
+}
+
+function openModal(){
+  document.getElementById('modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal').style.display='none';
+  document.body.style.overflow='';
+}
+function switchTab(btn,panel){
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.prog-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('prog-panel-'+panel).classList.add('active');
 }
 
 function loadPatrols(){
   const c=document.getElementById('patrol-cards');
   fetch(MEMO_API+'?type=patrol').then(r=>r.json()).then(ps=>{
     if(!ps||!ps.length){c.innerHTML='<div class="patrol-empty">現在予定はありません</div>';return;}
-    c.innerHTML=ps.map(p=>`<div class="patrol-card"><div><div class="patrol-card-site">${p.site}</div><div class="patrol-card-date">📅 ${p.date}</div>${p.kd?`<div class="patrol-card-kd">担当：${p.kd}</div>`:''}</div></div>`).join('');
-  }).catch(()=>{c.innerHTML='<div class="patrol-empty">読み込めませんでした</div>';});
-}
-
-// 進捗データをキャッシュ
-let progressData = null;
-
-function openProgressModal(){
-  const modal = document.getElementById('progress-modal');
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  if(!progressData) loadProgress();
-}
-
-function closeProgressModal(){
-  document.getElementById('progress-modal').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function switchTab(btn, panel){
-  document.querySelectorAll('.prog-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.prog-panel').forEach(p=>p.style.display='none');
-  btn.classList.add('active');
-  document.getElementById('prog-panel-'+panel).style.display='block';
-}
-
-function buildTable(items, cols){
-  if(!items||!items.length) return '<div class="memo-empty">データがありません</div>';
-  const sc=s=>s==='完了'?'status-完了':s==='対応中'?'status-対応中':s==='対象外'?'status-対象外':'status-未着手';
-  const si=s=>s==='完了'?'✅':s==='対応中'?'🟡':s==='対象外'?'➖':'🔴';
-  const headers = cols.map(c=>`<th>${c.label}</th>`).join('');
-  const rows = items.map(p=>{
-    const site = p.site.replace(/【.*?】/g,'').replace(/\s+/g,' ').trim();
-    const tds = cols.map(c=>{
-      if(c.key==='site') return `<td><div class="prog-site-name">${site}</div><div class="prog-site-kd">担当：${p.kd}</div></td>`;
-      if(c.key==='status') return `<td><span class="progress-status ${sc(p.status)}">${si(p.status)} ${p.status||'未着手'}</span></td>`;
-      return `<td>${p[c.key]||'-'}</td>`;
-    }).join('');
-    return `<tr>${tds}</tr>`;
-  }).join('');
-  return `<table class="prog-table"><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+    c.innerHTML=ps.map(p=>`
+      <div class="patrol-card">
+        <div class="pc-site">${p.site}</div>
+        <div class="pc-date">📅 ${p.date}</div>
+        ${p.kd?`<span class="pc-kd">担当：${p.kd}</span>`:''}
+      </div>`).join('');
+  }).catch(()=>{c.innerHTML='<div class="patrol-empty">現在予定はありません</div>';});
 }
 
 function reloadApp(){
-  progressData = null;
-  loadMemos();
   loadPatrols();
-  loadProgress();
-  const btn = document.getElementById('reload-btn');
-  btn.style.transform = 'rotate(360deg)';
-  btn.style.transition = 'transform 0.6s ease';
-  setTimeout(()=>{ btn.style.transform = ''; btn.style.transition = ''; }, 700);
-}
-
-function loadProgress(){
-  fetch(MEMO_API+'?type=progress').then(r=>r.json()).then(data=>{
-    if(data.error){
-      ['weekly','biweekly','monthly10','monthly15'].forEach(k=>{
-        document.getElementById('prog-panel-'+k).innerHTML='<div class="memo-empty">読み込めませんでした</div>';
-      });
-      return;
-    }
-    progressData = data;
-    const cols = [{key:'site',label:'現場名 / 担当KD'},{key:'status',label:'進捗'}];
-    document.getElementById('prog-panel-weekly').innerHTML = buildTable(data.weekly, cols);
-    document.getElementById('prog-panel-biweekly').innerHTML = buildTable(data.biweekly, cols);
-    document.getElementById('prog-panel-monthly10').innerHTML = buildTable(data.monthly10, cols);
-    document.getElementById('prog-panel-monthly15').innerHTML = buildTable(data.monthly15, cols);
-  }).catch(()=>{
-    ['weekly','biweekly','monthly10','monthly15'].forEach(k=>{
-      document.getElementById('prog-panel-'+k).innerHTML='<div class="memo-empty">読み込めませんでした</div>';
-    });
-  });
+  const btn=document.getElementById('reload-btn');
+  btn.style.transform='rotate(360deg)';btn.style.transition='transform 0.6s ease';
+  setTimeout(()=>{btn.style.transform='';btn.style.transition='';},700);
 }
 </script>
 </body>
