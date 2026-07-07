@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kayama Director Hub</title>
+<title>KAYAHUB</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -177,35 +177,7 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .btn-o:hover{background:var(--amber-d)}
 .other-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px}
 
-/* 進捗モーダル */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center}
-.modal-bg{position:absolute;inset:0;background:rgba(0,0,0,.5)}
-.modal-box{position:relative;background:var(--surface);border-radius:var(--r-xl);width:min(900px,95vw);max-height:82vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:.5px solid var(--border)}
-.modal-title{font-size:13px;font-weight:700;color:var(--text)}
-.modal-close{width:28px;height:28px;border-radius:var(--r);border:.5px solid var(--border);background:transparent;color:var(--text-s);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.modal-tabs{display:flex;border-bottom:.5px solid var(--border);padding:0 20px;overflow-x:auto}
-.mtab{padding:8px 12px;border:none;background:transparent;font-size:10px;font-weight:600;color:var(--text-m);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}
-.mtab:hover{color:var(--text)}
-.mtab.active{color:var(--navy);border-bottom-color:var(--amber)}
-body.dark .mtab.active{color:var(--amber)}
-.modal-body{overflow-y:auto;padding:16px 20px;flex:1}
-.modal-foot{padding:9px 20px;border-top:.5px solid var(--border);font-size:10px;color:var(--text-m);text-align:right}
-.modal-foot a{color:var(--amber);font-weight:600;text-decoration:none}
-.prog-table{width:100%;border-collapse:collapse;font-size:11px}
-.prog-table th{padding:6px 9px;text-align:left;font-size:9px;font-weight:700;color:var(--text-m);letter-spacing:.05em;text-transform:uppercase;border-bottom:1.5px solid var(--border)}
-.prog-table td{padding:8px 9px;border-bottom:.5px solid var(--border);vertical-align:middle}
-.prog-table tr:last-child td{border-bottom:none}
-.prog-table tr:hover td{background:var(--bg)}
-.prog-site{font-weight:600;color:var(--text);font-size:11px}
-.prog-kd{font-size:9px;color:var(--text-m);margin-top:1px}
-.sb{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700}
-.sb-none{background:#f1f5f9;color:#64748b}
-.sb-doing{background:#dbeafe;color:#1d4ed8}
-.sb-wait{background:#fef9c3;color:#854d0e}
-.sb-done{background:#dcfce7;color:#166534}
-.prog-panel{display:none}
-.prog-panel.active{display:block}
+
 
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -217,7 +189,7 @@ body.dark .mtab.active{color:var(--amber)}
 <div id="splash">
   <div class="splash-inner">
     <div class="splash-mark">K</div>
-    <div class="splash-title">Kayama Director Hub</div>
+    <div class="splash-title">KAYAHUB</div>
     <div class="splash-sub">建設ディレクター業務ハブ</div>
   </div>
 </div>
@@ -225,7 +197,7 @@ body.dark .mtab.active{color:var(--amber)}
 <header>
   <div class="logo">
     <div class="logo-mark">K</div>
-    <div class="logo-name">Kayama <span>Director</span> Hub</div>
+    <div class="logo-name">KAYA<span>HUB</span></div>
     <div class="logo-sep"></div>
     <div class="logo-sub">建設ディレクター業務ハブ</div>
   </div>
@@ -240,10 +212,10 @@ body.dark .mtab.active{color:var(--amber)}
   <div class="notice-lbl">📢 お知らせ</div>
   <div class="notice-wrap">
     <div class="notice-ticker">
-      <div class="notice-item"><span class="ndot"></span>Kayama Director Hub を公開しました。</div>
+      <div class="notice-item"><span class="ndot"></span>KAYAHUB を公開しました。</div>
       <div class="notice-item"><span class="ndot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
       <div class="notice-item"><span class="ndot"></span>進捗管理スプレッドシートを毎週月曜に更新してください。</div>
-      <div class="notice-item"><span class="ndot"></span>Kayama Director Hub を公開しました。</div>
+      <div class="notice-item"><span class="ndot"></span>KAYAHUB を公開しました。</div>
       <div class="notice-item"><span class="ndot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
       <div class="notice-item"><span class="ndot"></span>進捗管理スプレッドシートを毎週月曜に更新してください。</div>
     </div>
@@ -498,35 +470,7 @@ body.dark .mtab.active{color:var(--amber)}
   </div>
 </div>
 
-<!-- 進捗モーダル -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-bg" onclick="closeModal()"></div>
-  <div class="modal-box">
-    <div class="modal-hdr">
-      <div class="modal-title">📊 今月の進捗状況</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-tabs">
-      <button class="mtab active" onclick="switchTab(this,'weekly')">📅 週次｜KY日報</button>
-      <button class="mtab" onclick="switchTab(this,'biweekly')">🔄 隔週｜伝票整理</button>
-      <button class="mtab" onclick="switchTab(this,'monthly5')">📆 5日｜KY格納・安全議事録</button>
-      <button class="mtab" onclick="switchTab(this,'monthly10')">📆 10日｜CCUS</button>
-      <button class="mtab" onclick="switchTab(this,'monthly15')">📆 15日｜建退共・クエスタ</button>
-      <button class="mtab" onclick="switchTab(this,'monthly20')">📆 20日｜安全資料送付</button>
-    </div>
-    <div class="modal-body">
-      <div id="prog-panel-weekly" class="prog-panel active"><div id="prog-content-weekly"></div></div>
-      <div id="prog-panel-biweekly" class="prog-panel"><div id="prog-content-biweekly"></div></div>
-      <div id="prog-panel-monthly5" class="prog-panel"><div id="prog-content-monthly5"></div></div>
-      <div id="prog-panel-monthly10" class="prog-panel"><div id="prog-content-monthly10"></div></div>
-      <div id="prog-panel-monthly15" class="prog-panel"><div id="prog-content-monthly15"></div></div>
-      <div id="prog-panel-monthly20" class="prog-panel"><div id="prog-content-monthly20"></div></div>
-    </div>
-    <div class="modal-foot">
-      ※ 詳細は <a href="https://docs.google.com/spreadsheets/d/1oD8psIDW0FDnGl1BdgN5cS0L2bz_HpuAVl11rMmyZRU/edit?usp=sharing" target="_blank">進捗管理スプレッドシート</a> を参照
-    </div>
-  </div>
-</div>
+
 
 <script>
 const MEMO_API='https://script.google.com/macros/s/AKfycbybfFBNFA62rSv081GTO4nXMCEK4ZY764_ZR0dNU4i9276msjtnvelkgWmk-SqJNC6z/exec';
@@ -538,14 +482,7 @@ const SITES=[
   {name:'猪名川利倉',member:'担当未定'},
   {name:'R8六甲PR1R4（その２）',member:'担当未定'},
 ];
-const TASK_GROUPS={
-  weekly:    ['KY日報（週次チェック）'],
-  biweekly:  ['伝票整理'],
-  monthly5:  ['KY日報（月次格納）','安全資料（議事録作成）'],
-  monthly10: ['CCUS'],
-  monthly15: ['建退共','クエスタ更新'],
-  monthly20: ['安全資料（資料送付）'],
-};
+
 
 setTimeout(()=>{
   document.getElementById('splash').classList.add('gone');
@@ -586,7 +523,7 @@ function initApp(){
   renderTodayTasks(now);
   highlightSections(now);
   updateDeadlineDesc(now);
-  buildProgressPanels();
+
   loadPatrols();
 }
 
@@ -678,43 +615,7 @@ function highlightSections(now){
   if(d<=dl20)document.getElementById('tag-monthly20').style.display='inline-flex';
 }
 
-function buildProgressPanels(){
-  const sbMap={
-    '未着手':'<span class="sb sb-none">未着手</span>',
-    '対応中':'<span class="sb sb-doing">対応中</span>',
-    '確認待ち':'<span class="sb sb-wait">確認待ち</span>',
-    '完了':'<span class="sb sb-done">✓ 完了</span>',
-  };
-  Object.keys(TASK_GROUPS).forEach(key=>{
-    const tasks=TASK_GROUPS[key];
-    const thCols=tasks.map(t=>`<th>${t}</th>`).join('');
-    const rows=SITES.map(s=>{
-      const tds=tasks.map(()=>`<td>${sbMap['未着手']}</td>`).join('');
-      return `<tr><td><div class="prog-site">${s.name}</div><div class="prog-kd">担当：${s.member}</div></td>${tds}</tr>`;
-    }).join('');
-    document.getElementById('prog-content-'+key).innerHTML=`
-      <table class="prog-table">
-        <thead><tr><th>現場名 / 担当KD</th>${thCols}</tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-      <p style="margin-top:8px;font-size:9px;color:var(--text-m)">※ ステータスはスプレッドシートに入力されたものが反映されます</p>`;
-  });
-}
 
-function openModal(){
-  document.getElementById('modal').style.display='flex';
-  document.body.style.overflow='hidden';
-}
-function closeModal(){
-  document.getElementById('modal').style.display='none';
-  document.body.style.overflow='';
-}
-function switchTab(btn,panel){
-  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.prog-panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('prog-panel-'+panel).classList.add('active');
-}
 
 function loadPatrols(){
   const c=document.getElementById('patrol-cards');
