@@ -315,43 +315,6 @@ body.dark .qbox-item-author{color:var(--amber)}
   </a>
 </div>
 
-<!-- 質問Box -->
-<div class="qbox-card">
-  <div class="qbox-header" onclick="toggleQbox()">
-    <div class="qbox-header-left">
-      <div class="qbox-header-icon">💬</div>
-      <div>
-        <div class="qbox-header-title">質問Box</div>
-        <div class="qbox-header-sub">メンバーからの質問・回答（最新3件表示）</div>
-      </div>
-    </div>
-    <div class="qbox-header-arrow" id="qbox-arrow">›</div>
-  </div>
-  <div class="qbox-body" id="qbox-body">
-    <div class="qbox-form">
-      <select class="qbox-select" id="qbox-author">
-        <option value="">投稿者を選択してください</option>
-        <option>中本</option>
-        <option>寺田</option>
-        <option>菅沼</option>
-        <option>高島</option>
-        <option>髙橋</option>
-        <option>山根</option>
-        <option>橋本</option>
-        <option>荒木</option>
-        <option>李</option>
-        <option>福永</option>
-      </select>
-      <textarea class="qbox-textarea" id="qbox-text" placeholder="質問内容を入力してください..."></textarea>
-      <div class="qbox-msg" id="qbox-msg"></div>
-      <button class="qbox-submit" id="qbox-submit" onclick="submitQuestion()">📨 送信する</button>
-    </div>
-    <div class="qbox-list" id="qbox-list">
-      <div class="qbox-empty">読み込み中...</div>
-    </div>
-  </div>
-</div>
-
 <!-- 安全パトロール（1行・ネイビー背景） -->
 <div class="patrol-bar">
   <div class="patrol-lbl">🦺 安全パトロール予定</div>
@@ -885,5 +848,44 @@ function showQboxMsg(text, type) {
 }
 
 </script>
+<!-- 質問Box（画面下部） -->
+<div style="padding:0 24px 24px">
+<div class="qbox-card">
+  <div class="qbox-header" onclick="toggleQbox()">
+    <div class="qbox-header-left">
+      <div class="qbox-header-icon">💬</div>
+      <div>
+        <div class="qbox-header-title">質問Box</div>
+        <div class="qbox-header-sub">メンバーからの質問・回答（最新3件表示）</div>
+      </div>
+    </div>
+    <div class="qbox-header-arrow" id="qbox-arrow">›</div>
+  </div>
+  <div class="qbox-body" id="qbox-body">
+    <div class="qbox-form">
+      <select class="qbox-select" id="qbox-author">
+        <option value="">投稿者を選択してください</option>
+        <option>中本</option>
+        <option>寺田</option>
+        <option>菅沼</option>
+        <option>高島</option>
+        <option>髙橋</option>
+        <option>山根</option>
+        <option>橋本</option>
+        <option>荒木</option>
+        <option>李</option>
+        <option>福永</option>
+      </select>
+      <textarea class="qbox-textarea" id="qbox-text" placeholder="質問内容を入力してください..."></textarea>
+      <div class="qbox-msg" id="qbox-msg"></div>
+      <button class="qbox-submit" id="qbox-submit" onclick="submitQuestion()">📨 送信する</button>
+    </div>
+    <div class="qbox-list" id="qbox-list">
+      <div class="qbox-empty">読み込み中...</div>
+    </div>
+  </div>
+</div>
+</div>
+
 </body>
 </html>
