@@ -248,6 +248,16 @@ body.dark .qbox-item-author{color:var(--amber)}
 .qbox-msg{font-size:11px;padding:6px 10px;border-radius:var(--r);margin-top:4px;display:none}
 .qbox-msg.success{background:rgba(16,185,129,.1);color:#059669;display:block}
 .qbox-msg.error{background:rgba(239,68,68,.1);color:#dc2626;display:block}
+.qbox-answer-form{margin-top:10px;padding:10px 12px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);display:none;flex-direction:column;gap:8px}
+.qbox-answer-form.open{display:flex}
+.qbox-answer-btn{padding:5px 12px;background:transparent;border:1px solid var(--border);border-radius:var(--r);font-size:10px;font-weight:600;color:var(--text-m);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;align-self:flex-start;margin-top:4px}
+.qbox-answer-btn:hover{border-color:#10b981;color:#10b981}
+.qbox-answer-submit{padding:7px 14px;background:#10b981;color:#fff;border:none;border-radius:var(--r);font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:all .15s;align-self:flex-end}
+.qbox-answer-submit:hover{background:#059669;transform:translateY(-1px)}
+.qbox-answer-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.qbox-answer-msg{font-size:10px;padding:4px 8px;border-radius:6px;display:none}
+.qbox-answer-msg.success{background:rgba(16,185,129,.1);color:#059669;display:block}
+.qbox-answer-msg.error{background:rgba(239,68,68,.1);color:#dc2626;display:block}
 </style>
 </head>
 <body>
@@ -776,6 +786,7 @@ function reloadApp(){
 
 // ── 質問Box ───────────────────────────────────────────────────
 const QBOX_API = 'https://script.google.com/macros/s/AKfycbzvzc5cJ4v7mgT8WLDpPeWJpQK1eJsQEwFueExUsHLpN-rlXR6JPPTwipn90NJsg3VE/exec';
+const MEMBERS = ['中本','寺田','菅沼','高島','髙橋','山根','橋本','荒木','李','福永'];
 
 function toggleQbox() {
   const body  = document.getElementById('qbox-body');
@@ -795,8 +806,9 @@ function loadQuestions() {
         list.innerHTML = '<div class="qbox-empty">まだ質問はありません。気軽に投稿してください！</div>';
         return;
       }
-      list.innerHTML = data.slice(0, 3).map(q => `
-        <div class="qbox-item ${q.answer ? 'answered' : ''}">
+      const memberOpts = MEMBERS.map(m => `<option>${m}</option>`).join('');
+      list.innerHTML = data.slice(0, 10).map((q, i) => `
+        <div class="qbox-item ${q.answer ? 'answered' : ''}" id="qitem-${i}">
           <div class="qbox-item-meta">
             <span class="qbox-item-author">👤 ${q.author || '匿名'}</span>
             <span class="qbox-item-date">📅 ${q.date}</span>
@@ -804,13 +816,65 @@ function loadQuestions() {
           <div class="qbox-item-q">${q.question}</div>
           ${q.answer
             ? `<div class="qbox-item-a">${q.answer}${q.answerer ? ` <span style="font-size:10px;color:#64748b">（${q.answerer}）</span>` : ''}</div>`
-            : `<div class="qbox-waiting">⏳ 回答待ちです...</div>`
+            : `<div class="qbox-waiting">⏳ 回答待ちです...</div>
+               <button class="qbox-answer-btn" onclick="toggleAnswerForm(${i})">✏️ 回答する</button>
+               <div class="qbox-answer-form" id="aform-${i}">
+                 <select class="qbox-select" id="a-author-${i}">
+                   <option value="">回答者を選択</option>
+                   ${memberOpts}
+                 </select>
+                 <textarea class="qbox-textarea" id="a-text-${i}" placeholder="回答を入力してください..." style="min-height:56px"></textarea>
+                 <div class="qbox-answer-msg" id="a-msg-${i}"></div>
+                 <button class="qbox-answer-submit" id="a-btn-${i}" onclick="submitAnswer(${i}, '${q.date}', '${q.author}', ${JSON.stringify(q.question)})">💬 回答を送信</button>
+               </div>`
           }
         </div>`).join('');
     })
     .catch(() => {
       list.innerHTML = '<div class="qbox-empty">読み込めませんでした。</div>';
     });
+}
+
+function toggleAnswerForm(i) {
+  const form = document.getElementById('aform-' + i);
+  form.classList.toggle('open');
+}
+
+function submitAnswer(i, date, qAuthor, question) {
+  const answerer = document.getElementById('a-author-' + i).value.trim();
+  const answer   = document.getElementById('a-text-' + i).value.trim();
+  const msg      = document.getElementById('a-msg-' + i);
+  const btn      = document.getElementById('a-btn-' + i);
+
+  if (!answerer) { showAnswerMsg(i, '回答者を選択してください。', 'error'); return; }
+  if (!answer)   { showAnswerMsg(i, '回答内容を入力してください。', 'error'); return; }
+
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+
+  const url = QBOX_API + '?type=postAnswer'
+    + '&date=' + encodeURIComponent(date)
+    + '&answerer=' + encodeURIComponent(answerer)
+    + '&answer=' + encodeURIComponent(answer);
+
+  fetch(url, { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        showAnswerMsg(i, '✅ 回答を送信しました！', 'success');
+        setTimeout(() => loadQuestions(), 1500);
+      } else {
+        showAnswerMsg(i, 'エラーが発生しました。', 'error');
+      }
+    })
+    .catch(() => { showAnswerMsg(i, '送信に失敗しました。', 'error'); })
+    .finally(() => { btn.disabled = false; btn.textContent = '💬 回答を送信'; });
+}
+
+function showAnswerMsg(i, text, type) {
+  const msg = document.getElementById('a-msg-' + i);
+  msg.textContent = text;
+  msg.className = 'qbox-answer-msg ' + type;
 }
 
 function submitQuestion() {
