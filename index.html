@@ -782,7 +782,7 @@ function reloadApp(){
 
 // ── 質問Box ───────────────────────────────────────────────────
 const QBOX_API = 'https://script.google.com/macros/s/AKfycbzvzc5cJ4v7mgT8WLDpPeWJpQK1eJsQEwFueExUsHLpN-rlXR6JPPTwipn90NJsg3VE/exec';
-const MEMBERS = ['中本','寺田','菅沼','高島','髙橋','山根','橋本','荒木','李','福永'];
+const MEMBERS = ['蒲原','中本','寺田','菅沼','高島','髙橋','山根','橋本','荒木','李','福永'];
 
 function toggleQbox() {
   const body  = document.getElementById('qbox-body');
@@ -925,6 +925,7 @@ function showQboxMsg(text, type) {
     <div class="qbox-form">
       <select class="qbox-select" id="qbox-author">
         <option value="">投稿者を選択してください</option>
+        <option>蒲原</option>
         <option>中本</option>
         <option>寺田</option>
         <option>菅沼</option>
