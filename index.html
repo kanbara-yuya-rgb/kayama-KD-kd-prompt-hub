@@ -367,7 +367,7 @@ body.dark .qbox-item-author{color:var(--amber)}
         <button class="prog-refresh" onclick="loadProgressTable()">🔄 更新</button>
       </div>
       <div class="prog-wrap">
-        <div id="prog-table-wrap" class="prog-loading">読み込み中...</div>
+        <div id="prog-table-wrap" class="prog-loading">🔄 上のボタンを押すと進捗を読み込みます</div>
       </div>
     </div>
 
@@ -664,7 +664,6 @@ function initApp(){
   updateDeadlineDesc(now);
   buildProgressPanels();
   loadPatrols();
-  loadProgressTable();
 }
 
 function changeMonth(d){
