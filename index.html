@@ -826,23 +826,19 @@ function loadProgressTable() {
       }
 
       const TASKS_SHORT = [
-        'KY日報
-（週次）', 'KY日報
-（月次）', 'CCUS',
-        '安全資料
-（送付）', '安全資料
-（議事録）',
+        'KY日報（週次）', 'KY日報（月次）', 'CCUS',
+        '安全資料（送付）', '安全資料（議事録）',
         '建退共', 'クエスタ', '伝票整理'
       ];
 
       const badge = s => {
-        if (s === '完了')   return `<span class="ps-done">✅</span>`;
-        if (s === '対応中') return `<span class="ps-doing">🟡</span>`;
-        if (s === '確認待ち') return `<span class="ps-wait">⏳</span>`;
-        return `<span class="ps-none">−</span>`;
+        if (s === '完了')   return '<span class="ps-done">✅</span>';
+        if (s === '対応中') return '<span class="ps-doing">🟡</span>';
+        if (s === '確認待ち') return '<span class="ps-wait">⏳</span>';
+        return '<span class="ps-none">−</span>';
       };
 
-      const headers = TASKS_SHORT.map(t => `<th>${t.replace('\n','<br>')}</th>`).join('');
+      const headers = TASKS_SHORT.map(t => '<th>' + t + '</th>').join('');
       const rows = sites.map(site => {
         const tds = TASKS_SHORT.map((_, i) => {
           const t = site.tasks[i];
