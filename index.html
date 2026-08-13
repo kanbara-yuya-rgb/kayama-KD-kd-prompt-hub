@@ -176,6 +176,27 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .btn-o{padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;background:var(--amber);color:#fff;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-o:hover{background:var(--amber-d)}
 .other-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px}
+/* 進捗一覧表 */
+.prog-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px;margin-bottom:12px}
+.prog-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.prog-card-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text)}
+.prog-refresh{padding:5px 10px;background:transparent;border:1px solid var(--border);border-radius:var(--r);font-size:10px;font-weight:600;color:var(--text-m);cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;transition:all .15s}
+.prog-refresh:hover{border-color:var(--amber);color:var(--amber)}
+.prog-wrap{overflow-x:auto}
+.prog-tbl{width:100%;border-collapse:collapse;font-size:11px;min-width:600px}
+.prog-tbl th{padding:6px 8px;background:var(--navy);color:#fff;font-size:9px;font-weight:700;text-align:center;white-space:nowrap;border:1px solid rgba(255,255,255,.1)}
+.prog-tbl th:first-child{text-align:left;min-width:120px}
+.prog-tbl td{padding:6px 8px;border:1px solid var(--border);text-align:center;vertical-align:middle;white-space:nowrap}
+.prog-tbl td:first-child{text-align:left;font-weight:600;color:var(--text);font-size:11px}
+.prog-tbl td:nth-child(2){font-size:10px;color:var(--text-m)}
+.prog-tbl tr:hover td{background:var(--bg)}
+.ps-done{background:#dcfce7;color:#166534;font-weight:700;border-radius:4px;padding:2px 6px;font-size:10px;cursor:default}
+.ps-doing{background:#dbeafe;color:#1d4ed8;font-weight:700;border-radius:4px;padding:2px 6px;font-size:10px;cursor:default}
+.ps-wait{background:#fef9c3;color:#854d0e;font-weight:700;border-radius:4px;padding:2px 6px;font-size:10px;cursor:default}
+.ps-none{background:#e8e8e8;color:#666;font-weight:700;border-radius:4px;padding:2px 6px;font-size:10px;cursor:default}
+.prog-loading{font-size:12px;color:var(--text-m);text-align:center;padding:16px;font-style:italic}
+.prog-tbl td[data-tip]{position:relative;cursor:help}
+.prog-tbl td[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:10px;padding:4px 8px;border-radius:6px;white-space:nowrap;z-index:10;pointer-events:none;max-width:200px;white-space:normal;text-align:left}
 
 /* 進捗モーダル */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center}
@@ -339,6 +360,17 @@ body.dark .qbox-item-author{color:var(--amber)}
 
   <!-- 左：業務カード -->
   <div class="tasks-area">
+    <!-- 進捗一覧表 -->
+    <div class="prog-card">
+      <div class="prog-card-hdr">
+        <div class="prog-card-title">📊 今月の業務進捗一覧</div>
+        <button class="prog-refresh" onclick="loadProgressTable()">🔄 更新</button>
+      </div>
+      <div class="prog-wrap">
+        <div id="prog-table-wrap" class="prog-loading">読み込み中...</div>
+      </div>
+    </div>
+
     <div class="tasks-grid">
       <div class="task-card hl-amber" id="sec-weekly">
         <div class="tc-hdr">
@@ -632,6 +664,7 @@ function initApp(){
   updateDeadlineDesc(now);
   buildProgressPanels();
   loadPatrols();
+  loadProgressTable();
 }
 
 function changeMonth(d){
@@ -778,6 +811,68 @@ function reloadApp(){
   const btn=document.getElementById('reload-btn');
   btn.style.transform='rotate(360deg)';btn.style.transition='transform 0.6s ease';
   setTimeout(()=>{btn.style.transform='';btn.style.transition='';},700);
+}
+
+// ── 進捗一覧表 ──────────────────────────────────────────────────
+function loadProgressTable() {
+  const wrap = document.getElementById('prog-table-wrap');
+  wrap.innerHTML = '<div class="prog-loading">読み込み中...</div>';
+
+  fetch(QBOX_API + '?type=getProgress')
+    .then(r => r.json())
+    .then(sites => {
+      if (!sites || !sites.length) {
+        wrap.innerHTML = '<div class="prog-loading">データがありません</div>';
+        return;
+      }
+
+      const TASKS_SHORT = [
+        'KY日報
+（週次）', 'KY日報
+（月次）', 'CCUS',
+        '安全資料
+（送付）', '安全資料
+（議事録）',
+        '建退共', 'クエスタ', '伝票整理'
+      ];
+
+      const badge = s => {
+        if (s === '完了')   return `<span class="ps-done">✅</span>`;
+        if (s === '対応中') return `<span class="ps-doing">🟡</span>`;
+        if (s === '確認待ち') return `<span class="ps-wait">⏳</span>`;
+        return `<span class="ps-none">−</span>`;
+      };
+
+      const headers = TASKS_SHORT.map(t => `<th>${t.replace('\n','<br>')}</th>`).join('');
+      const rows = sites.map(site => {
+        const tds = TASKS_SHORT.map((_, i) => {
+          const t = site.tasks[i];
+          if (!t) return '<td>−</td>';
+          const tip = t.memo ? ` data-tip="${t.memo.replace(/"/g,'&quot;')}"` : '';
+          return `<td${tip}>${badge(t.status)}</td>`;
+        }).join('');
+        return `<tr>
+          <td>${site.name}</td>
+          <td>${site.members}</td>
+          ${tds}
+        </tr>`;
+      }).join('');
+
+      wrap.innerHTML = `
+        <table class="prog-tbl">
+          <thead>
+            <tr>
+              <th>現場名</th>
+              <th>担当KD</th>
+              ${headers}
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+    })
+    .catch(() => {
+      wrap.innerHTML = '<div class="prog-loading">読み込めませんでした</div>';
+    });
 }
 
 // ── 質問Box ───────────────────────────────────────────────────
