@@ -34,8 +34,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 /* ヘッダー */
 header{background:var(--surface);border-bottom:.5px solid var(--border);padding:0 24px;height:50px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
 .logo{display:flex;align-items:center;gap:9px}
-.logo-mark{width:28px;height:28px;background:var(--amber);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
-.logo-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.logo-mark{width:34px;height:34px;background:var(--amber);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(249,115,22,.35)}
+.logo-name{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.03em}
 .logo-name span{color:var(--amber)}
 .logo-sep{width:1px;height:14px;background:var(--border);margin:0 2px}
 .logo-sub{font-size:10px;color:var(--text-m)}
@@ -119,10 +119,10 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .cal-nav{display:flex;gap:2px}
 .cal-nb{width:22px;height:22px;border:.5px solid var(--border);background:var(--surface);border-radius:5px;cursor:pointer;color:var(--text-s);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .cal-nb:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.cal-wds{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;text-align:center;font-size:9px;font-weight:600;color:var(--text-m);max-width:300px}
+.cal-wds{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;text-align:center;font-size:9px;font-weight:600;color:var(--text-m)}
 .cal-wds .sun{color:#f87171}
 .cal-wds .sat{color:#60a5fa}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;max-width:300px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
 .cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:4px;cursor:default;color:var(--text);font-family:'DM Mono',monospace;position:relative}
 .cd.sun{color:#f87171}.cd.sat{color:#60a5fa}
 .cd.today{background:var(--navy);color:#fff;font-weight:700}
@@ -134,9 +134,11 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .cd.dl15{background:#ede9fe;color:#7c3aed;font-weight:700}
 .cd.dl20{background:#fff7ed;color:#c2410c;font-weight:700;border:1px solid #fb923c}
 .cd[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:8px;padding:2px 5px;border-radius:4px;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;z-index:20;pointer-events:none}
-.cal-legend{margin-top:10px;padding-top:10px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:4px}
-.cl-item{display:flex;align-items:center;gap:5px;font-size:9px;color:var(--text-s)}
-.cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.cal-main{display:flex;gap:14px;align-items:flex-start}
+.cal-left{flex:0 1 260px;min-width:0}
+.cal-legend{flex:1 1 140px;min-width:0;padding-left:12px;border-left:.5px solid var(--border);display:flex;flex-direction:column;gap:5px}
+.cl-item{display:flex;align-items:flex-start;gap:5px;font-size:9px;color:var(--text-s);line-height:1.4}
+.cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;margin-top:2px}
 
 /* 業務カード */
 .task-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px;transition:box-shadow .15s}
@@ -199,53 +201,6 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-/* 質問Box */
-.qbox-card{background:var(--surface);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;margin-bottom:0}
-.qbox-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#0f766e;cursor:pointer;transition:background .15s}
-.qbox-header:hover{background:#0d9488}
-.qbox-header-left{display:flex;align-items:center;gap:10px}
-.qbox-header-icon{font-size:18px}
-.qbox-header-title{font-size:13px;font-weight:700;color:#fff}
-.qbox-header-sub{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px}
-.qbox-header-arrow{font-size:16px;color:var(--amber);transition:transform .2s}
-.qbox-header-arrow.open{transform:rotate(90deg)}
-.qbox-body{display:none;padding:16px}
-.qbox-body.open{display:block}
-.qbox-form{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.qbox-select{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);outline:none}
-.qbox-select:focus{border-color:var(--amber)}
-.qbox-textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);resize:vertical;min-height:72px;outline:none;line-height:1.6}
-.qbox-textarea:focus{border-color:var(--amber)}
-.qbox-textarea::placeholder{color:var(--text-m)}
-.qbox-submit{padding:9px 20px;background:var(--amber);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:all .15s;align-self:flex-end}
-.qbox-submit:hover{background:var(--amber-d);transform:translateY(-1px)}
-.qbox-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.qbox-list{display:flex;flex-direction:column;gap:10px}
-.qbox-item{background:var(--bg);border-radius:var(--r);padding:12px 14px;border-left:3px solid var(--amber)}
-.qbox-item.answered{border-left-color:#10b981}
-.qbox-item-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.qbox-item-author{font-size:11px;font-weight:700;color:var(--navy)}
-body.dark .qbox-item-author{color:var(--amber)}
-.qbox-item-date{font-size:10px;color:var(--text-m)}
-.qbox-item-q{font-size:12px;color:var(--text);font-weight:500;line-height:1.6;margin-bottom:8px}
-.qbox-item-q::before{content:'Q. ';font-weight:800;color:var(--amber)}
-.qbox-item-a{font-size:12px;color:var(--text);line-height:1.6;background:rgba(16,185,129,.06);border-radius:var(--r);padding:8px 12px}
-.qbox-item-a::before{content:'A. ';font-weight:800;color:#10b981}
-.qbox-waiting{font-size:11px;color:var(--text-m);font-style:italic;padding:4px 0}
-.qbox-empty{font-size:12px;color:var(--text-m);text-align:center;padding:12px 0;font-style:italic}
-.qbox-msg{font-size:11px;padding:6px 10px;border-radius:var(--r);margin-top:4px;display:none}
-.qbox-msg.success{background:rgba(16,185,129,.1);color:#059669;display:block}
-.qbox-msg.error{background:rgba(239,68,68,.1);color:#dc2626;display:block}
-.qbox-answer-form{margin-top:10px;padding:10px 12px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);display:none;flex-direction:column;gap:8px}
-.qbox-answer-form.open{display:flex}
-.qbox-answer-btn{padding:5px 12px;background:transparent;border:1px solid var(--border);border-radius:var(--r);font-size:10px;font-weight:600;color:var(--text-m);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;align-self:flex-start;margin-top:4px}
-.qbox-answer-btn:hover{border-color:#10b981;color:#10b981}
-.qbox-answer-submit{padding:7px 14px;background:#10b981;color:#fff;border:none;border-radius:var(--r);font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:all .15s;align-self:flex-end}
-.qbox-answer-submit:hover{background:#059669;transform:translateY(-1px)}
-.qbox-answer-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.qbox-answer-msg{font-size:10px;padding:4px 8px;border-radius:6px;display:none}
-.qbox-answer-msg.success{background:rgba(16,185,129,.1);color:#059669;display:block}
-.qbox-answer-msg.error{background:rgba(239,68,68,.1);color:#dc2626;display:block}
 </style>
 </head>
 <body>
@@ -515,18 +470,22 @@ body.dark .qbox-item-author{color:var(--amber)}
           <button class="cal-nb" onclick="changeMonth(1)">›</button>
         </div>
       </div>
-      <div class="cal-wds">
-        <div class="sun">日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div class="sat">土</div>
-      </div>
-      <div class="cal-grid" id="cal-grid"></div>
-      <div class="cal-legend">
-        <div class="cl-item"><div class="cl-dot" style="background:var(--navy)"></div>今日</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;border:1px solid #fed7aa"></div>週次（月曜）</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;outline:1.5px solid var(--amber);outline-offset:1px"></div>伝票整理（隔週月曜）</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#e0f2fe"></div>KY格納・安全議事録〆（5日）</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#dcfce7"></div>CCUS〆（10日）</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#ede9fe"></div>建退共・クエスタ〆（15日）</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;border:1px solid #fb923c"></div>安全資料送付〆（20日）</div>
+      <div class="cal-main">
+        <div class="cal-left">
+          <div class="cal-wds">
+            <div class="sun">日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div class="sat">土</div>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div class="cal-legend">
+          <div class="cl-item"><div class="cl-dot" style="background:var(--navy)"></div>今日</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;border:1px solid #fed7aa"></div>週次（月曜）</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;outline:1.5px solid var(--amber);outline-offset:1px"></div>伝票整理（隔週月曜）</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#e0f2fe"></div>KY格納・安全議事録〆（5日）</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#dcfce7"></div>CCUS〆（10日）</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#ede9fe"></div>建退共・クエスタ〆（15日）</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#fff7ed;border:1px solid #fb923c"></div>安全資料送付〆（20日）</div>
+        </div>
       </div>
     </div>
 
@@ -693,6 +652,8 @@ function reloadApp(){
 }
 
 // ── 進捗一覧表 ──────────────────────────────────────────────────
+const QBOX_API = 'https://script.google.com/macros/s/AKfycbzvzc5cJ4v7mgT8WLDpPeWJpQK1eJsQEwFueExUsHLpN-rlXR6JPPTwipn90NJsg3VE/exec';
+
 function loadProgressTable() {
   const wrap = document.getElementById('prog-table-wrap');
   wrap.innerHTML = '<div class="prog-loading">読み込み中...</div>';
@@ -750,173 +711,6 @@ function loadProgressTable() {
     });
 }
 
-// ── 質問Box ───────────────────────────────────────────────────
-const QBOX_API = 'https://script.google.com/macros/s/AKfycbzvzc5cJ4v7mgT8WLDpPeWJpQK1eJsQEwFueExUsHLpN-rlXR6JPPTwipn90NJsg3VE/exec';
-const MEMBERS = ['蒲原','中本','寺田','菅沼','高島','髙橋','山根','橋本','荒木','李','福永'];
-
-function toggleQbox() {
-  const body  = document.getElementById('qbox-body');
-  const arrow = document.getElementById('qbox-arrow');
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
-  if (!isOpen) loadQuestions();
-}
-
-function loadQuestions() {
-  const list = document.getElementById('qbox-list');
-  fetch(QBOX_API + '?type=getQuestions')
-    .then(r => r.json())
-    .then(data => {
-      if (!data || !data.length) {
-        list.innerHTML = '<div class="qbox-empty">まだ質問はありません。気軽に投稿してください！</div>';
-        return;
-      }
-      const memberOpts = MEMBERS.map(m => `<option>${m}</option>`).join('');
-      list.innerHTML = data.slice(0, 10).map((q, i) => `
-        <div class="qbox-item ${q.answer ? 'answered' : ''}" id="qitem-${i}">
-          <div class="qbox-item-meta">
-            <span class="qbox-item-author">👤 ${q.author || '匿名'}</span>
-            <span class="qbox-item-date">📅 ${q.date}</span>
-          </div>
-          <div class="qbox-item-q">${q.question}</div>
-          ${q.answer
-            ? `<div class="qbox-item-a">${q.answer}${q.answerer ? ` <span style="font-size:10px;color:#64748b">（${q.answerer}）</span>` : ''}</div>`
-            : `<div class="qbox-waiting">⏳ 回答待ちです...</div>
-               <button class="qbox-answer-btn" onclick="toggleAnswerForm(${i})">✏️ 回答する</button>
-               <div class="qbox-answer-form" id="aform-${i}">
-                 <select class="qbox-select" id="a-author-${i}">
-                   <option value="">回答者を選択</option>
-                   ${memberOpts}
-                 </select>
-                 <textarea class="qbox-textarea" id="a-text-${i}" placeholder="回答を入力してください..." style="min-height:56px"></textarea>
-                 <div class="qbox-answer-msg" id="a-msg-${i}"></div>
-                 <button class="qbox-answer-submit" id="a-btn-${i}" onclick="submitAnswer(${i}, '${q.date}', '${q.author}', ${JSON.stringify(q.question)})">💬 回答を送信</button>
-               </div>`
-          }
-        </div>`).join('');
-    })
-    .catch(() => {
-      list.innerHTML = '<div class="qbox-empty">読み込めませんでした。</div>';
-    });
-}
-
-function toggleAnswerForm(i) {
-  const form = document.getElementById('aform-' + i);
-  form.classList.toggle('open');
-}
-
-function submitAnswer(i, date, qAuthor, question) {
-  const answerer = document.getElementById('a-author-' + i).value.trim();
-  const answer   = document.getElementById('a-text-' + i).value.trim();
-  const msg      = document.getElementById('a-msg-' + i);
-  const btn      = document.getElementById('a-btn-' + i);
-
-  if (!answerer) { showAnswerMsg(i, '回答者を選択してください。', 'error'); return; }
-  if (!answer)   { showAnswerMsg(i, '回答内容を入力してください。', 'error'); return; }
-
-  btn.disabled = true;
-  btn.textContent = '送信中...';
-
-  const url = QBOX_API + '?type=postAnswer'
-    + '&date=' + encodeURIComponent(date)
-    + '&answerer=' + encodeURIComponent(answerer)
-    + '&answer=' + encodeURIComponent(answer);
-
-  fetch(url, { method: 'POST' })
-    .then(r => r.json())
-    .then(data => {
-      if (data.success) {
-        showAnswerMsg(i, '✅ 回答を送信しました！', 'success');
-        setTimeout(() => loadQuestions(), 1500);
-      } else {
-        showAnswerMsg(i, 'エラーが発生しました。', 'error');
-      }
-    })
-    .catch(() => { showAnswerMsg(i, '送信に失敗しました。', 'error'); })
-    .finally(() => { btn.disabled = false; btn.textContent = '💬 回答を送信'; });
-}
-
-function showAnswerMsg(i, text, type) {
-  const msg = document.getElementById('a-msg-' + i);
-  msg.textContent = text;
-  msg.className = 'qbox-answer-msg ' + type;
-}
-
-function submitQuestion() {
-  const author   = document.getElementById('qbox-author').value.trim();
-  const question = document.getElementById('qbox-text').value.trim();
-  const msg      = document.getElementById('qbox-msg');
-  const btn      = document.getElementById('qbox-submit');
-
-  if (!author) { showQboxMsg('投稿者を選択してください。', 'error'); return; }
-  if (!question) { showQboxMsg('質問内容を入力してください。', 'error'); return; }
-
-  btn.disabled = true;
-  btn.textContent = '送信中...';
-
-  fetch(QBOX_API + '?type=postQuestion&author=' + encodeURIComponent(author) + '&question=' + encodeURIComponent(question), { method: 'POST' })
-    .then(r => r.json())
-    .then(data => {
-      if (data.success) {
-        showQboxMsg('✅ 送信しました！', 'success');
-        document.getElementById('qbox-author').value = '';
-        document.getElementById('qbox-text').value = '';
-        setTimeout(() => { loadQuestions(); msg.style.display='none'; }, 1500);
-      } else {
-        showQboxMsg('エラーが発生しました。', 'error');
-      }
-    })
-    .catch(() => { showQboxMsg('送信に失敗しました。', 'error'); })
-    .finally(() => { btn.disabled = false; btn.textContent = '📨 送信する'; });
-}
-
-function showQboxMsg(text, type) {
-  const msg = document.getElementById('qbox-msg');
-  msg.textContent = text;
-  msg.className = 'qbox-msg ' + type;
-}
-
 </script>
-<!-- 質問Box（画面下部） -->
-<div style="padding:0 24px 24px">
-<div class="qbox-card">
-  <div class="qbox-header" onclick="toggleQbox()">
-    <div class="qbox-header-left">
-      <div class="qbox-header-icon">💬</div>
-      <div>
-        <div class="qbox-header-title">質問Box</div>
-        <div class="qbox-header-sub">メンバーからの質問・回答（最新10件表示）</div>
-      </div>
-    </div>
-    <div class="qbox-header-arrow" id="qbox-arrow">›</div>
-  </div>
-  <div class="qbox-body" id="qbox-body">
-    <div class="qbox-form">
-      <select class="qbox-select" id="qbox-author">
-        <option value="">投稿者を選択してください</option>
-        <option>蒲原</option>
-        <option>中本</option>
-        <option>寺田</option>
-        <option>菅沼</option>
-        <option>高島</option>
-        <option>髙橋</option>
-        <option>山根</option>
-        <option>橋本</option>
-        <option>荒木</option>
-        <option>李</option>
-        <option>福永</option>
-      </select>
-      <textarea class="qbox-textarea" id="qbox-text" placeholder="質問内容を入力してください..."></textarea>
-      <div class="qbox-msg" id="qbox-msg"></div>
-      <button class="qbox-submit" id="qbox-submit" onclick="submitQuestion()">📨 送信する</button>
-    </div>
-    <div class="qbox-list" id="qbox-list">
-      <div class="qbox-empty">読み込み中...</div>
-    </div>
-  </div>
-</div>
-</div>
-
 </body>
 </html>
