@@ -82,20 +82,30 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .ml-sub{font-size:10px;color:rgba(255,255,255,.6);margin-top:1px}
 .ml-arrow{margin-left:auto;font-size:18px;color:rgba(255,255,255,.5);flex-shrink:0}
 
-/* 安全パトロール（1行・横スクロール） */
-.patrol-bar{background:var(--navy);border-bottom:.5px solid rgba(255,255,255,.08);padding:8px 24px;display:flex;align-items:center;gap:12px;overflow:hidden}
-.patrol-lbl{font-size:9px;font-weight:700;color:#fff;background:var(--amber);padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;letter-spacing:.05em}
-.patrol-div{width:1px;height:24px;background:rgba(255,255,255,.12);flex-shrink:0}
-.patrol-items{display:flex;gap:8px;flex:1;overflow-x:auto;scrollbar-width:none}
-.patrol-items::-webkit-scrollbar{display:none}
-.patrol-card{display:flex;align-items:center;gap:10px;padding:6px 14px;background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);border-left:2px solid var(--amber);border-radius:var(--r);flex-shrink:0}
-.pc-site{font-size:12px;font-weight:600;color:#fff}
-.pc-date{font-size:11px;color:var(--amber);font-family:'DM Mono',monospace}
-.pc-kd{font-size:10px;color:rgba(255,255,255,.45);margin-left:4px}
-.patrol-empty{font-size:10px;color:rgba(255,255,255,.4);font-style:italic}
+/* AIツール（1行・横スクロール） */
+.ai-bar{background:var(--navy);border-bottom:.5px solid rgba(255,255,255,.08);padding:8px 24px;display:flex;align-items:center;gap:12px;overflow:hidden}
+.ai-bar-lbl{font-size:9px;font-weight:700;color:#fff;background:var(--amber);padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;letter-spacing:.05em}
+.ai-bar-div{width:1px;height:24px;background:rgba(255,255,255,.12);flex-shrink:0}
+.ai-bar-items{display:flex;gap:8px;flex:1;overflow-x:auto;scrollbar-width:none}
+.ai-bar-items::-webkit-scrollbar{display:none}
+.ai-bar-card{display:flex;align-items:center;gap:10px;padding:6px 14px;background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);border-left:2px solid var(--amber);border-radius:var(--r);flex-shrink:0;text-decoration:none;transition:background .15s}
+.ai-bar-card:hover{background:rgba(255,255,255,.14)}
+.abc-emoji{font-size:15px;flex-shrink:0}
+.abc-name{font-size:12px;font-weight:600;color:#fff}
+.abc-desc{font-size:10px;color:rgba(255,255,255,.45)}
 
-/* メインレイアウト（2カラム：業務カード左｜カレンダー右） */
-.main-wrap{display:grid;grid-template-columns:1fr 280px;gap:0;min-height:calc(100vh - 240px)}
+/* 安全パトロール（サイドパネル内・縦並び） */
+.patrol-section{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.patrol-lbl{font-size:9px;font-weight:700;color:var(--text-m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.patrol-items{display:flex;flex-direction:column;gap:8px}
+.patrol-card{padding:8px 12px;background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--amber);border-radius:var(--r)}
+.pc-site{font-size:12px;font-weight:600;color:var(--text)}
+.pc-date{font-size:11px;color:var(--amber-d);font-family:'DM Mono',monospace;margin-top:2px}
+.pc-kd{font-size:10px;color:var(--text-m);margin-left:6px}
+.patrol-empty{font-size:10px;color:var(--text-m);font-style:italic;padding:4px 2px}
+
+/* メインレイアウト（3列均等：業務カード2列｜カレンダー＋パトロール1列） */
+.main-wrap{display:grid;grid-template-columns:3fr 1fr;gap:0;min-height:calc(100vh - 240px)}
 
 /* 左：業務カードエリア */
 .tasks-area{padding:16px 24px;display:flex;flex-direction:column;gap:12px;border-right:.5px solid var(--border)}
@@ -109,10 +119,10 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .cal-nav{display:flex;gap:2px}
 .cal-nb{width:22px;height:22px;border:.5px solid var(--border);background:var(--surface);border-radius:5px;cursor:pointer;color:var(--text-s);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .cal-nb:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.cal-wds{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;text-align:center;font-size:9px;font-weight:600;color:var(--text-m)}
+.cal-wds{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;text-align:center;font-size:9px;font-weight:600;color:var(--text-m);max-width:300px}
 .cal-wds .sun{color:#f87171}
 .cal-wds .sat{color:#60a5fa}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;max-width:300px}
 .cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:4px;cursor:default;color:var(--text);font-family:'DM Mono',monospace;position:relative}
 .cd.sun{color:#f87171}.cd.sat{color:#60a5fa}
 .cd.today{background:var(--navy);color:#fff;font-weight:700}
@@ -127,19 +137,6 @@ header{background:var(--surface);border-bottom:.5px solid var(--border);padding:
 .cal-legend{margin-top:10px;padding-top:10px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:4px}
 .cl-item{display:flex;align-items:center;gap:5px;font-size:9px;color:var(--text-s)}
 .cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
-
-/* AIツール（サイドパネル下部） */
-.ai-section{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
-.ai-section-lbl{font-size:9px;font-weight:700;color:var(--text-m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
-.ai-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);text-decoration:none;transition:all .15s}
-.ai-item:hover{background:var(--amber);border-color:var(--amber-d);transform:translateX(3px)}
-.ai-item:hover .ai-name{color:#fff}
-.ai-item:hover .ai-desc{color:rgba(255,255,255,.7)}
-.ai-emoji{font-size:16px;flex-shrink:0}
-.ai-name{font-size:12px;font-weight:600;color:var(--text);transition:color .15s}
-.ai-desc{font-size:10px;color:var(--text-m);transition:color .15s}
-.ai-arrow{margin-left:auto;font-size:12px;color:var(--text-m);flex-shrink:0}
-.ai-item:hover .ai-arrow{color:#fff}
 
 /* 業務カード */
 .task-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:16px;transition:box-shadow .15s}
@@ -279,11 +276,11 @@ body.dark .qbox-item-author{color:var(--amber)}
   <div class="notice-lbl">📢 お知らせ</div>
   <div class="notice-wrap">
     <div class="notice-ticker">
-      <div class="notice-item"><span class="ndot"></span>KAYAHUB を公開しました。</div>
-      <div class="notice-item"><span class="ndot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
+      <div class="notice-item"><span class="ndot"></span>建設ディレクター室が発足して5ヶ月が経過しました。</div>
+      <div class="notice-item"><span class="ndot"></span>現場繁忙期に向けて頑張っていきましょう！</div>
       <div class="notice-item"><span class="ndot"></span>進捗管理スプレッドシートを毎週月曜に更新してください。</div>
-      <div class="notice-item"><span class="ndot"></span>KAYAHUB を公開しました。</div>
-      <div class="notice-item"><span class="ndot"></span>マニュアルが揃い次第、各業務のボタンに順次反映していきます。</div>
+      <div class="notice-item"><span class="ndot"></span>建設ディレクター室が発足して5ヶ月が経過しました。</div>
+      <div class="notice-item"><span class="ndot"></span>現場繁忙期に向けて頑張っていきましょう！</div>
       <div class="notice-item"><span class="ndot"></span>進捗管理スプレッドシートを毎週月曜に更新してください。</div>
     </div>
   </div>
@@ -316,31 +313,35 @@ body.dark .qbox-item-author{color:var(--amber)}
   </a>
 </div>
 
-<!-- 安全パトロール（1行・ネイビー背景） -->
-<div class="patrol-bar">
-  <div class="patrol-lbl">🦺 安全パトロール予定</div>
-  <div class="patrol-div"></div>
-  <div class="patrol-items" id="patrol-cards">
-    <div class="patrol-empty">現在予定はありません</div>
+<!-- AIツール（1行・ネイビー背景） -->
+<div class="ai-bar">
+  <div class="ai-bar-lbl">🤖 AI TOOLS</div>
+  <div class="ai-bar-div"></div>
+  <div class="ai-bar-items">
+    <a href="https://claude.ai" target="_blank" class="ai-bar-card">
+      <div class="abc-emoji">🧠</div>
+      <div><div class="abc-name">Claude</div><div class="abc-desc">PDF要約・長文整理・コード</div></div>
+    </a>
+    <a href="https://chat.openai.com" target="_blank" class="ai-bar-card">
+      <div class="abc-emoji">💬</div>
+      <div><div class="abc-name">ChatGPT</div><div class="abc-desc">文章作成・要約・壁打ち</div></div>
+    </a>
+    <a href="https://gemini.google.com" target="_blank" class="ai-bar-card">
+      <div class="abc-emoji">✨</div>
+      <div><div class="abc-name">Gemini</div><div class="abc-desc">Google連携・表整理</div></div>
+    </a>
+    <a href="https://notebooklm.google.com" target="_blank" class="ai-bar-card">
+      <div class="abc-emoji">📓</div>
+      <div><div class="abc-name">NotebookLM</div><div class="abc-desc">資料要約・議事録</div></div>
+    </a>
   </div>
 </div>
 
-<!-- メインレイアウト（左：業務カード ｜ 右：カレンダー＋AI） -->
+<!-- メインレイアウト（左：業務カード ｜ 右：カレンダー＋安全パトロール） -->
 <div class="main-wrap">
 
   <!-- 左：業務カード -->
   <div class="tasks-area">
-    <!-- 進捗一覧表 -->
-    <div class="prog-card">
-      <div class="prog-card-hdr">
-        <div class="prog-card-title">📊 今月の業務進捗一覧</div>
-        <button class="prog-refresh" onclick="loadProgressTable()">🔄 更新</button>
-      </div>
-      <div class="prog-wrap">
-        <div id="prog-table-wrap" class="prog-loading">🔄 上のボタンを押すと進捗を読み込みます</div>
-      </div>
-    </div>
-
     <div class="tasks-grid">
       <div class="task-card hl-amber" id="sec-weekly">
         <div class="tc-hdr">
@@ -491,6 +492,17 @@ body.dark .qbox-item-author{color:var(--amber)}
         </div>
       </div>
     </div>
+
+    <!-- 進捗一覧表 -->
+    <div class="prog-card">
+      <div class="prog-card-hdr">
+        <div class="prog-card-title">📊 今月の業務進捗一覧</div>
+        <button class="prog-refresh" onclick="loadProgressTable()">🔄 更新</button>
+      </div>
+      <div class="prog-wrap">
+        <div id="prog-table-wrap" class="prog-loading">🔄 上のボタンを押すと進捗を読み込みます</div>
+      </div>
+    </div>
   </div>
 
   <!-- 右：カレンダー＋AIツール -->
@@ -518,28 +530,11 @@ body.dark .qbox-item-author{color:var(--amber)}
       </div>
     </div>
 
-    <div class="ai-section">
-      <div class="ai-section-lbl">🤖 AI Tools</div>
-      <a href="https://chat.openai.com" target="_blank" class="ai-item">
-        <div class="ai-emoji">💬</div>
-        <div><div class="ai-name">ChatGPT</div><div class="ai-desc">文章作成・要約・壁打ち</div></div>
-        <div class="ai-arrow">›</div>
-      </a>
-      <a href="https://claude.ai" target="_blank" class="ai-item">
-        <div class="ai-emoji">🧠</div>
-        <div><div class="ai-name">Claude</div><div class="ai-desc">PDF要約・長文整理・コード</div></div>
-        <div class="ai-arrow">›</div>
-      </a>
-      <a href="https://gemini.google.com" target="_blank" class="ai-item">
-        <div class="ai-emoji">✨</div>
-        <div><div class="ai-name">Gemini</div><div class="ai-desc">Google連携・表整理</div></div>
-        <div class="ai-arrow">›</div>
-      </a>
-      <a href="https://notebooklm.google.com" target="_blank" class="ai-item">
-        <div class="ai-emoji">📓</div>
-        <div><div class="ai-name">NotebookLM</div><div class="ai-desc">資料要約・議事録</div></div>
-        <div class="ai-arrow">›</div>
-      </a>
+    <div class="patrol-section">
+      <div class="patrol-lbl">🦺 安全パトロール予定</div>
+      <div class="patrol-items" id="patrol-cards">
+        <div class="patrol-empty">現在予定はありません</div>
+      </div>
     </div>
   </div>
 </div>
@@ -685,8 +680,7 @@ function loadPatrols(){
     c.innerHTML=ps.map(p=>`
       <div class="patrol-card">
         <div class="pc-site">${p.site}</div>
-        <div class="pc-date">📅 ${p.date}</div>
-        ${p.kd?`<span class="pc-kd">担当：${p.kd}</span>`:''}
+        <div class="pc-date">📅 ${p.date}${p.kd?`<span class="pc-kd">担当：${p.kd}</span>`:''}</div>
       </div>`).join('');
   }).catch(()=>{c.innerHTML='<div class="patrol-empty">現在予定はありません</div>';});
 }
